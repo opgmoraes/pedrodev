@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    
+    <title>Portfólio - Pedro Gomes</title>
+    
+    <link rel="shortcut icon" href="assets/favicon.jpg" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bitcount:wght@100..900&family=Sora:wght@100..800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="container nav-wrapper">
+        <h1 class="logo">PEDRO<span class="realce"> DEV</span></h1>
+
+        <input type="checkbox" id="menu-toggle" />
+        <label for="menu-toggle" class="menu-icon" aria-label="Abrir menu">
+          <i class="fas fa-bars"></i>
+        </label>
+
+        <nav class="navbar" id="navbar">
+          <a href="#sobre"><i class="fas fa-user"></i> Sobre</a>
+          <a href="#skills"><i class="fas fa-code"></i> Skills</a>
+          <a href="#projetos"><i class="fas fa-folder-open"></i> Projetos</a>
+          <a href="#github"><i class="fab fa-github"></i> GitHub</a>
+          <a href="#contato"><i class="fas fa-envelope"></i> Contato</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-img">
+          <img
+            src="assets/imgs/foto-perfil.jpg"
+            alt="Foto de perfil"
+            class="profile-img"
+          />
+        </div>
+        <div class="hero-text">
+          <h2><span class="typed-text" id="typed"></span></h2>
+          <p>
+            Sou Pedro Gabriel Gomes, Futuro desenvolvedor web. 
+            Hoje estudante de Analise e Desenvolvimento de Sistemas, 
+            aprendendo sobre HTML, CSS e JS.
+          </p>
+          <a href="#projetos" class="btn btn-primary">Ver meus projetos</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="sobre" class="section">
+      <div class="container about-text">
+        <h2 class="section-title">Sobre mim</h2>
+        <p class="section-text">
+          No momento ainda estudando, aprendendo bastante sobre a area de desenvolvimento, 
+          estou me graduando no curso de Analise e Desenvolvimento de sistemas e fazendo cursos
+          em busca de me profissionalisar em Front-end e Back-end!
+        </p>
+        <p class="section-text">
+          Já trabalhei como designer então tenho alguns conhecimentos em relação a 
+          combinações de cores, fontes, isso também me ajudou a despertar essa vontade 
+          de usar a criatividade.
+        </p>
+        <p class="section-text">
+          Atualmente, estudando algumas linguagens buscando com foco em desenvolvimento
+          web e buscando construir alguns Micro Saas.
+        </p>
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <div class="container">
+        <h2>Skills</h2>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <i class="devicon-html5-plain colored"></i>
+            <span>HTML5</span>
+          </div>
+          <div class="skill-card">
+            <i class="devicon-css3-plain colored"></i>
+            <span>CSS3</span>
+          </div>
+          <div class="skill-card">
+            <i class="devicon-javascript-plain colored"></i>
+            <span>JavaScript</span>
+          </div>
+          <div class="skill-card">
+            <i class="devicon-github-original"></i>
+            <span>GitHub</span>
+        </div>
+      </div>
+    </section>
+    <section id="projetos" class="section">
+      <div class="container">
+        <h2>Projetos</h2>
+        <div class="projetos-grid">
+          <div class="projeto-card">
+            <img
+              src="assets/imgs/card-project-1.png"
+              alt="Print do projeto 1"
+            />
+            <h3>Tech New</h3>
+            <p>
+              Prototipo de newsletter de conteúdo tech desenvolvido 
+              com colegas para apresentação!
+            </p>
+            <div class="btns">
+              <a href="https://opgmoraes.github.io/technews/">Ver projeto</a>
+              <a href="https://github.com/opgmoraes/technews">Ver código</a>
+            </div>
+          </div>
+
+          <div class="projeto-card">
+            <img
+              src="assets/imgs/card-project-2.png"
+              alt="Print do projeto 2"
+            />
+            <h3>Blog Pessoal</h3>
+            <p>
+              Mockup responsivo criado como prática de estrutura HTML e
+              estilização com CSS.
+            </p>
+            <div class="btns">
+              <a href="#">Ver projeto</a>
+              <a href="#">Ver código</a>
+            </div>
+          </div>
+
+          <div class="projeto-card">
+            <img
+              src="assets/imgs/card-project-3.png"
+              alt="Print do projeto 3"
+            />
+            <h3>Loja Online</h3>
+            <p>
+              Wireframe de loja virtual responsiva. Ideal para treinar grid,
+              responsividade e layout.
+            </p>
+            <div class="btns">
+              <a href="#">Ver projeto</a>
+              <a href="#">Ver código</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="contato" class="section">
+      <div class="container contato-card">
+        <h2>Fala Comigo</h2>
+        <p>Me chama no LinkedIn e olha meu Github ☕</p>
+        <div class="social-links">
+          <a href="https://github.com/opgmoraes" class="btn-social">
+            <i class="devicon-github-original"></i> GitHub
+          </a>
+          <a href="https://www.linkedin.com/in/pedrogmdev" class="btn-social">
+            <i class="fab fa-linkedin"></i> LinkedIn
+          </a>
+          <a href="mailto:seu@email.com" class="btn-social">
+            <i class="fas fa-envelope"></i> E-mail
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+        <p>
+            Foi um prazer ter você aqui!
+            <p>
+             <p>
+                Ass: <a href="https://github.com/opgmoraes">Pedro Dev</a>
+             </p>   
+            </p>
+        </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
