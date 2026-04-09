@@ -5,66 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pedro Gabriel | Dev Front-End</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
 <body>
     <div id="spotlight"></div>
+    <div class="mesh-gradient"></div>
 
-    <nav class="dock-container">
+    <nav class="dock-wrapper">
         <div class="glass dock">
-            <a href="https://github.com/opgmoraes"><i data-lucide="github"></i></a> 
-            <a href="https://www.linkedin.com/in/pedrogmdev/"><i data-lucide="linkedin"></i></a> 
-            <a href="mailto:pedrogm.dev@gmail.com"><i data-lucide="mail"></i></a> 
+            <a href="https://github.com/opgmoraes" target="_blank"><i data-lucide="github"></i></a>
+            <a href="https://www.linkedin.com/in/pedrogmdev/" target="_blank"><i data-lucide="linkedin"></i></a>
+            <a href="https://www.instagram.com/opgmoraes/" target="_blank"><i data-lucide="instagram"></i></a>
+            <div class="divider"></div>
+            <button id="menu-trigger"><i data-lucide="menu"></i></button>
         </div>
     </nav>
 
     <section class="hero">
         <div class="hero-content">
-            <h1 class="glow-text">PEDRO GABRIEL</h1>
-            <p>Construindo MicroSaaS e soluções web de alta performance. </p>
-            <span class="badge">ADS & Sistemas da Informação</span> 
+            <h1 class="glow-text">PEDRO GABRIEL</h1> [cite: 3, 4]
+            <p class="hero-sub">Front-end Developer & Founder of <strong>Bitto</strong></p>
+            <div class="hero-badges">
+                <span class="glass-badge">ADS & Sistemas da Informação</span>
+                <span class="glass-badge">Luziânia, GO</span>
+            </div>
         </div>
         <div class="split-reflection"></div>
     </section>
 
-    <section class="projects-section">
-        <h2 class="section-title"><i data-lucide="layers"></i> Projetos Selecionados</h2> 
-        <div class="slider-container">
+    <section class="projects-container">
+        <h2 class="section-label">Projetos Selecionados</h2>
+        <div class="slider" id="project-slider">
             <div class="glass project-card">
-                <div>
-                    <span class="tag">SaaS</span>
-                    <h3>Bitto</h3> 
-                    <p>Plataforma de ferramentas que facilitam o estudo. </p>
-                    <div class="tech-stack">
-                        <span>JS</span><span>HTML</span><span>CSS</span> 
-                    </div>
-                </div>
-                <a href="https://github.com/opgmoraes/bitto-oficial" class="project-link">Ver repositório <i data-lucide="arrow-up-right"></i></a> 
+                <span class="tag">MicroSaaS</span>
+                <h3>Bitto</h3>
+                <p>Plataforma inteligente com ferramentas para facilitar o estudo.</p>
+                <div class="techs"><span>JavaScript</span><span>Firebase</span><span>HTML/CSS</span></div>
+                <a href="https://github.com/opgmoraes/bitto-oficial" class="link">Explore <i data-lucide="external-link"></i></a>
             </div>
 
             <div class="glass project-card">
-                <div>
-                    <span class="tag">Web App</span>
-                    <h3>Ocult.io</h3> 
-                    <p>Sorteio de amigo secreto simples e sem cadastro. </p>
-                    <div class="tech-stack">
-                        <span>JavaScript</span><span>UX</span> 
-                    </div>
-                </div>
-                <a href="https://github.com/opgmoraes/Ocult.io" class="project-link">Ver repositório <i data-lucide="arrow-up-right"></i></a> 
+                <span class="tag">Web App</span>
+                <h3>Ocult.io</h3>
+                <p>Sorteio de amigo secreto simplificado e sem cadastro.</p>
+                <div class="techs"><span>JavaScript</span><span>UX Design</span></div>
+                <a href="https://github.com/opgmoraes/Ocult.io" class="link">Explore <i data-lucide="external-link"></i></a>
             </div>
 
             <div class="glass project-card">
-                <div>
-                    <span class="tag">Experience</span>
-                    <h3>CineGift</h3>
-                    <p>Transformando memórias em cinema digital personalizado.</p>
-                    <div class="tech-stack">
-                        <span>Front-end</span><span>Glassmorphism</span>
-                    </div>
-                </div>
-                <a href="#" class="project-link">Em breve <i data-lucide="lock"></i></a>
+                <span class="tag">Experience</span>
+                <h3>CineGift</h3>
+                <p>Cinema digital para presentes em aniversários e amizades.</p>
+                <div class="techs"><span>Front-end</span><span>Glassmorphism</span></div>
+                <a href="#" class="link disabled">Em breve</a>
             </div>
+        </div>
+    </section>
+
+    <section class="skills-section">
+        <div class="skills-orbit" id="skills-cloud">
+            <div class="orbit-item glass" data-tech="HTML5">HTML5</div>
+            <div class="orbit-item glass" data-tech="CSS3">CSS3</div>
+            <div class="orbit-item glass" data-tech="JS">JS</div>
+            <div class="orbit-item glass" data-tech="Firebase">Firebase</div>
+            <div class="orbit-item glass" data-tech="Node.js">Node.js</div>
+            <div class="orbit-item glass" data-tech="C#">C#</div>
+            <div class="center-glow">Skills</div>
         </div>
     </section>
 
