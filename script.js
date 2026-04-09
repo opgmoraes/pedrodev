@@ -1,37 +1,18 @@
-const text = "Hello, World!";
-const typedEl = document.getElementById("typed");
-let i = 0;
+// Inicializa ícones Lucide
+lucide.createIcons();
 
-function digitar() {
-  if (typedEl) {
-    if (i < text.length) {
-      typedEl.innerHTML += text.charAt(i);
-      i++;
-      setTimeout(digitar, 160);
-    }
-  }
-}
+// Efeito Spotlight Dinâmico
+const spotlight = document.getElementById('spotlight');
 
-window.addEventListener("DOMContentLoaded", digitar);
-const menuToggle = document.getElementById("menu-toggle");
-const navbar = document.getElementById("navbar");
-const menuIcon = document.querySelector(".menu-icon");
+document.addEventListener('mousemove', (e) => {
+    const x = e.clientX;
+    const y = e.clientY;
+    spotlight.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.07) 0%, transparent 80%)`;
+});
 
-if (menuToggle && navbar && menuIcon) {
-  menuToggle.addEventListener("change", () => {
-    if (menuToggle.checked) {
-      navbar.classList.add("active");
-      menuIcon.innerHTML = '<i class="fas fa-times"></i>';
-    } else {
-      navbar.classList.remove("active");
-      menuIcon.innerHTML = '<i class="fas fa-bars"></i>';
-    }
-  });
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > 768) {
-      menuToggle.checked = false;
-      navbar.classList.remove("active");
-      menuIcon.innerHTML = '<i class="fas fa-bars"></i>';
-    }
-  });
-}
+// Scroll suave para o slider (Opção 2)
+const slider = document.querySelector('.slider-container');
+slider.addEventListener('wheel', (evt) => {
+    evt.preventDefault();
+    slider.scrollLeft += evt.deltaY;
+});
