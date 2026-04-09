@@ -1,80 +1,458 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pedro Gabriel | Dev Front-End</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;900&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <meta name="description" content="Pedro Gabriel Gomes - Desenvolvedor Front-End especializado em criar experiências web dinâmicas e modernas">
+    <meta name="theme-color" content="#000000">
+    <title>Pedro Gabriel Gomes | Dev Front-End</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="spotlight"></div>
-    <div class="mesh-gradient"></div>
-
-    <nav class="dock-wrapper">
-        <div class="glass dock">
-            <a href="https://github.com/opgmoraes" target="_blank"><i data-lucide="github"></i></a>
-            <a href="https://www.linkedin.com/in/pedrogmdev/" target="_blank"><i data-lucide="linkedin"></i></a>
-            <a href="https://www.instagram.com/opgmoraes/" target="_blank"><i data-lucide="instagram"></i></a>
-            <div class="divider"></div>
-            <button id="menu-trigger"><i data-lucide="menu"></i></button>
+    <!-- Spotlight Effect -->
+    <div class="spotlight" id="spotlight"></div>
+    
+    <!-- Floating Dock Navigation -->
+    <nav class="dock" id="dock">
+        <div class="dock-content">
+            <a href="#home" class="dock-item" data-tooltip="Início">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+            </a>
+            <a href="#projects" class="dock-item" data-tooltip="Projetos">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                </svg>
+            </a>
+            <a href="#skills" class="dock-item" data-tooltip="Skills">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                    <polyline points="2 17 12 22 22 17"/>
+                    <polyline points="2 12 12 17 22 12"/>
+                </svg>
+            </a>
+            <a href="#about" class="dock-item" data-tooltip="Sobre">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+            </a>
+            <a href="#contact" class="dock-item" data-tooltip="Contato">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                </svg>
+            </a>
         </div>
     </nav>
 
-    <section class="hero">
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg">
+            <div class="grid-overlay"></div>
+        </div>
         <div class="hero-content">
-            <h1 class="glow-text">PEDRO GABRIEL</h1> [cite: 3, 4]
-            <p class="hero-sub">Front-end Developer & Founder of <strong>Bitto</strong></p>
-            <div class="hero-badges">
-                <span class="glass-badge">ADS & Sistemas da Informação</span>
-                <span class="glass-badge">Luziânia, GO</span>
+            <div class="hero-text">
+                <div class="hero-label">
+                    <span class="glow-text">DESENVOLVEDOR FRONT-END</span>
+                </div>
+                <h1 class="hero-title">
+                    <span class="title-line">PEDRO</span>
+                    <span class="title-line title-highlight">GABRIEL</span>
+                    <span class="title-line">GOMES</span>
+                </h1>
+                <p class="hero-description">
+                    Estudante de ADS & Sistemas da Informação criando <span class="accent">experiências web</span> dinâmicas e soluções inteligentes com foco em <span class="accent">performance</span> e <span class="accent">design moderno</span>.
+                </p>
+                <div class="hero-cta">
+                    <a href="#projects" class="btn-primary">
+                        Ver Projetos
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                            <polyline points="12 5 19 12 12 19"/>
+                        </svg>
+                    </a>
+                    <a href="#contact" class="btn-secondary">
+                        Entre em Contato
+                    </a>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item glass">
+                    <span class="stat-number">20</span>
+                    <span class="stat-label">Anos</span>
+                </div>
+                <div class="stat-item glass">
+                    <span class="stat-number">3+</span>
+                    <span class="stat-label">Projetos</span>
+                </div>
+                <div class="stat-item glass">
+                    <span class="stat-number">2026</span>
+                    <span class="stat-label">Formação</span>
+                </div>
             </div>
         </div>
-        <div class="split-reflection"></div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
     </section>
 
-    <section class="projects-container">
-        <h2 class="section-label">Projetos Selecionados</h2>
-        <div class="slider" id="project-slider">
-            <div class="glass project-card">
-                <span class="tag">MicroSaaS</span>
-                <h3>Bitto</h3>
-                <p>Plataforma inteligente com ferramentas para facilitar o estudo.</p>
-                <div class="techs"><span>JavaScript</span><span>Firebase</span><span>HTML/CSS</span></div>
-                <a href="https://github.com/opgmoraes/bitto-oficial" class="link">Explore <i data-lucide="external-link"></i></a>
+    <!-- Projects Showcase -->
+    <section id="projects" class="projects">
+        <div class="section-header">
+            <span class="section-label">PORTFÓLIO</span>
+            <h2 class="section-title">Projetos em <span class="glow-text">Destaque</span></h2>
+        </div>
+        
+        <div class="projects-slider">
+            <div class="project-card glass" data-project="bitto">
+                <div class="project-number">01</div>
+                <div class="project-image">
+                    <div class="project-placeholder">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">BITTO</h3>
+                    <p class="project-description">
+                        Plataforma de estudos inteligente com interface responsiva e integração de APIs. Desenvolvida com HTML5, CSS3 e JavaScript, utilizando IA no fluxo de desenvolvimento para otimizar rotinas de estudo.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">HTML5</span>
+                        <span class="tag">CSS3</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">APIs</span>
+                        <span class="tag">IA</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/opgmoraes/bitto-oficial" target="_blank" class="project-link">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                            GitHub
+                        </a>
+                        <a href="#" class="project-link">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                <polyline points="15 3 21 3 21 9"/>
+                                <line x1="10" y1="14" x2="21" y2="3"/>
+                            </svg>
+                            Demo
+                        </a>
+                    </div>
+                </div>
             </div>
 
-            <div class="glass project-card">
-                <span class="tag">Web App</span>
-                <h3>Ocult.io</h3>
-                <p>Sorteio de amigo secreto simplificado e sem cadastro.</p>
-                <div class="techs"><span>JavaScript</span><span>UX Design</span></div>
-                <a href="https://github.com/opgmoraes/Ocult.io" class="link">Explore <i data-lucide="external-link"></i></a>
+            <div class="project-card glass" data-project="ocultio">
+                <div class="project-number">02</div>
+                <div class="project-image">
+                    <div class="project-placeholder">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">OCULT.IO</h3>
+                    <p class="project-description">
+                        Sistema completo para gerenciamento de amigo secreto com algoritmos em JavaScript para garantir aleatoriedade. Implementação de persistência de dados com Firebase e controle de acesso seguro.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Firebase</span>
+                        <span class="tag">Firestore</span>
+                        <span class="tag">Auth</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/opgmoraes/Ocult.io" target="_blank" class="project-link">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                            GitHub
+                        </a>
+                        <a href="#" class="project-link">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                <polyline points="15 3 21 3 21 9"/>
+                                <line x1="10" y1="14" x2="21" y2="3"/>
+                            </svg>
+                            Demo
+                        </a>
+                    </div>
+                </div>
             </div>
 
-            <div class="glass project-card">
-                <span class="tag">Experience</span>
-                <h3>CineGift</h3>
-                <p>Cinema digital para presentes em aniversários e amizades.</p>
-                <div class="techs"><span>Front-end</span><span>Glassmorphism</span></div>
-                <a href="#" class="link disabled">Em breve</a>
+            <div class="project-card glass" data-project="cinegift">
+                <div class="project-number">03</div>
+                <div class="project-image">
+                    <div class="project-placeholder">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="2" y="7" width="20" height="15" rx="2" ry="2"/>
+                            <polyline points="17 2 12 7 7 2"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">CINEGIFT</h3>
+                    <p class="project-description">
+                        Experiência digital focada em presentes e memórias personalizadas. Interface intuitiva desenvolvida com tecnologias modernas para criar momentos especiais entre amigos e família.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">HTML5</span>
+                        <span class="tag">CSS3</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">UX</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/opgmoraes" target="_blank" class="project-link">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                            GitHub
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="skills-section">
-        <div class="skills-orbit" id="skills-cloud">
-            <div class="orbit-item glass" data-tech="HTML5">HTML5</div>
-            <div class="orbit-item glass" data-tech="CSS3">CSS3</div>
-            <div class="orbit-item glass" data-tech="JS">JS</div>
-            <div class="orbit-item glass" data-tech="Firebase">Firebase</div>
-            <div class="orbit-item glass" data-tech="Node.js">Node.js</div>
-            <div class="orbit-item glass" data-tech="C#">C#</div>
-            <div class="center-glow">Skills</div>
+    <!-- Skills Orbit -->
+    <section id="skills" class="skills">
+        <div class="section-header">
+            <span class="section-label">TECNOLOGIAS</span>
+            <h2 class="section-title">Stack & <span class="glow-text">Habilidades</span></h2>
+        </div>
+        
+        <div class="orbit-container">
+            <div class="orbit-core glass">
+                <span class="core-text">FULL<br>STACK</span>
+            </div>
+            <div class="orbit orbit-1">
+                <div class="skill-orb glass" data-skill="HTML5">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="orbit orbit-2">
+                <div class="skill-orb glass" data-skill="CSS3">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="orbit orbit-3">
+                <div class="skill-orb glass" data-skill="JavaScript">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="orbit orbit-4">
+                <div class="skill-orb glass" data-skill="Firebase">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3.89 15.672L6.255.461A.542.542 0 017.27.288l2.543 4.771zm16.794 3.692l-2.25-14.03a.54.54 0 00-.919-.295L3.316 19.365l7.856 4.427a1.621 1.621 0 001.588 0zM14.3 7.147l-1.82-3.482a.542.542 0 00-.96 0L3.53 17.984z"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="orbit orbit-5">
+                <div class="skill-orb glass" data-skill="GitHub">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="orbit orbit-6">
+                <div class="skill-orb glass" data-skill="Node.js">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M11.998,24c-0.321,0-0.641-0.084-0.922-0.247l-2.936-1.737c-0.438-0.245-0.224-0.332-0.08-0.383 c0.585-0.203,0.703-0.25,1.328-0.604c0.065-0.037,0.151-0.023,0.218,0.017l2.256,1.339c0.082,0.045,0.197,0.045,0.272,0l8.795-5.076 c0.082-0.047,0.134-0.141,0.134-0.238V6.921c0-0.099-0.053-0.192-0.137-0.242l-8.791-5.072c-0.081-0.047-0.189-0.047-0.271,0 L3.075,6.68C2.99,6.729,2.936,6.825,2.936,6.921v10.15c0,0.097,0.054,0.189,0.139,0.235l2.409,1.392 c1.307,0.654,2.108-0.116,2.108-0.89V7.787c0-0.142,0.114-0.253,0.256-0.253h1.115c0.139,0,0.255,0.112,0.255,0.253v10.021 c0,1.745-0.95,2.745-2.604,2.745c-0.508,0-0.909,0-2.026-0.551L2.28,18.675c-0.57-0.329-0.922-0.945-0.922-1.604V6.921 c0-0.659,0.353-1.275,0.922-1.603l8.795-5.082c0.557-0.315,1.296-0.315,1.848,0l8.794,5.082c0.57,0.329,0.924,0.944,0.924,1.603 v10.15c0,0.659-0.354,1.273-0.924,1.604l-8.794,5.078C12.643,23.916,12.324,24,11.998,24z M19.099,13.993 c0-1.9-1.284-2.406-3.987-2.763c-2.731-0.361-3.009-0.548-3.009-1.187c0-0.528,0.235-1.233,2.258-1.233 c1.807,0,2.473,0.389,2.747,1.607c0.024,0.115,0.129,0.199,0.247,0.199h1.141c0.071,0,0.138-0.031,0.186-0.081 c0.048-0.054,0.074-0.123,0.067-0.196c-0.177-2.098-1.571-3.076-4.388-3.076c-2.508,0-4.004,1.058-4.004,2.833 c0,1.925,1.488,2.457,3.895,2.695c2.88,0.282,3.103,0.703,3.103,1.269c0,0.983-0.789,1.402-2.642,1.402 c-2.327,0-2.839-0.584-3.011-1.742c-0.02-0.124-0.126-0.215-0.253-0.215h-1.137c-0.141,0-0.254,0.112-0.254,0.253 c0,1.482,0.806,3.248,4.655,3.248C17.501,17.007,19.099,15.91,19.099,13.993z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="skills-grid">
+            <div class="skill-card glass">
+                <h4>Front-End</h4>
+                <ul>
+                    <li>HTML5 & CSS3</li>
+                    <li>JavaScript ES6+</li>
+                    <li>Responsive Design</li>
+                    <li>Mobile-First</li>
+                </ul>
+            </div>
+            <div class="skill-card glass">
+                <h4>Back-End & Dados</h4>
+                <ul>
+                    <li>Firebase Auth</li>
+                    <li>Firestore Database</li>
+                    <li>REST APIs</li>
+                    <li>Node.js (learning)</li>
+                </ul>
+            </div>
+            <div class="skill-card glass">
+                <h4>Ferramentas</h4>
+                <ul>
+                    <li>Git & GitHub</li>
+                    <li>VS Code</li>
+                    <li>Vercel</li>
+                    <li>IA para Dev</li>
+                </ul>
+            </div>
         </div>
     </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="about-container">
+            <div class="about-image glass">
+                <div class="image-placeholder">
+                    <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="about-content">
+                <span class="section-label">SOBRE MIM</span>
+                <h2 class="section-title">Transformando <span class="glow-text">Código</span> em Experiências</h2>
+                <p class="about-text">
+                    Olá! Sou Pedro Gabriel, tenho 20 anos e estou em uma jornada apaixonante pelo desenvolvimento web. Atualmente curso <strong>Análise e Desenvolvimento de Sistemas</strong> e <strong>Sistemas da Informação</strong> na Unidesc, com formação prevista para 2026-2027.
+                </p>
+                <p class="about-text">
+                    Minha trajetória começou com a curiosidade de entender como as coisas funcionam na web. Hoje, crio soluções que combinam <strong>design moderno</strong>, <strong>performance otimizada</strong> e <strong>experiência do usuário</strong> impecável.
+                </p>
+                <div class="about-highlights">
+                    <div class="highlight-item">
+                        <span class="highlight-icon">🎯</span>
+                        <div>
+                            <h4>Foco Atual</h4>
+                            <p>Desenvolvimento de MicroSaaS e aplicações web inteligentes</p>
+                        </div>
+                    </div>
+                    <div class="highlight-item">
+                        <span class="highlight-icon">📚</span>
+                        <div>
+                            <h4>Aprendendo</h4>
+                            <p>Node.js, TypeScript e arquiteturas escaláveis</p>
+                        </div>
+                    </div>
+                    <div class="highlight-item">
+                        <span class="highlight-icon">☕</span>
+                        <div>
+                            <h4>Combustível</h4>
+                            <p>Café, música e o desafio de resolver problemas complexos</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-location">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                        <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    <span>Luziânia, GO - Brasil</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="section-header">
+            <span class="section-label">CONTATO</span>
+            <h2 class="section-title">Vamos Criar Algo <span class="glow-text">Incrível</span>?</h2>
+        </div>
+        
+        <div class="contact-grid">
+            <a href="mailto:pedrogm.dev@gmail.com" class="contact-card glass">
+                <div class="contact-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                </div>
+                <h3>Email</h3>
+                <p>pedrogm.dev@gmail.com</p>
+            </a>
+
+            <a href="https://github.com/opgmoraes" target="_blank" class="contact-card glass">
+                <div class="contact-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </div>
+                <h3>GitHub</h3>
+                <p>@opgmoraes</p>
+            </a>
+
+            <a href="https://www.linkedin.com/in/pedrogmdev/" target="_blank" class="contact-card glass">
+                <div class="contact-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                </div>
+                <h3>LinkedIn</h3>
+                <p>Pedro Gabriel</p>
+            </a>
+
+            <a href="https://www.instagram.com/opgmoraes/" target="_blank" class="contact-card glass">
+                <div class="contact-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                </div>
+                <h3>Instagram</h3>
+                <p>@opgmoraes</p>
+            </a>
+
+            <a href="tel:+5561993359477" class="contact-card glass">
+                <div class="contact-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                </div>
+                <h3>Telefone</h3>
+                <p>(61) 99335-9477</p>
+            </a>
+
+            <a href="https://twitter.com/opgmoraes" target="_blank" class="contact-card glass">
+                <div class="contact-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                </div>
+                <h3>Twitter/X</h3>
+                <p>@opgmoraes</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-text">
+                <p>&copy; 2026 Pedro Gabriel Gomes. Desenvolvido com ☕ e código.</p>
+            </div>
+            <div class="footer-links">
+                <a href="https://github.com/opgmoraes" target="_blank">GitHub</a>
+                <span>•</span>
+                <a href="https://www.linkedin.com/in/pedrogmdev/" target="_blank">LinkedIn</a>
+                <span>•</span>
+                <a href="mailto:pedrogm.dev@gmail.com">Email</a>
+            </div>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>
