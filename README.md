@@ -1,2 +1,0 @@
-# pedrodev
-Meu portifolio dev!
