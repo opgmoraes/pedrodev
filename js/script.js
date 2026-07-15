@@ -40,16 +40,105 @@
   }, { threshold: 0.15 });
   reveals.forEach(el => revealObserver.observe(el));
 
-  // Project tabs
+  // ---------- Project media viewer (auto-detects how many images exist) ----------
+  const PROJECT_MEDIA = {}; // { p1: { desktop: [...paths], mobile: [...paths], type: 'desktop', index: 0, video: '' } }
+
+  function preloadSequence(basePath, prefix, max = 12) {
+    return new Promise(resolve => {
+      const found = [];
+      let i = 1;
+      function tryNext() {
+        if (i > max) { resolve(found); return; }
+        const num = String(i).padStart(2, '0');
+        const src = `${basePath}/${prefix}-${num}.png`;
+        const img = new Image();
+        img.onload = () => { found.push(src); i++; tryNext(); };
+        img.onerror = () => resolve(found);
+        img.src = src;
+      }
+      tryNext();
+    });
+  }
+
+  function renderMedia(id) {
+    const state = PROJECT_MEDIA[id];
+    const viewer = document.getElementById(id + '-media');
+    const imgEl = viewer.querySelector('.media-img');
+    const counterEl = viewer.querySelector('.media-counter');
+    const videoStateEl = viewer.querySelector('.media-video-state');
+    const navBtns = viewer.querySelectorAll('.media-nav');
+
+    if (state.type === 'video') {
+      imgEl.style.display = 'none';
+      videoStateEl.style.display = 'flex';
+      counterEl.style.display = 'none';
+      navBtns.forEach(b => b.style.display = 'none');
+      return;
+    }
+
+    const list = state[state.type] || [];
+    videoStateEl.style.display = 'none';
+    if (list.length === 0) {
+      imgEl.style.display = 'none';
+      counterEl.style.display = 'none';
+      navBtns.forEach(b => b.style.display = 'none');
+      return;
+    }
+    imgEl.style.display = 'block';
+    imgEl.src = list[state.index];
+    imgEl.className = 'media-img ' + (state.type === 'mobile' ? 'is-mobile' : 'is-desktop');
+    const showNav = list.length > 1;
+    counterEl.style.display = showNav ? 'block' : 'none';
+    navBtns.forEach(b => b.style.display = showNav ? 'flex' : 'none');
+    counterEl.textContent = `${state.index + 1} / ${list.length}`;
+  }
+
+  function mediaNav(id, dir) {
+    const state = PROJECT_MEDIA[id];
+    const list = state[state.type] || [];
+    if (list.length < 2) return;
+    state.index = (state.index + dir + list.length) % list.length;
+    renderMedia(id);
+  }
+
   function setTab(btn, project, type) {
     const group = btn.parentElement;
     group.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    const preview = document.getElementById(project + '-preview');
-    if (type === 'desk') preview.innerHTML = '<svg class="icon" style="font-size:22px;"><use href="#icon-monitor"></use></svg> preview desktop';
-    if (type === 'mob') preview.innerHTML = '<svg class="icon" style="font-size:22px;"><use href="#icon-smartphone"></use></svg> preview mobile';
-    if (type === 'vid') preview.innerHTML = '<svg class="icon" style="font-size:22px;"><use href="#icon-youtube"></use></svg> vídeo demo (link do youtube)';
+    const map = { desk: 'desktop', mob: 'mobile', vid: 'video' };
+    const state = PROJECT_MEDIA[project];
+    state.type = map[type];
+    state.index = 0;
+    renderMedia(project);
   }
+
+  function initVideoClicks() {
+    document.querySelectorAll('.media-viewer').forEach(viewer => {
+      const id = viewer.id.replace('-media', '');
+      viewer.querySelector('.media-video-state').addEventListener('click', () => {
+        const state = PROJECT_MEDIA[id];
+        if (state && state.video) window.open(state.video, '_blank');
+      });
+    });
+  }
+  initVideoClicks();
+
+  async function initProjectMedia() {
+    const viewers = document.querySelectorAll('.media-viewer');
+    for (const viewer of viewers) {
+      const id = viewer.id.replace('-media', '');
+      const projectSlug = viewer.dataset.project;
+      const video = viewer.dataset.video || '';
+      const base = `assets/projetos/${projectSlug}`;
+      const [desktop, mobile] = await Promise.all([
+        preloadSequence(`${base}/desktop`, 'desktop'),
+        preloadSequence(`${base}/mobile`, 'mobile')
+      ]);
+      PROJECT_MEDIA[id] = { desktop, mobile, video, type: 'desktop', index: 0 };
+      renderMedia(id);
+    }
+  }
+  initProjectMedia();
 
   // Copy email
   function copyEmail() {
