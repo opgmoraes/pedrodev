@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trilha ZeloCamp | Desafio AgroStartup — Pedro Gabriel Gomes</title>
+
+  <meta name="description" content="Acompanhe a trilha da ZeloCamp no Desafio AgroStartup SENAR/SEBRAE Goiás, da inscrição ao demoday.">
+  <link rel="icon" type="image/jpeg" href="../assets/perfil/foto-perfil.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=PT+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="stylesheet" href="../css/style.css">
+
+  <script src="../js/script.js" defer></script>
+</head>
+<body class="bg-[#0a0a0a] text-gray-100 antialiased selection:bg-white selection:text-black relative overflow-x-hidden">
+
+  <!-- Cursor Glow Follower -->
+  <div id="cursor-glow" class="pointer-events-none fixed -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-tr from-indigo-500/10 to-purple-500/10 rounded-full blur-3xl transition-opacity duration-500 z-0 opacity-0 md:opacity-100"></div>
+
+  <!-- ================= NAV ================= -->
+  <nav id="navbar" class="fixed top-0 w-full z-50 px-6 py-6 md:px-12 flex justify-between items-center transition-all duration-300 border-b border-transparent">
+    <a href="/pedrodev/#hero" class="text-sm font-semibold tracking-widest uppercase hover:text-gray-300 transition-colors relative z-50">Pedro Gomes</a>
+
+    <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white focus:outline-none relative z-50">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path id="menu-icon-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+
+    <div class="text-xs tracking-widest uppercase text-gray-400 space-x-8 hidden md:flex relative z-50">
+      <a href="/pedrodev/#sobre" class="hover:text-white transition-colors">Sobre</a>
+      <a href="/pedrodev/#skills" class="hover:text-white transition-colors">Skills</a>
+      <a href="/pedrodev/#projetos" class="hover:text-white transition-colors">Projetos</a>
+      <a href="/pedrodev/trilha/" class="text-white transition-colors">Trilha</a>
+      <a href="/pedrodev/#contato" class="hover:text-white transition-colors">Contato</a>
+    </div>
+
+    <div id="mobile-menu" class="fixed inset-0 bg-[#0a0a0a]/90 backdrop-blur-xl flex-col items-center justify-center gap-8 text-sm tracking-widest uppercase text-gray-400 opacity-0 pointer-events-none transition-opacity duration-500 md:hidden flex z-40">
+      <a href="/pedrodev/#sobre" class="hover:text-white transition-colors mobile-link">Sobre</a>
+      <a href="/pedrodev/#skills" class="hover:text-white transition-colors mobile-link">Skills</a>
+      <a href="/pedrodev/#projetos" class="hover:text-white transition-colors mobile-link">Projetos</a>
+      <a href="/pedrodev/trilha/" class="text-white transition-colors mobile-link">Trilha</a>
+      <a href="/pedrodev/#contato" class="hover:text-white transition-colors mobile-link">Contato</a>
+    </div>
+  </nav>
+
+  <!-- ================= PAGE HEADER ================= -->
+  <header class="pt-40 pb-8 px-6 md:px-12 relative z-10">
+    <div class="max-w-4xl mx-auto w-full">
+      <a href="/pedrodev/" class="text-xs uppercase tracking-widest text-gray-500 hover:text-white transition-colors">← Voltar ao início</a>
+    </div>
+  </header>
+
+  <!-- ================= TRILHA ================= -->
+  <section id="trilha" class="py-32 px-6 md:px-12 relative z-10">
+    <div class="max-w-4xl mx-auto w-full">
+
+      <div class="reveal mb-16">
+        <h2 class="text-5xl md:text-6xl font-medium mb-8">Trilha <span class="serif-text text-gray-400">ZeloCamp</span></h2>
+        <p class="text-gray-400 text-base leading-relaxed font-light max-w-2xl">
+          Sou líder da <strong class="text-white font-medium">ZeloCamp</strong>, startup selecionada para o <strong class="text-white font-medium">Desafio AgroStartup</strong> — programa de inovação do SENAR/SEBRAE Goiás que leva ideias do papo de ideia até um pitch de verdade pra investidores, passando por maratona, mentorias e aceleração. Essa é a trilha que estamos percorrendo, fase por fase.
+        </p>
+      </div>
+
+      <div class="reveal space-y-3">
+
+        <!-- FASE 1: INSCRIÇÃO -->
+        <details class="trilha-item group border border-gray-800/80 rounded-xl bg-black/30 overflow-hidden">
+          <summary class="flex items-center justify-between gap-4 p-5 cursor-pointer list-none select-none">
+            <div class="flex items-center gap-4">
+              <span class="text-emerald-400 text-lg">✓</span>
+              <div>
+                <p class="text-[10px] uppercase tracking-widest text-gray-500 mb-1">Maio · 2026</p>
+                <h3 class="text-lg font-medium">Inscrição no Desafio</h3>
+              </div>
+            </div>
+            <span class="chevron text-gray-500 transition-transform duration-300">↓</span>
+          </summary>
+          <div class="px-5 pb-6 pt-1 pl-[3.25rem] text-sm text-gray-400 font-light leading-relaxed">
+            Inscrevemos a ZeloCamp no Desafio AgroStartup 2026, dando o primeiro passo oficial da jornada.
+          </div>
+        </details>
+
+        <!-- FASE 2: WORKSHOP DE IDEAÇÃO -->
+        <details class="trilha-item group border border-gray-800/80 rounded-xl bg-black/30 overflow-hidden">
+          <summary class="flex items-center justify-between gap-4 p-5 cursor-pointer list-none select-none">
+            <div class="flex items-center gap-4">
+              <span class="text-emerald-400 text-lg">✓</span>
+              <div>
+                <p class="text-[10px] uppercase tracking-widest text-gray-500 mb-1">17 · 06 · 2026</p>
+                <h3 class="text-lg font-medium">Workshop de Ideação</h3>
+              </div>
+            </div>
+            <span class="chevron text-gray-500 transition-transform duration-300">↓</span>
+          </summary>
+          <div class="px-5 pb-6 pt-1 pl-[3.25rem]">
+            <p class="text-sm text-gray-400 font-light leading-relaxed mb-5">
+              Conhecemos de perto as principais dores dos produtores rurais e as cadeias produtivas do agro goiano. Foi aqui que idealizamos o primeiro modelo da solução que viria a se tornar a ZeloCamp.
+            </p>
+            <figure>
+              <img src="../assets/trilha/workshop.jpg" alt="Crachás do Desafio AgroStartup com os nomes Pedro e Renata" loading="lazy" class="rounded-lg w-full max-w-xs border border-gray-800/80">
+              <figcaption class="text-xs text-gray-500 mt-2 italic">Crachás em mãos — começava oficialmente nossa jornada no Desafio AgroStartup.</figcaption>
+            </figure>
+          </div>
+        </details>
+
+        <!-- FASE 3: MARATONA -->
+        <details class="trilha-item group border border-gray-800/80 rounded-xl bg-black/30 overflow-hidden">
+          <summary class="flex items-center justify-between gap-4 p-5 cursor-pointer list-none select-none">
+            <div class="flex items-center gap-4">
+              <span class="text-emerald-400 text-lg">✓</span>
+              <div>
+                <p class="text-[10px] uppercase tracking-widest text-gray-500 mb-1">27 · 06 · 2026 · Caldas Novas, GO</p>
+                <h3 class="text-lg font-medium">Maratona de Inovação</h3>
+              </div>
+            </div>
+            <span class="chevron text-gray-500 transition-transform duration-300">↓</span>
+          </summary>
+          <div class="px-5 pb-6 pt-1 pl-[3.25rem]">
+            <p class="text-sm text-gray-400 font-light leading-relaxed mb-5">
+              Passamos o dia com startups de todo o Goiás: palestras, montagem de pitch e pitch deck do zero, e apresentação pra banca — que nos classificou pra próxima fase.
+            </p>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              <figure>
+                <img src="../assets/trilha/fotoequipe.jpg" alt="Equipe ZeloCamp reunida em Caldas Novas" loading="lazy" class="rounded-lg w-full aspect-[4/3] object-cover border border-gray-800/80">
+                <figcaption class="text-[11px] text-gray-500 mt-2 italic">Equipe reunida em Caldas Novas para a Maratona de Inovação.</figcaption>
+              </figure>
+              <figure>
+                <img src="../assets/trilha/setup.jpg" alt="Setup de notebook e materiais do desafio na maratona" loading="lazy" class="rounded-lg w-full aspect-[4/3] object-cover border border-gray-800/80">
+                <figcaption class="text-[11px] text-gray-500 mt-2 italic">Setup de guerra: notebook, caderno e o kit oficial prontos pra maratona.</figcaption>
+              </figure>
+              <figure class="col-span-2 sm:col-span-1">
+                <img src="../assets/trilha/apresentando.jpg" alt="Equipe apresentando o pitch na Maratona de Inovação" loading="lazy" class="rounded-lg w-full aspect-[4/3] object-cover border border-gray-800/80">
+                <figcaption class="text-[11px] text-gray-500 mt-2 italic">Apresentando "O Perigo Silencioso no Campo" — nosso primeiro pitch pra banca.</figcaption>
+              </figure>
+            </div>
+            <div class="flex gap-6 mt-5">
+              <a href="https://www.linkedin.com/posts/pedrogmdev_agrostartup-campolab-sistemafaeg-ugcPost-7478469566487076864-WKIS/" target="_blank" rel="noopener noreferrer" class="text-xs text-gray-500 uppercase tracking-widest hover:text-white transition-colors">Ver no LinkedIn ↗</a>
+              <a href="https://www.instagram.com/reel/DaIuSWzOSjt/" target="_blank" rel="noopener noreferrer" class="text-xs text-gray-500 uppercase tracking-widest hover:text-white transition-colors">Ver no Instagram ↗</a>
+            </div>
+          </div>
+        </details>
+
+        <!-- FASE 4: PRÉ-ACELERAÇÃO 1 -->
+        <details class="trilha-item group border border-gray-800/80 rounded-xl bg-black/30 overflow-hidden">
+          <summary class="flex items-center justify-between gap-4 p-5 cursor-pointer list-none select-none">
+            <div class="flex items-center gap-4">
+              <span class="text-emerald-400 text-lg">✓</span>
+              <div>
+                <p class="text-[10px] uppercase tracking-widest text-gray-500 mb-1">01 · 08 · 2026 · Remoto</p>
+                <h3 class="text-lg font-medium">Pré-Aceleração: Negócios Inovadores</h3>
+              </div>
+            </div>
+            <span class="chevron text-gray-500 transition-transform duration-300">↓</span>
+          </summary>
+          <div class="px-5 pb-6 pt-1 pl-[3.25rem]">
+            <p class="text-sm text-gray-400 font-light leading-relaxed mb-5">
+              Workshop "Como desenvolver negócios inovadores" com <strong class="text-gray-300 font-medium">Francisco Calaça</strong> (CEO da Campo Tech, Dr. em Inteligência Artificial), com a startup AI Pathology também presente. Aprendemos sobre prototipagem, testes e ferramentas de validação.
+            </p>
+            <div class="grid grid-cols-2 gap-4 max-w-md">
+              <figure>
+                <img src="../assets/trilha/calaca.jpg" alt="Slide do workshop com Francisco Calaça: Apaixone-se pelo problema, não pela solução" loading="lazy" class="rounded-lg w-full aspect-[9/16] object-cover border border-gray-800/80">
+                <figcaption class="text-[11px] text-gray-500 mt-2 italic">"Apaixone-se pelo problema, não pela solução" — a lição que ficou do papo com Francisco Calaça.</figcaption>
+              </figure>
+              <figure>
+                <img src="../assets/trilha/aipathology.jpg" alt="Chamada remota do workshop com a startup AI Pathology presente" loading="lazy" class="rounded-lg w-full aspect-[9/16] object-cover border border-gray-800/80">
+                <figcaption class="text-[11px] text-gray-500 mt-2 italic">Workshop remoto sobre negócios inovadores, com a AI Pathology acompanhando ao vivo.</figcaption>
+              </figure>
+            </div>
+          </div>
+        </details>
+
+        <!-- FASE 5: PRÉ-ACELERAÇÃO 2 -->
+        <details class="trilha-item group border border-gray-800/80 rounded-xl bg-black/30 overflow-hidden">
+          <summary class="flex items-center justify-between gap-4 p-5 cursor-pointer list-none select-none">
+            <div class="flex items-center gap-4">
+              <span class="text-amber-400 text-lg">○</span>
+              <div>
+                <p class="text-[10px] uppercase tracking-widest text-gray-500 mb-1">15 · 08 · 2026 · Remoto</p>
+                <h3 class="text-lg font-medium text-gray-300">Pré-Aceleração: Marketing e Redes Sociais</h3>
+              </div>
+            </div>
+            <span class="chevron text-gray-500 transition-transform duration-300">↓</span>
+          </summary>
+          <div class="px-5 pb-6 pt-1 pl-[3.25rem] text-sm text-gray-500 font-light leading-relaxed">
+            Workshop com <strong class="text-gray-400 font-medium">Adrielly Rodrigues</strong> (bióloga, especialista em Marketing pela USP), com presença confirmada da Lely, startup holandesa líder global em automação para pecuária leiteira. Em breve atualizo com fotos e aprendizados.
+          </div>
+        </details>
+
+        <!-- FASE 6-9: PRÓXIMOS WORKSHOPS -->
+        <details class="trilha-item group border border-gray-800/80 rounded-xl bg-black/30 overflow-hidden">
+          <summary class="flex items-center justify-between gap-4 p-5 cursor-pointer list-none select-none">
+            <div class="flex items-center gap-4">
+              <span class="text-gray-600 text-lg">○</span>
+              <div>
+                <p class="text-[10px] uppercase tracking-widest text-gray-500 mb-1">29 · 08 · 2026</p>
+                <h3 class="text-lg font-medium text-gray-400">Workshop: Liderança e Gestão de Pessoas</h3>
+              </div>
+            </div>
+            <span class="chevron text-gray-500 transition-transform duration-300">↓</span>
+          </summary>
+          <div class="px-5 pb-6 pt-1 pl-[3.25rem] text-sm text-gray-500 font-light leading-relaxed">
+            Próxima etapa da pré-aceleração. Atualizo essa seção assim que acontecer.
+          </div>
+        </details>
+
+        <details class="trilha-item group border border-gray-800/80 rounded-xl bg-black/30 overflow-hidden">
+          <summary class="flex items-center justify-between gap-4 p-5 cursor-pointer list-none select-none">
+            <div class="flex items-center gap-4">
+              <span class="text-gray-600 text-lg">○</span>
+              <div>
+                <p class="text-[10px] uppercase tracking-widest text-gray-500 mb-1">12 · 09 · 2026</p>
+                <h3 class="text-lg font-medium text-gray-400">Workshop: Inteligência Artificial no Agronegócio</h3>
+              </div>
+            </div>
+            <span class="chevron text-gray-500 transition-transform duration-300">↓</span>
+          </summary>
+          <div class="px-5 pb-6 pt-1 pl-[3.25rem] text-sm text-gray-500 font-light leading-relaxed">
+            Próxima etapa da pré-aceleração. Atualizo essa seção assim que acontecer.
+          </div>
+        </details>
+
+        <details class="trilha-item group border border-gray-800/80 rounded-xl bg-black/30 overflow-hidden">
+          <summary class="flex items-center justify-between gap-4 p-5 cursor-pointer list-none select-none">
+            <div class="flex items-center gap-4">
+              <span class="text-gray-600 text-lg">○</span>
+              <div>
+                <p class="text-[10px] uppercase tracking-widest text-gray-500 mb-1">26 · 09 · 2026</p>
+                <h3 class="text-lg font-medium text-gray-400">Workshop: Empreendedorismo e Plano de Negócio</h3>
+              </div>
+            </div>
+            <span class="chevron text-gray-500 transition-transform duration-300">↓</span>
+          </summary>
+          <div class="px-5 pb-6 pt-1 pl-[3.25rem] text-sm text-gray-500 font-light leading-relaxed">
+            Próxima etapa da pré-aceleração. Atualizo essa seção assim que acontecer.
+          </div>
+        </details>
+
+        <details class="trilha-item group border border-gray-800/80 rounded-xl bg-black/30 overflow-hidden">
+          <summary class="flex items-center justify-between gap-4 p-5 cursor-pointer list-none select-none">
+            <div class="flex items-center gap-4">
+              <span class="text-gray-600 text-lg">○</span>
+              <div>
+                <p class="text-[10px] uppercase tracking-widest text-gray-500 mb-1">03 · 10 · 2026</p>
+                <h3 class="text-lg font-medium text-gray-400">Workshop: Pitch</h3>
+              </div>
+            </div>
+            <span class="chevron text-gray-500 transition-transform duration-300">↓</span>
+          </summary>
+          <div class="px-5 pb-6 pt-1 pl-[3.25rem] text-sm text-gray-500 font-light leading-relaxed">
+            Última preparação antes do resultado da pré-aceleração. Atualizo essa seção assim que acontecer.
+          </div>
+        </details>
+
+        <!-- FASE FINAL: DEMODAY -->
+        <details class="trilha-item group border border-gray-800/40 rounded-xl bg-black/10 overflow-hidden opacity-70">
+          <summary class="flex items-center justify-between gap-4 p-5 cursor-pointer list-none select-none">
+            <div class="flex items-center gap-4">
+              <span class="text-gray-600 text-lg">🔒</span>
+              <div>
+                <p class="text-[10px] uppercase tracking-widest text-gray-600 mb-1">Outubro · 2026 · Data a definir</p>
+                <h3 class="text-lg font-medium text-gray-500">Demoday & Pitch em Vídeo</h3>
+              </div>
+            </div>
+            <span class="chevron text-gray-600 transition-transform duration-300">↓</span>
+          </summary>
+          <div class="px-5 pb-6 pt-1 pl-[3.25rem] text-sm text-gray-500 font-light leading-relaxed">
+            Se a ZeloCamp for uma das finalistas da pré-aceleração, seguimos pro Demoday — apresentação final pra banca e investidores — além de um pitch em vídeo, ainda sem data definida. Torçam por nós.
+          </div>
+        </details>
+
+      </div>
+
+      <p class="text-xs text-gray-600 mt-10">
+        Acompanha em tempo real no <a href="https://www.linkedin.com/in/pedrogmdev" target="_blank" rel="noopener noreferrer" class="link-hover">LinkedIn</a>.
+      </p>
+
+    </div>
+  </section>
+
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="py-8 px-6 text-center border-t border-gray-900 relative z-10">
+    <p class="text-xs text-gray-600 tracking-widest uppercase">
+      © 2026 Pedro Gabriel Gomes — Construído com foco em excelência.
+    </p>
+    <p class="text-[10px] text-gray-700 tracking-widest uppercase mt-2 flex items-center justify-center gap-1.5">
+      <span>☕</span> Cafés consumidos nesse projeto: 247
+    </p>
+  </footer>
+
+</body>
+</html>
