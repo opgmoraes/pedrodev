@@ -1,245 +1,185 @@
-// Typewriter
-const words = ["desenvolvedor web", "founder do bitto", "graduado em ADS"];
-let wi = 0,
-  ci = 0,
-  deleting = false;
-const twEl = document.getElementById("typewriter");
-function tick() {
-  const word = words[wi];
-  if (!deleting) {
-    ci++;
-    twEl.textContent = word.slice(0, ci);
-    if (ci === word.length) {
-      deleting = true;
-      setTimeout(tick, 1300);
+/**
+ * Pedro Gabriel Gomes — Portfólio Personal
+ * Motor de Animação, Interações & Sliders
+ */
+
+"use strict";
+
+document.addEventListener("DOMContentLoaded", () => {
+  initNavbarScroll();
+  initMobileMenu();
+  initCursorGlow();
+  initScrollAnimations();
+  initProjectSliders();
+  initCopyEmail();
+});
+
+/**
+ * Muda background e padding da Navbar ao rolar a página
+ */
+function initNavbarScroll() {
+  const navbar = document.getElementById("navbar");
+  if (!navbar) return;
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 40) {
+      navbar.classList.add("nav-scrolled");
+    } else {
+      navbar.classList.remove("nav-scrolled");
+    }
+  });
+}
+
+/**
+ * Controle do Menu Mobile (Hambúrguer)
+ */
+function initMobileMenu() {
+  const btn = document.getElementById("mobile-menu-btn");
+  const menu = document.getElementById("mobile-menu");
+  const iconPath = document.getElementById("menu-icon-path");
+  const mobileLinks = document.querySelectorAll(".mobile-link");
+
+  if (!btn || !menu) return;
+
+  let isOpen = false;
+
+  function toggleMenu() {
+    isOpen = !isOpen;
+    if (isOpen) {
+      menu.classList.remove("opacity-0", "pointer-events-none");
+      menu.classList.add("opacity-100", "pointer-events-auto");
+      iconPath.setAttribute("d", "M6 18L18 6M6 6l12 12");
+      document.body.style.overflow = "hidden"; 
+    } else {
+      menu.classList.add("opacity-0", "pointer-events-none");
+      menu.classList.remove("opacity-100", "pointer-events-auto");
+      iconPath.setAttribute("d", "M4 6h16M4 12h16M4 18h16");
+      document.body.style.overflow = ""; 
+    }
+  }
+
+  btn.addEventListener("click", toggleMenu);
+
+  mobileLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      if (isOpen) toggleMenu();
+    });
+  });
+}
+
+/**
+ * Efeito de iluminação suave que segue o mouse
+ */
+function initCursorGlow() {
+  const glow = document.getElementById("cursor-glow");
+  if (!glow) return;
+
+  window.addEventListener("mousemove", (e) => {
+    glow.style.left = `${e.clientX}px`;
+    glow.style.top = `${e.clientY}px`;
+  });
+}
+
+/**
+ * Animações de Scroll com Intersection Observer
+ */
+function initScrollAnimations() {
+  const observerOptions = {
+    root: null,
+    rootMargin: "0px 0px -60px 0px",
+    threshold: 0.1
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("active");
+      }
+    });
+  }, observerOptions);
+
+  const animatableElements = document.querySelectorAll(".reveal, .stagger-container");
+  animatableElements.forEach(el => observer.observe(el));
+}
+
+/**
+ * Controle de Copiar E-mail em 1 clique com Feedback
+ */
+function initCopyEmail() {
+  const copyBtn = document.getElementById("copy-email-btn");
+  const emailText = document.getElementById("email-text")?.innerText;
+
+  if (!copyBtn || !emailText) return;
+
+  copyBtn.addEventListener("click", () => {
+    navigator.clipboard.writeText(emailText).then(() => {
+      const originalText = copyBtn.innerText;
+      copyBtn.innerText = "✓ Copiado!";
+      copyBtn.classList.add("bg-emerald-400", "text-black");
+
+      setTimeout(() => {
+        copyBtn.innerText = originalText;
+        copyBtn.classList.remove("bg-emerald-400", "text-black");
+      }, 2500);
+    });
+  });
+}
+
+/**
+ * Motor de Galeria/Slider para os Projetos
+ */
+function initProjectSliders() {
+  const sliders = document.querySelectorAll("[data-slider]");
+
+  sliders.forEach(slider => {
+    const track = slider.querySelector(".slider-track");
+    const slides = track.querySelectorAll("img");
+    const prevBtn = slider.querySelector(".slider-btn.prev");
+    const nextBtn = slider.querySelector(".slider-btn.next");
+    const dotsContainer = slider.querySelector(".slider-dots");
+
+    if (slides.length <= 1) {
+      if (prevBtn) prevBtn.style.display = "none";
+      if (nextBtn) nextBtn.style.display = "none";
       return;
     }
-  } else {
-    ci--;
-    twEl.textContent = word.slice(0, ci);
-    if (ci === 0) {
-      deleting = false;
-      wi = (wi + 1) % words.length;
+
+    let currentIndex = 0;
+
+    slides.forEach((_, index) => {
+      const dot = document.createElement("button");
+      dot.classList.add("slider-dot");
+      if (index === 0) dot.classList.add("active");
+      dot.addEventListener("click", () => goToSlide(index));
+      dotsContainer.appendChild(dot);
+    });
+
+    const dots = dotsContainer.querySelectorAll(".slider-dot");
+
+    function updateSlider() {
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+      dots.forEach((dot, index) => {
+        dot.classList.toggle("active", index === currentIndex);
+      });
     }
-  }
-  setTimeout(tick, deleting ? 35 : 65);
-}
-tick();
 
-// Cursor hint animation on load
-window.addEventListener("load", () => {
-  document.getElementById("cursorHint").classList.add("play");
-});
-
-// Breadcrumb scrollspy
-const crumb = document.getElementById("crumb");
-const sections = ["hero", "sobre", "skills", "projetos", "contato"];
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        crumb.style.opacity = 0;
-        setTimeout(() => {
-          crumb.textContent = entry.target.id;
-          crumb.style.opacity = 1;
-        }, 120);
-      }
-    });
-  },
-  { threshold: 0.5 },
-);
-sections.forEach((id) => {
-  const el = document.getElementById(id);
-  if (el) observer.observe(el);
-});
-
-// Scroll reveal
-const reveals = document.querySelectorAll(".reveal");
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) entry.target.classList.add("in");
-    });
-  },
-  { threshold: 0.15 },
-);
-reveals.forEach((el) => revealObserver.observe(el));
-
-// ---------- Project media viewer (auto-detects how many images exist) ----------
-const PROJECT_MEDIA = {}; // { p1: { desktop: [...paths], mobile: [...paths], type: 'desktop', index: 0, video: '' } }
-
-function preloadSequence(basePath, prefix, max = 12) {
-  return new Promise((resolve) => {
-    const found = [];
-    let i = 1;
-    function tryNext() {
-      if (i > max) {
-        resolve(found);
-        return;
-      }
-      const num = String(i).padStart(2, "0");
-      const src = `${basePath}/${prefix}-${num}.png`;
-      const img = new Image();
-      img.onload = () => {
-        found.push(src);
-        i++;
-        tryNext();
-      };
-      img.onerror = () => resolve(found);
-      img.src = src;
+    function goToSlide(index) {
+      currentIndex = index;
+      updateSlider();
     }
-    tryNext();
+
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        currentIndex = (currentIndex + 1) % slides.length;
+        updateSlider();
+      });
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener("click", () => {
+        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        updateSlider();
+      });
+    }
   });
 }
-
-// ---------- Lightbox ----------
-function openLightbox(src) {
-  const lb = document.getElementById("lightbox");
-  document.getElementById("lightboxImg").src = src;
-  lb.classList.add("open");
-}
-function closeLightbox(e) {
-  if (e && e.target.id === "lightboxImg") return;
-  document.getElementById("lightbox").classList.remove("open");
-}
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closeLightbox();
-});
-
-function renderMedia(id) {
-  const state = PROJECT_MEDIA[id];
-  const viewer = document.getElementById(id + "-media");
-  const imgEl = viewer.querySelector(".media-img");
-  const counterEl = viewer.querySelector(".media-counter");
-  const videoStateEl = viewer.querySelector(".media-video-state");
-  const navBtns = viewer.querySelectorAll(".media-nav");
-
-  if (state.type === "video") {
-    imgEl.style.display = "none";
-    videoStateEl.style.display = "flex";
-    counterEl.style.display = "none";
-    navBtns.forEach((b) => (b.style.display = "none"));
-    return;
-  }
-
-  const list = state[state.type] || [];
-  videoStateEl.style.display = "none";
-  if (list.length === 0) {
-    imgEl.style.display = "none";
-    counterEl.style.display = "none";
-    navBtns.forEach((b) => (b.style.display = "none"));
-    return;
-  }
-  imgEl.style.display = "block";
-  imgEl.src = list[state.index];
-  imgEl.className =
-    "media-img " + (state.type === "mobile" ? "is-mobile" : "is-desktop");
-  const showNav = list.length > 1;
-  counterEl.style.display = showNav ? "block" : "none";
-  navBtns.forEach((b) => (b.style.display = showNav ? "flex" : "none"));
-  counterEl.textContent = `${state.index + 1} / ${list.length}`;
-}
-
-function mediaNav(id, dir) {
-  const state = PROJECT_MEDIA[id];
-  const list = state[state.type] || [];
-  if (list.length < 2) return;
-  state.index = (state.index + dir + list.length) % list.length;
-  renderMedia(id);
-}
-
-function setTab(btn, project, type) {
-  const group = btn.parentElement;
-  group
-    .querySelectorAll(".tab-btn")
-    .forEach((b) => b.classList.remove("active"));
-  btn.classList.add("active");
-  const map = { desk: "desktop", mob: "mobile", vid: "video" };
-  const state = PROJECT_MEDIA[project];
-  state.type = map[type];
-  state.index = 0;
-  renderMedia(project);
-}
-
-document.addEventListener("click", (e) => {
-  if (e.target.classList.contains("media-img") && e.target.src)
-    openLightbox(e.target.src);
-});
-
-function initVideoClicks() {
-  document.querySelectorAll(".media-viewer").forEach((viewer) => {
-    const id = viewer.id.replace("-media", "");
-    viewer.querySelector(".media-video-state").addEventListener("click", () => {
-      const state = PROJECT_MEDIA[id];
-      if (state && state.video) window.open(state.video, "_blank");
-    });
-  });
-}
-initVideoClicks();
-
-async function initProjectMedia() {
-  const viewers = document.querySelectorAll(".media-viewer");
-  for (const viewer of viewers) {
-    const id = viewer.id.replace("-media", "");
-    const projectSlug = viewer.dataset.project;
-    const video = viewer.dataset.video || "";
-    const base = `assets/projetos/${projectSlug}`;
-    const [desktop, mobile] = await Promise.all([
-      preloadSequence(`${base}/desktop`, "desktop"),
-      preloadSequence(`${base}/mobile`, "mobile"),
-    ]);
-    PROJECT_MEDIA[id] = { desktop, mobile, video, type: "desktop", index: 0 };
-    renderMedia(id);
-  }
-}
-initProjectMedia();
-
-// Copy email
-function copyEmail() {
-  navigator.clipboard.writeText("pedrogm.dev@gmail.com");
-  const el = document.getElementById("emailText");
-  const old = el.textContent;
-  el.textContent = "copiado!";
-  setTimeout(() => (el.textContent = old), 1500);
-}
-
-// Skill tap toggle (mobile-friendly: tap to reveal label)
-document.querySelectorAll(".skill-card").forEach((card) => {
-  card.addEventListener("click", () => card.classList.toggle("tapped"));
-});
-
-// Skill cards: pseudo-3D tilt following the mouse (desktop only)
-document.querySelectorAll("[data-tilt]").forEach((card) => {
-  card.addEventListener("mousemove", (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    card.style.transform = `perspective(300px) rotateY(${x * 22}deg) rotateX(${-y * 22}deg) scale(1.08)`;
-  });
-  card.addEventListener("mouseleave", () => {
-    card.style.transform = "perspective(300px) rotateY(0) rotateX(0) scale(1)";
-  });
-});
-
-// Coffee cup fills up as the page is scrolled
-const coffeeLiquid = document.getElementById("coffeeLiquid");
-const coffeeProgress = document.getElementById("coffeeProgress");
-const CUP_TOP = 11,
-  CUP_BOTTOM = 44; // interior bounds of the cup in the SVG
-const CUP_HEIGHT = CUP_BOTTOM - CUP_TOP;
-
-function updateCoffee() {
-  const scrollTop = window.scrollY;
-  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  const pct =
-    docHeight > 0
-      ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100))
-      : 0;
-  const liquidHeight = (pct / 100) * CUP_HEIGHT;
-  coffeeLiquid.setAttribute("height", liquidHeight);
-  coffeeLiquid.setAttribute("y", CUP_BOTTOM - liquidHeight);
-  coffeeProgress.classList.toggle("full", pct > 88);
-}
-window.addEventListener("scroll", updateCoffee);
-window.addEventListener("resize", updateCoffee);
-updateCoffee();
