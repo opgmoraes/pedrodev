@@ -1,31 +1,12 @@
-<!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trilha ZeloCamp | Desafio AgroStartup — Pedro Gabriel Gomes</title>
+import { usePortfolioEffects } from './usePortfolioEffects'
+import './portfolio.css'
 
-  <meta name="description" content="Acompanhe a trilha da ZeloCamp no Desafio AgroStartup SENAR/SEBRAE Goiás, da inscrição ao demoday.">
-  <link rel="icon" type="image/jpeg" href="../assets/perfil/foto-perfil.jpg">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=PT+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
-
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <link rel="stylesheet" href="../css/style.css">
-
-  <script src="../js/script.js" defer></script>
-</head>
-<body class="bg-[#0a0a0a] text-gray-100 antialiased selection:bg-white selection:text-black relative overflow-x-hidden">
-
-  <!-- Cursor Glow Follower -->
+const html = `  <!-- Cursor Glow Follower -->
   <div id="cursor-glow" class="pointer-events-none fixed -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-tr from-indigo-500/10 to-purple-500/10 rounded-full blur-3xl transition-opacity duration-500 z-0 opacity-0 md:opacity-100"></div>
 
   <!-- ================= NAV ================= -->
   <nav id="navbar" class="fixed top-0 w-full z-50 px-6 py-6 md:px-12 flex justify-between items-center transition-all duration-300 border-b border-transparent">
-    <a href="/pedrodev/#hero" class="text-sm font-semibold tracking-widest uppercase hover:text-gray-300 transition-colors relative z-50">Pedro Gomes</a>
+    <a href="/#hero" class="text-sm font-semibold tracking-widest uppercase hover:text-gray-300 transition-colors relative z-50">Pedro Gomes</a>
 
     <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white focus:outline-none relative z-50">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -34,26 +15,26 @@
     </button>
 
     <div class="text-xs tracking-widest uppercase text-gray-400 space-x-8 hidden md:flex relative z-50">
-      <a href="/pedrodev/#sobre" class="hover:text-white transition-colors">Sobre</a>
-      <a href="/pedrodev/#skills" class="hover:text-white transition-colors">Skills</a>
-      <a href="/pedrodev/#projetos" class="hover:text-white transition-colors">Projetos</a>
-      <a href="/pedrodev/trilha/" class="text-white transition-colors">Trilha</a>
-      <a href="/pedrodev/#contato" class="hover:text-white transition-colors">Contato</a>
+      <a href="/#sobre" class="hover:text-white transition-colors">Sobre</a>
+      <a href="/#skills" class="hover:text-white transition-colors">Skills</a>
+      <a href="/#projetos" class="hover:text-white transition-colors">Projetos</a>
+      <a href="/trilha" class="text-white transition-colors">Trilha</a>
+      <a href="/#contato" class="hover:text-white transition-colors">Contato</a>
     </div>
 
     <div id="mobile-menu" class="fixed inset-0 bg-[#0a0a0a]/90 backdrop-blur-xl flex-col items-center justify-center gap-8 text-sm tracking-widest uppercase text-gray-400 opacity-0 pointer-events-none transition-opacity duration-500 md:hidden flex z-40">
-      <a href="/pedrodev/#sobre" class="hover:text-white transition-colors mobile-link">Sobre</a>
-      <a href="/pedrodev/#skills" class="hover:text-white transition-colors mobile-link">Skills</a>
-      <a href="/pedrodev/#projetos" class="hover:text-white transition-colors mobile-link">Projetos</a>
-      <a href="/pedrodev/trilha/" class="text-white transition-colors mobile-link">Trilha</a>
-      <a href="/pedrodev/#contato" class="hover:text-white transition-colors mobile-link">Contato</a>
+      <a href="/#sobre" class="hover:text-white transition-colors mobile-link">Sobre</a>
+      <a href="/#skills" class="hover:text-white transition-colors mobile-link">Skills</a>
+      <a href="/#projetos" class="hover:text-white transition-colors mobile-link">Projetos</a>
+      <a href="/trilha" class="text-white transition-colors mobile-link">Trilha</a>
+      <a href="/#contato" class="hover:text-white transition-colors mobile-link">Contato</a>
     </div>
   </nav>
 
   <!-- ================= PAGE HEADER ================= -->
   <header class="pt-40 pb-8 px-6 md:px-12 relative z-10">
     <div class="max-w-4xl mx-auto w-full">
-      <a href="/pedrodev/" class="text-xs uppercase tracking-widest text-gray-500 hover:text-white transition-colors">← Voltar ao início</a>
+      <a href="/" class="text-xs uppercase tracking-widest text-gray-500 hover:text-white transition-colors">← Voltar ao início</a>
     </div>
   </header>
 
@@ -104,7 +85,7 @@
               Conhecemos de perto as principais dores dos produtores rurais e as cadeias produtivas do agro goiano. Foi aqui que idealizamos o primeiro modelo da solução que viria a se tornar a ZeloCamp.
             </p>
             <figure>
-              <img src="../assets/trilha/workshop.jpg" alt="Crachás do Desafio AgroStartup com os nomes Pedro e Renata" loading="lazy" class="rounded-lg w-full max-w-xs border border-gray-800/80">
+              <img src="./assets/trilha/workshop.jpg" alt="Crachás do Desafio AgroStartup com os nomes Pedro e Renata" loading="lazy" class="rounded-lg w-full max-w-xs border border-gray-800/80">
               <figcaption class="text-xs text-gray-500 mt-2 italic">Crachás em mãos — começava oficialmente nossa jornada no Desafio AgroStartup.</figcaption>
             </figure>
           </div>
@@ -128,15 +109,15 @@
             </p>
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
               <figure>
-                <img src="../assets/trilha/fotoequipe.jpg" alt="Equipe ZeloCamp reunida em Caldas Novas" loading="lazy" class="rounded-lg w-full aspect-[4/3] object-cover border border-gray-800/80">
+                <img src="./assets/trilha/fotoequipe.jpg" alt="Equipe ZeloCamp reunida em Caldas Novas" loading="lazy" class="rounded-lg w-full aspect-[4/3] object-cover border border-gray-800/80">
                 <figcaption class="text-[11px] text-gray-500 mt-2 italic">Equipe reunida em Caldas Novas para a Maratona de Inovação.</figcaption>
               </figure>
               <figure>
-                <img src="../assets/trilha/setup.jpg" alt="Setup de notebook e materiais do desafio na maratona" loading="lazy" class="rounded-lg w-full aspect-[4/3] object-cover border border-gray-800/80">
+                <img src="./assets/trilha/setup.jpg" alt="Setup de notebook e materiais do desafio na maratona" loading="lazy" class="rounded-lg w-full aspect-[4/3] object-cover border border-gray-800/80">
                 <figcaption class="text-[11px] text-gray-500 mt-2 italic">Setup de guerra: notebook, caderno e o kit oficial prontos pra maratona.</figcaption>
               </figure>
               <figure class="col-span-2 sm:col-span-1">
-                <img src="../assets/trilha/apresentando.jpg" alt="Equipe apresentando o pitch na Maratona de Inovação" loading="lazy" class="rounded-lg w-full aspect-[4/3] object-cover border border-gray-800/80">
+                <img src="./assets/trilha/apresentando.jpg" alt="Equipe apresentando o pitch na Maratona de Inovação" loading="lazy" class="rounded-lg w-full aspect-[4/3] object-cover border border-gray-800/80">
                 <figcaption class="text-[11px] text-gray-500 mt-2 italic">Apresentando "O Perigo Silencioso no Campo" — nosso primeiro pitch pra banca.</figcaption>
               </figure>
             </div>
@@ -165,11 +146,11 @@
             </p>
             <div class="grid grid-cols-2 gap-4 max-w-md">
               <figure>
-                <img src="../assets/trilha/calaca.jpg" alt="Slide do workshop com Francisco Calaça: Apaixone-se pelo problema, não pela solução" loading="lazy" class="rounded-lg w-full aspect-[9/16] object-cover border border-gray-800/80">
+                <img src="./assets/trilha/calaca.jpg" alt="Slide do workshop com Francisco Calaça: Apaixone-se pelo problema, não pela solução" loading="lazy" class="rounded-lg w-full aspect-[9/16] object-cover border border-gray-800/80">
                 <figcaption class="text-[11px] text-gray-500 mt-2 italic">"Apaixone-se pelo problema, não pela solução" — a lição que ficou do papo com Francisco Calaça.</figcaption>
               </figure>
               <figure>
-                <img src="../assets/trilha/aipathology.jpg" alt="Chamada remota do workshop com a startup AI Pathology presente" loading="lazy" class="rounded-lg w-full aspect-[9/16] object-cover border border-gray-800/80">
+                <img src="./assets/trilha/aipathology.jpg" alt="Chamada remota do workshop com a startup AI Pathology presente" loading="lazy" class="rounded-lg w-full aspect-[9/16] object-cover border border-gray-800/80">
                 <figcaption class="text-[11px] text-gray-500 mt-2 italic">Workshop remoto sobre negócios inovadores, com a AI Pathology acompanhando ao vivo.</figcaption>
               </figure>
             </div>
@@ -295,5 +276,9 @@
     </p>
   </footer>
 
-</body>
-</html>
+`
+
+export default function PortfolioTrilha() {
+  usePortfolioEffects()
+  return <div className="bg-[#0a0a0a] text-gray-100 antialiased selection:bg-white selection:text-black relative overflow-x-hidden" dangerouslySetInnerHTML={{ __html: html }} />
+}

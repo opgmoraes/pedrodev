@@ -1,0 +1,32 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Admin (autenticado) tem acesso total a clientes, projetos e orçamentos.
+    match /clients/{clientId} {
+      allow read, write: if request.auth != null;
+      // Área do cliente pública: consegue ler pelo slug (via query "where slug ==")
+      // mas NUNCA listar a coleção inteira sem autenticação.
+      allow list: if request.auth != null
+        || (request.query.limit <= 1 && 'slug' in request.query.filters);
+      allow get: if true; // leitura direta por ID (não usada pelo app, mas liberada)
+    }
+
+    match /projects/{projectId} {
+      allow read, write: if request.auth != null;
+      allow list: if request.auth != null
+        || (request.query.limit <= 1 && 'clientId' in request.query.filters);
+    }
+
+    match /quotes/{quoteId} {
+      allow read, write: if request.auth != null;
+    }
+
+    // Briefing: qualquer visitante pode CRIAR (enviar formulário),
+    // mas só admin autenticado pode LER as respostas.
+    match /formSubmissions/{subId} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+  }
+}

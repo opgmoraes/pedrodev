@@ -1,0 +1,177 @@
+/* ==========================================================================
+   VARIÁVEIS & CONFIGURAÇÃO GLOBAL
+   ========================================================================== */
+:root {
+  --ease-editorial: cubic-bezier(0.23, 1, 0.32, 1);
+  --transition-slow: 700ms var(--ease-editorial);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.serif-text {
+  font-family: 'PT Serif', serif;
+  font-style: italic;
+}
+
+/* ==========================================================================
+   ANIMAÇÃO DA FOTO DE PERFIL (P&B -> COR + GLOW)
+   ========================================================================== */
+.profile-img {
+  filter: grayscale(100%) contrast(110%);
+  transition: filter 800ms var(--ease-editorial), transform 800ms var(--ease-editorial);
+}
+
+.profile-card:hover .profile-img {
+  filter: grayscale(0%) contrast(100%);
+}
+
+.profile-card::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.4), rgba(255,255,255,0.1));
+  border-radius: 1rem;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 600ms ease;
+}
+
+.profile-card:hover::before {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   SKILL BADGES (INTERAÇÃO)
+   ========================================================================== */
+.skill-badge {
+  transition: all 300ms var(--ease-editorial);
+}
+
+.skill-badge:hover {
+  transform: translateY(-2px);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* ==========================================================================
+   SCROLL REVEAL & STAGGER
+   ========================================================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(35px);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+  will-change: opacity, transform;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-item {
+  opacity: 0;
+  transform: translateY(25px);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+  will-change: opacity, transform;
+}
+
+.stagger-container.active .stagger-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-container.active .stagger-item:nth-child(1) { transition-delay: 80ms; }
+.stagger-container.active .stagger-item:nth-child(2) { transition-delay: 160ms; }
+.stagger-container.active .stagger-item:nth-child(3) { transition-delay: 240ms; }
+.stagger-container.active .stagger-item:nth-child(4) { transition-delay: 320ms; }
+.stagger-container.active .stagger-item:nth-child(5) { transition-delay: 400ms; }
+
+/* ==========================================================================
+   SLIDER DE PROJETO
+   ========================================================================== */
+.slider-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: all 300ms ease;
+  cursor: pointer;
+}
+
+.slider-dot.active {
+  background-color: #ffffff;
+  width: 18px;
+  border-radius: 99px;
+}
+
+/* Hover em Links */
+.link-hover {
+  position: relative;
+}
+
+.link-hover::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: currentColor;
+  transform-origin: bottom right;
+  transition: transform 0.4s var(--ease-editorial);
+}
+
+.link-hover:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* Navbar Scrolled */
+.nav-scrolled {
+  background-color: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  padding-top: 1.25rem !important;
+  padding-bottom: 1.25rem !important;
+}
+
+/* Mobile Motion Safety */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .stagger-item, #cursor-glow {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Trilha - Accordion */
+.trilha-item summary::-webkit-details-marker {
+  display: none;
+}
+.trilha-item summary {
+  -webkit-tap-highlight-color: transparent;
+}
+.trilha-item summary:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+.trilha-item .chevron {
+  display: inline-block;
+}
+.trilha-item[open] .chevron {
+  transform: rotate(180deg);
+}
+.trilha-item[open] summary {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.trilha-item figure img {
+  transition: transform 0.4s ease;
+}
+.trilha-item figure:hover img {
+  transform: scale(1.03);
+}

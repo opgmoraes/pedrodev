@@ -1,0 +1,13 @@
+# dependências
+node_modules/
+
+# variáveis de ambiente (contém config do Firebase — não sobe pro Git)
+.env
+.env.local
+
+# build
+dist/
+
+# editores/SO
+.DS_Store
+*.log
