@@ -1,9 +1,4 @@
 {
   "outputDirectory": "dist",
-  "rewrites": [
-    { "source": "/login", "destination": "/app/index.html" },
-    { "source": "/admin", "destination": "/app/index.html" },
-    { "source": "/admin/:path*", "destination": "/app/index.html" },
-    { "source": "/cliente/:slug", "destination": "/app/index.html" }
-  ]
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
