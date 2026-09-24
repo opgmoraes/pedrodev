@@ -234,7 +234,7 @@ const html = `  <!-- Cursor Glow Follower -->
             <a href="https://www.usebitto.com" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-2 text-xs uppercase tracking-widest link-hover pb-1 font-semibold">
               Acessar Plataforma <span class="group-hover:translate-x-1 transition-transform">↗</span>
             </a>
-            <a href="https://wa.me/5561993359477?text=Ol%C3%A1%20Pedro%2C%20gostaria%20de%20solicitar%20acesso%20ao%20reposit%C3%B3rio%20do%20bitto." target="_blank" rel="noopener noreferrer" class="text-xs text-gray-500 uppercase tracking-widest hover:text-white transition-colors">
+            <a href="https://wa.me/5561936182176?text=Ol%C3%A1%20Pedro%2C%20gostaria%20de%20solicitar%20acesso%20ao%20reposit%C3%B3rio%20do%20bitto." target="_blank" rel="noopener noreferrer" class="text-xs text-gray-500 uppercase tracking-widest hover:text-white transition-colors">
               Repositório
             </a>
           </div>
@@ -271,7 +271,7 @@ const html = `  <!-- Cursor Glow Follower -->
             <a href="https://www.cinegift.com.br/" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-2 text-xs uppercase tracking-widest link-hover pb-1 font-semibold">
               Acessar Plataforma <span class="group-hover:translate-x-1 transition-transform">↗</span>
             </a>
-            <a href="https://wa.me/5561993359477?text=Ol%C3%A1%20Pedro%2C%20gostaria%20de%20solicitar%20acesso%20ao%20reposit%C3%B3rio%20do%20CineGift." target="_blank" rel="noopener noreferrer" class="text-xs text-gray-500 uppercase tracking-widest hover:text-white transition-colors">
+            <a href="https://wa.me/5561936182176?text=Ol%C3%A1%20Pedro%2C%20gostaria%20de%20solicitar%20acesso%20ao%20reposit%C3%B3rio%20do%20CineGift." target="_blank" rel="noopener noreferrer" class="text-xs text-gray-500 uppercase tracking-widest hover:text-white transition-colors">
               Repositório
             </a>
           </div>
@@ -307,7 +307,7 @@ const html = `  <!-- Cursor Glow Follower -->
             MicroSaaS focado na gestão contábil moderna: CRM de clientes, pipeline Kanban de tarefas, gestão financeira e cofre de documentos em nuvem.
           </p>
           <div class="flex gap-6">
-            <a href="https://wa.me/5561993359477?text=Ol%C3%A1%20Pedro%2C%20gostaria%20de%20solicitar%20acesso%20ao%20reposit%C3%B3rio%20do%20Kont%20Hub." target="_blank" rel="noopener noreferrer" class="group flex items-center gap-2 text-xs uppercase tracking-widest link-hover pb-1 font-semibold">
+            <a href="https://wa.me/5561936182176?text=Ol%C3%A1%20Pedro%2C%20gostaria%20de%20solicitar%20acesso%20ao%20reposit%C3%B3rio%20do%20Kont%20Hub." target="_blank" rel="noopener noreferrer" class="group flex items-center gap-2 text-xs uppercase tracking-widest link-hover pb-1 font-semibold">
               Solicitar Repositório <span class="group-hover:translate-x-1 transition-transform">→</span>
             </a>
           </div>
@@ -373,7 +373,7 @@ const html = `  <!-- Cursor Glow Follower -->
         <!-- CARDS DE CANAIS DIRETO -->
         <div class="stagger-item grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
           
-          <a href="https://wa.me/5561993359477?text=Ol%C3%A1%20Pedro%2C%20vi%20seu%20portf%C3%B3lio%2C%20vamos%20conversar%3F" target="_blank" rel="noopener noreferrer" class="group p-6 rounded-xl bg-[#121215] border border-gray-800/80 hover:border-emerald-500/50 hover:bg-[#16161b] transition-all text-left">
+          <a href="https://wa.me/5561936182176?text=Ol%C3%A1%20Pedro%2C%20vi%20seu%20portf%C3%B3lio%2C%20vamos%20conversar%3F" target="_blank" rel="noopener noreferrer" class="group p-6 rounded-xl bg-[#121215] border border-gray-800/80 hover:border-emerald-500/50 hover:bg-[#16161b] transition-all text-left">
             <div class="flex justify-between items-center mb-4">
               <svg class="w-6 h-6" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.001 2C6.478 2 2 6.478 2 12c0 1.821.487 3.53 1.338 5.003L2.05 22l5.144-1.302C8.622 21.526 10.263 22 12.001 22 17.523 22 22 17.522 22 12S17.523 2 12.001 2zm0 18.153c-1.583 0-3.05-.462-4.29-1.257l-.308-.19-3.076.78.802-3.02-.202-.31A8.13 8.13 0 013.848 12c0-4.494 3.659-8.153 8.153-8.153 4.494 0 8.153 3.659 8.153 8.153 0 4.494-3.659 8.153-8.153 8.153z"/></svg>
               <span class="text-xs text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity">Conversar →</span>
