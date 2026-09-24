@@ -7,6 +7,7 @@ const links = [
   { to: '/admin/clientes', label: 'admin / clientes' },
   { to: '/admin/projetos', label: 'admin / projetos' },
   { to: '/admin/orcamentos', label: 'admin / orcamentos' },
+  { to: '/admin/contratos', label: 'admin / contratos' },
   { to: '/admin/formularios', label: 'admin / formularios' },
 ]
 

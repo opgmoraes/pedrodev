@@ -33,6 +33,7 @@ export function generateProposalPdf(params: {
   clientName: string
   company?: string
   service: string
+  items?: string[]
   value: number
   deadlineDays: number
 }) {
@@ -48,6 +49,7 @@ export function generateProposalPdf(params: {
     '',
     'Escopo do serviço:',
     params.service,
+    ...(params.items && params.items.length > 0 ? params.items.map((i) => `• ${i}`) : []),
     '',
     `Valor: R$ ${params.value.toFixed(2)}`,
     `Prazo estimado: ${params.deadlineDays} dias corridos a partir da confirmação`,
@@ -73,6 +75,7 @@ export function generateContractPdf(params: {
   document?: string
   address?: string
   service: string
+  items?: string[]
   value: number
   deadlineDays: number
 }) {
@@ -93,6 +96,7 @@ export function generateContractPdf(params: {
     '',
     'OBJETO DO CONTRATO:',
     params.service,
+    ...(params.items && params.items.length > 0 ? params.items.map((i) => `• ${i}`) : []),
     '',
     'VALOR E CONDIÇÕES DE PAGAMENTO:',
     `R$ ${params.value.toFixed(2)}, conforme condições acordadas entre as partes.`,

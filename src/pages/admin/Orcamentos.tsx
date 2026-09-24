@@ -3,6 +3,8 @@ import { collection, addDoc, getDocs, orderBy, query, serverTimestamp } from 'fi
 import { db } from '../../lib/firebaseClient'
 import { buildWhatsappLink, templates } from '../../lib/whatsapp'
 import { generateProposalPdf, generateContractPdf } from '../../lib/pdf'
+import { SERVICOS, getServiceById } from '../../lib/services'
+import { generateSlug } from '../../lib/slug'
 
 type Client = { id: string; name: string; phone: string; company?: string; document?: string; address?: string }
 type Quote = {
@@ -13,16 +15,36 @@ type Quote = {
   clientCompany?: string
   clientDocument?: string
   clientAddress?: string
+  serviceId?: string
   service: string
+  items?: string[]
   value: number
   deadlineDays: number
+  slug?: string
+  status?: 'pendente' | 'aprovado' | 'recusado'
 }
 
 export default function Orcamentos() {
   const [clients, setClients] = useState<Client[]>([])
-  const [form, setForm] = useState({ clientId: '', service: '', value: '', deadlineDays: '' })
+  const [form, setForm] = useState({ clientId: '', serviceId: '', service: '', items: '', value: '', deadlineDays: '' })
   const [quotes, setQuotes] = useState<Quote[]>([])
   const [loading, setLoading] = useState(false)
+
+  function handleServiceSelect(serviceId: string) {
+    const svc = getServiceById(serviceId)
+    if (!svc) {
+      setForm({ ...form, serviceId: '', service: '', items: '' })
+      return
+    }
+    setForm({
+      ...form,
+      serviceId,
+      service: svc.titulo,
+      items: svc.itens.join('\n'),
+      value: form.value || String(svc.precoInicialSugerido),
+      deadlineDays: form.deadlineDays || String(svc.prazoSugeridoDias),
+    })
+  }
 
   async function load() {
     const [cSnap, qSnap] = await Promise.all([
@@ -54,9 +76,13 @@ export default function Orcamentos() {
           clientCompany: client?.company,
           clientDocument: client?.document,
           clientAddress: client?.address,
+          serviceId: data.serviceId,
           service: data.service,
+          items: data.items ?? [],
           value: data.value,
           deadlineDays: data.deadlineDays,
+          slug: data.slug,
+          status: data.status ?? 'pendente',
         }
       })
     )
@@ -69,21 +95,32 @@ export default function Orcamentos() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
+    const client = clients.find((c) => c.id === form.clientId)
     await addDoc(collection(db, 'quotes'), {
       clientId: form.clientId,
+      // Snapshot do cliente no momento da criação: a página pública de
+      // proposta lê só este documento (sem auth), então precisa ter tudo
+      // que vai exibir já aqui dentro.
+      clientName: client?.name ?? null,
+      clientCompany: client?.company ?? null,
+      serviceId: form.serviceId || null,
       service: form.service,
+      items: form.items ? form.items.split('\n').map((i) => i.trim()).filter(Boolean) : [],
       value: Number(form.value),
       deadlineDays: Number(form.deadlineDays),
+      slug: generateSlug(),
+      status: 'pendente',
       createdAt: serverTimestamp(),
     })
-    setForm({ clientId: '', service: '', value: '', deadlineDays: '' })
+    setForm({ clientId: '', serviceId: '', service: '', items: '', value: '', deadlineDays: '' })
     setLoading(false)
     load()
   }
 
   function whatsappOrcamento(q: Quote) {
     if (!q.clientPhone || !q.clientName) return null
-    return buildWhatsappLink(q.clientPhone, templates.orcamento(q.clientName, q.service, q.value, q.deadlineDays))
+    const link = q.slug ? `${window.location.origin}/proposta/${q.slug}` : undefined
+    return buildWhatsappLink(q.clientPhone, templates.orcamento(q.clientName, q.service, q.value, q.deadlineDays, link))
   }
 
   function whatsappFollowUp(q: Quote) {
@@ -97,6 +134,7 @@ export default function Orcamentos() {
       clientName: q.clientName,
       company: q.clientCompany,
       service: q.service,
+      items: q.items,
       value: q.value,
       deadlineDays: q.deadlineDays,
     })
@@ -109,6 +147,7 @@ export default function Orcamentos() {
       document: q.clientDocument,
       address: q.clientAddress,
       service: q.service,
+      items: q.items,
       value: q.value,
       deadlineDays: q.deadlineDays,
     })
@@ -122,7 +161,7 @@ export default function Orcamentos() {
         <div className="card">
           <table>
             <thead>
-              <tr><th>cliente</th><th>serviço</th><th>valor</th><th>prazo</th><th>ações</th></tr>
+              <tr><th>cliente</th><th>serviço</th><th>valor</th><th>prazo</th><th>status</th><th>ações</th></tr>
             </thead>
             <tbody>
               {quotes.map((q) => {
@@ -131,10 +170,52 @@ export default function Orcamentos() {
                 return (
                   <tr key={q.id}>
                     <td>{q.clientName ?? '—'}</td>
-                    <td>{q.service}</td>
+                    <td>
+                      {q.service}
+                      {q.items && q.items.length > 0 && (
+                        <details style={{ marginTop: 4 }}>
+                          <summary style={{ cursor: 'pointer', fontSize: 11, color: 'var(--text-muted)' }}>
+                            {q.items.length} itens
+                          </summary>
+                          <ul style={{ margin: '6px 0 0', paddingLeft: 16, fontSize: 12, color: 'var(--text-muted)' }}>
+                            {q.items.map((it) => <li key={it}>{it}</li>)}
+                          </ul>
+                        </details>
+                      )}
+                    </td>
                     <td>R$ {q.value}</td>
                     <td>{q.deadlineDays}d</td>
+                    <td>
+                      <span
+                        className="badge"
+                        style={
+                          q.status === 'aprovado'
+                            ? { borderColor: 'var(--accent)', color: 'var(--accent)' }
+                            : q.status === 'recusado'
+                            ? { borderColor: '#f87171', color: '#f87171' }
+                            : undefined
+                        }
+                      >
+                        {q.status ?? 'pendente'}
+                      </span>
+                    </td>
                     <td style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                      {q.slug && (
+                        <>
+                          <a href={`/proposta/${q.slug}`} target="_blank" rel="noreferrer">
+                            <span className="badge">ver proposta</span>
+                          </a>
+                          <span
+                            className="badge"
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => {
+                              navigator.clipboard.writeText(`${window.location.origin}/proposta/${q.slug}`)
+                            }}
+                          >
+                            copiar link
+                          </span>
+                        </>
+                      )}
                       {linkOrcamento && (
                         <>
                           <a href={linkOrcamento} target="_blank" rel="noreferrer">
@@ -155,7 +236,7 @@ export default function Orcamentos() {
                   </tr>
                 )
               })}
-              {quotes.length === 0 && <tr><td colSpan={5} style={{ color: 'var(--text-muted)' }}>nenhum orçamento ainda</td></tr>}
+              {quotes.length === 0 && <tr><td colSpan={6} style={{ color: 'var(--text-muted)' }}>nenhum orçamento ainda</td></tr>}
             </tbody>
           </table>
         </div>
@@ -166,10 +247,35 @@ export default function Orcamentos() {
             <option value="">selecione</option>
             {clients.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
           </select>
-          <label>serviço / escopo</label>
+          <label>serviço do catálogo</label>
+          <select value={form.serviceId} onChange={(e) => handleServiceSelect(e.target.value)}>
+            <option value="">personalizado (sem catálogo)</option>
+            {SERVICOS.map((s) => (
+              <option key={s.id} value={s.id}>
+                {s.titulo} · sugestão R$ {s.faixaValor.min}–{s.faixaValor.max}
+              </option>
+            ))}
+          </select>
+
+          <label>nome do serviço (aparece pro cliente)</label>
           <input value={form.service} onChange={(e) => setForm({ ...form, service: e.target.value })} required />
+
+          <label>escopo / itens inclusos (um por linha)</label>
+          <textarea
+            value={form.items}
+            onChange={(e) => setForm({ ...form, items: e.target.value })}
+            rows={6}
+            style={{ width: '100%', resize: 'vertical' }}
+          />
+
           <label>valor (R$)</label>
           <input type="number" value={form.value} onChange={(e) => setForm({ ...form, value: e.target.value })} required />
+          {form.serviceId && (
+            <p style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: -8 }}>
+              Faixa sugerida pro catálogo: R$ {getServiceById(form.serviceId)?.faixaValor.min}–{getServiceById(form.serviceId)?.faixaValor.max}
+            </p>
+          )}
+
           <label>prazo (dias)</label>
           <input type="number" value={form.deadlineDays} onChange={(e) => setForm({ ...form, deadlineDays: e.target.value })} required />
           <button style={{ marginTop: 20 }} disabled={loading}>{loading ? 'salvando…' : 'criar orçamento'}</button>

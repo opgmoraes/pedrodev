@@ -10,6 +10,9 @@ const PortfolioTrilha = lazy(() => import('./portfolio/PortfolioTrilha'))
 const PortfolioStartup = lazy(() => import('./portfolio/PortfolioStartup'))
 const Login = lazy(() => import('./pages/Login'))
 const ClienteArea = lazy(() => import('./pages/ClienteArea'))
+const PropostaPublica = lazy(() => import('./pages/public/PropostaPublica'))
+const ContratoPublico = lazy(() => import('./pages/public/ContratoPublico'))
+const Contratos = lazy(() => import('./pages/admin/Contratos'))
 const AdminLayout = lazy(() => import('./components/AdminLayout'))
 const Dashboard = lazy(() => import('./pages/admin/Dashboard'))
 const Clientes = lazy(() => import('./pages/admin/Clientes'))
@@ -36,6 +39,8 @@ export default function App() {
         <Route path="/startup" element={<PortfolioStartup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cliente/:slug" element={<ClienteArea />} />
+        <Route path="/proposta/:slug" element={<PropostaPublica />} />
+        <Route path="/contrato/:slug" element={<ContratoPublico />} />
 
         <Route
           path="/admin"
@@ -50,6 +55,7 @@ export default function App() {
           <Route path="clientes/:id" element={<ClienteDetalhe />} />
           <Route path="projetos" element={<Projetos />} />
           <Route path="orcamentos" element={<Orcamentos />} />
+          <Route path="contratos" element={<Contratos />} />
           <Route path="formularios" element={<Formularios />} />
         </Route>
       </Routes>
