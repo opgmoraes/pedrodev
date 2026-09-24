@@ -1,10 +1,43 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 
 const WHATS_NUMBER = '5561936182176'
+const EMAIL = 'pedrogm.dev@gmail.com'
+const INSTAGRAM_URL = 'https://www.instagram.com/pedrogm.dev/'
 
 function waLink(message: string) {
   return `https://wa.me/${WHATS_NUMBER}?text=${encodeURIComponent(message)}`
+}
+
+// Revela a seção com um fade + leve subida quando ela entra na tela —
+// dispara uma vez só (não fica escondendo/mostrando ao rolar pra cima e
+// pra baixo) e respeita quem prefere menos movimento na tela.
+function Reveal({ children, className = '' }: { children: ReactNode; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.15 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div ref={ref} className={`reveal ${visible ? 'is-visible' : ''} ${className}`}>
+      {children}
+    </div>
+  )
 }
 
 // Paleta: creme/grafite alternados (nunca só escuro), com azul como
@@ -125,6 +158,7 @@ export default function SalesLandingPage() {
           <a href="#como-funciona" className="hover:opacity-70 transition-opacity">Como funciona</a>
           <a href="#provas" className="hover:opacity-70 transition-opacity">O que já construí</a>
           <a href="#faq" className="hover:opacity-70 transition-opacity">Dúvidas</a>
+          <a href="#contato" className="hover:opacity-70 transition-opacity">Contato</a>
           <Link to="/portifolio" className="hover:opacity-70 transition-opacity">Portfólio</Link>
           <a
             href={waLink('Olá Pedro, vim pelo site e quero saber mais sobre um projeto.')}
@@ -152,6 +186,7 @@ export default function SalesLandingPage() {
           <a onClick={() => setMenuOpen(false)} href="#como-funciona">Como funciona</a>
           <a onClick={() => setMenuOpen(false)} href="#provas">O que já construí</a>
           <a onClick={() => setMenuOpen(false)} href="#faq">Dúvidas</a>
+          <a onClick={() => setMenuOpen(false)} href="#contato">Contato</a>
           <Link onClick={() => setMenuOpen(false)} to="/portifolio">Portfólio</Link>
         </div>
       )}
@@ -159,23 +194,23 @@ export default function SalesLandingPage() {
       {/* HERO — claro */}
       <section id="topo" className="min-h-screen flex flex-col justify-center px-6 md:px-12 pt-32 pb-20">
         <div className="max-w-4xl mx-auto w-full text-center">
-          <div className="mb-8 flex items-center justify-center gap-3">
+          <div className="mb-8 flex items-center justify-center gap-3 hero-fade-1">
             <span className="w-2 h-2 rounded-full" style={{ background: AZUL }} />
             <p className="text-xs tracking-widest uppercase" style={{ color: 'rgba(21,21,15,0.55)' }}>
               Disponível para novos projetos
             </p>
           </div>
 
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-medium leading-[1.15] tracking-tight mb-6">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-medium leading-[1.15] tracking-tight mb-6 hero-fade-2">
             Site, sistema ou atendimento{' '}
             <em className="font-serif" style={{ color: AZUL, fontStyle: 'italic' }}>travando</em> o seu negócio?
           </h1>
 
-          <p className="max-w-xl mx-auto text-lg md:text-xl leading-relaxed font-light mb-12" style={{ color: 'rgba(21,21,15,0.65)' }}>
+          <p className="max-w-xl mx-auto text-lg md:text-xl leading-relaxed font-light mb-12 hero-fade-3" style={{ color: 'rgba(21,21,15,0.65)' }}>
             Eu resolvo isso — sob medida, com prazo e valor definidos antes de começar.
           </p>
 
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 hero-fade-4">
             <a
               href={waLink('Olá Pedro, vim pelo site e quero entender como você pode ajudar meu negócio.')}
               target="_blank"
@@ -198,7 +233,7 @@ export default function SalesLandingPage() {
 
       {/* SERVIÇOS — escuro */}
       <section id="servicos" className="py-28 px-6 md:px-12" style={{ background: GRAFITE, color: CREME }}>
-        <div className="max-w-7xl mx-auto w-full">
+        <Reveal className="max-w-7xl mx-auto w-full">
           <div className="mb-16 text-center max-w-2xl mx-auto">
             <Crumb dark>o que eu faço</Crumb>
             <h2 className="text-3xl md:text-5xl font-medium mb-4">
@@ -213,7 +248,7 @@ export default function SalesLandingPage() {
             {SERVICOS.map((s) => (
               <div
                 key={s.titulo}
-                className="p-8 rounded-2xl border flex flex-col transition-colors"
+                className="p-8 rounded-2xl border flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                 style={{ background: CARD_ESCURO, borderColor: 'rgba(237,234,226,0.08)' }}
               >
                 {s.tag && (
@@ -248,12 +283,12 @@ export default function SalesLandingPage() {
               </div>
             ))}
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* COMO FUNCIONA — claro */}
       <section id="como-funciona" className="py-28 px-6 md:px-12">
-        <div className="max-w-6xl mx-auto w-full">
+        <Reveal className="max-w-6xl mx-auto w-full">
           <div className="mb-16 text-center max-w-2xl mx-auto">
             <Crumb>o processo</Crumb>
             <h2 className="text-3xl md:text-5xl font-medium mb-4">Como funciona</h2>
@@ -261,19 +296,19 @@ export default function SalesLandingPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {COMO_FUNCIONA.map((step) => (
-              <div key={step.n}>
+              <div key={step.n} className="transition-transform duration-300 hover:-translate-y-1">
                 <span className="text-4xl font-medium font-serif italic" style={{ color: `${GRAFITE}33` }}>{step.n}</span>
                 <h3 className="text-lg font-semibold mt-4 mb-2">{step.t}</h3>
                 <p className="text-sm leading-relaxed" style={{ color: 'rgba(21,21,15,0.6)' }}>{step.d}</p>
               </div>
             ))}
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* PARA QUEM — cartões cinza-azulado sobre claro, como os cards "sage" do Jonas */}
       <section className="py-28 px-6 md:px-12" style={{ background: '#E3E0D6' }}>
-        <div className="max-w-4xl mx-auto w-full">
+        <Reveal className="max-w-4xl mx-auto w-full">
           <div className="mb-16 text-center">
             <Crumb>o encaixe</Crumb>
             <h2 className="text-3xl md:text-5xl font-medium mb-4">
@@ -302,27 +337,27 @@ export default function SalesLandingPage() {
               </ul>
             </div>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* PROVA — escuro */}
       <section id="provas" className="py-28 px-6 md:px-12" style={{ background: GRAFITE, color: CREME }}>
-        <div className="max-w-6xl mx-auto w-full">
+        <Reveal className="max-w-6xl mx-auto w-full">
           <div className="mb-16 text-center max-w-2xl mx-auto">
             <Crumb dark>construído do zero</Crumb>
             <h2 className="text-3xl md:text-5xl font-medium mb-4">O que eu já construí</h2>
             <p className="text-lg font-light" style={{ color: 'rgba(237,234,226,0.6)' }}>Plataformas completas, do zero ao ar.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-xl border" style={{ background: CARD_ESCURO, borderColor: 'rgba(237,234,226,0.08)' }}>
+            <div className="p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" style={{ background: CARD_ESCURO, borderColor: 'rgba(237,234,226,0.08)' }}>
               <h4 className="font-semibold mb-2">BITTO</h4>
               <p className="text-sm" style={{ color: 'rgba(237,234,226,0.6)' }}>Plataforma de estudos com IA — transforma qualquer material em flashcards, quizzes e resumos.</p>
             </div>
-            <div className="p-6 rounded-xl border" style={{ background: CARD_ESCURO, borderColor: 'rgba(237,234,226,0.08)' }}>
+            <div className="p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" style={{ background: CARD_ESCURO, borderColor: 'rgba(237,234,226,0.08)' }}>
               <h4 className="font-semibold mb-2">CineGift</h4>
               <p className="text-sm" style={{ color: 'rgba(237,234,226,0.6)' }}>Experiência digital que transforma fotos e vídeos em um ingresso de cinema personalizado.</p>
             </div>
-            <div className="p-6 rounded-xl border" style={{ background: CARD_ESCURO, borderColor: 'rgba(237,234,226,0.08)' }}>
+            <div className="p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" style={{ background: CARD_ESCURO, borderColor: 'rgba(237,234,226,0.08)' }}>
               <h4 className="font-semibold mb-2">Kont Hub</h4>
               <p className="text-sm" style={{ color: 'rgba(237,234,226,0.6)' }}>Sistema de gestão contábil: CRM, pipeline de tarefas, financeiro e cofre de documentos.</p>
             </div>
@@ -331,12 +366,12 @@ export default function SalesLandingPage() {
             Quer ver a história completa por trás desses projetos?{' '}
             <Link to="/portifolio" className="underline hover:opacity-70 transition-opacity" style={{ color: CREME }}>Conheça meu portfólio</Link>
           </p>
-        </div>
+        </Reveal>
       </section>
 
       {/* FAQ — claro */}
       <section id="faq" className="py-28 px-6 md:px-12">
-        <div className="max-w-3xl mx-auto w-full">
+        <Reveal className="max-w-3xl mx-auto w-full">
           <div className="mb-16 text-center">
             <Crumb>dúvidas</Crumb>
             <h2 className="text-3xl md:text-5xl font-medium mb-4">Perguntas que todo mundo faz</h2>
@@ -356,12 +391,12 @@ export default function SalesLandingPage() {
               </details>
             ))}
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* CTA FINAL — escuro */}
       <section className="py-28 px-6 md:px-12" style={{ background: GRAFITE, color: CREME }}>
-        <div className="max-w-3xl mx-auto w-full text-center">
+        <Reveal className="max-w-3xl mx-auto w-full text-center">
           <h2 className="text-4xl md:text-6xl font-medium mb-6">
             Bora <em style={{ color: AZUL, fontStyle: 'italic' }} className="font-serif">resolver</em> isso?
           </h2>
@@ -377,7 +412,45 @@ export default function SalesLandingPage() {
           >
             Falar com Pedro agora <span>→</span>
           </a>
-        </div>
+        </Reveal>
+      </section>
+
+      {/* CONTATO — claro */}
+      <section id="contato" className="py-24 px-6 md:px-12">
+        <Reveal className="max-w-3xl mx-auto w-full text-center">
+          <Crumb>fale comigo</Crumb>
+          <h2 className="text-2xl md:text-3xl font-medium mb-10">Outros jeitos de me encontrar</h2>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a
+              href={waLink('Olá Pedro, vim pelo site e quero conversar sobre um projeto.')}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-6 py-3 rounded-full border text-sm font-medium hover:opacity-70 transition-opacity"
+              style={{ borderColor: 'rgba(21,21,15,0.2)' }}
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.03c-.24.68-1.4 1.3-1.93 1.38-.5.08-1.13.11-1.82-.11-.42-.13-.96-.31-1.65-.6-2.9-1.25-4.79-4.17-4.94-4.36-.14-.2-1.18-1.57-1.18-3 0-1.42.75-2.12 1.01-2.41.27-.29.58-.36.78-.36.19 0 .39 0 .56.01.18.01.42-.07.65.5.24.58.82 2 .89 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.48-.14.14-.28.29-.12.56.16.28.71 1.17 1.52 1.9 1.05.94 1.93 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.18-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.13.07.72-.17 1.4z" /></svg>
+              WhatsApp
+            </a>
+            <a
+              href={`mailto:${EMAIL}`}
+              className="flex items-center gap-2 px-6 py-3 rounded-full border text-sm font-medium hover:opacity-70 transition-opacity"
+              style={{ borderColor: 'rgba(21,21,15,0.2)' }}
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75l9.75 6.75 9.75-6.75M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25h-15A2.25 2.25 0 002.25 6.75v10.5A2.25 2.25 0 004.5 19.5z" /></svg>
+              {EMAIL}
+            </a>
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-6 py-3 rounded-full border text-sm font-medium hover:opacity-70 transition-opacity"
+              style={{ borderColor: 'rgba(21,21,15,0.2)' }}
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" /></svg>
+              @pedrogm.dev
+            </a>
+          </div>
+        </Reveal>
       </section>
 
       {/* FOOTER — claro */}
@@ -396,8 +469,8 @@ export default function SalesLandingPage() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Falar no WhatsApp"
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity"
-        style={{ background: AZUL, boxShadow: `0 8px 24px ${AZUL}55` }}
+        className="whatsapp-pulse fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center hover:opacity-90 transition-opacity"
+        style={{ background: AZUL }}
       >
         <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
           <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.03c-.24.68-1.4 1.3-1.93 1.38-.5.08-1.13.11-1.82-.11-.42-.13-.96-.31-1.65-.6-2.9-1.25-4.79-4.17-4.94-4.36-.14-.2-1.18-1.57-1.18-3 0-1.42.75-2.12 1.01-2.41.27-.29.58-.36.78-.36.19 0 .39 0 .56.01.18.01.42-.07.65.5.24.58.82 2 .89 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.48-.14.14-.28.29-.12.56.16.28.71 1.17 1.52 1.9 1.05.94 1.93 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.18-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.13.07.72-.17 1.4z" />

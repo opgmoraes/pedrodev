@@ -20,6 +20,37 @@ body {
   font-family: var(--sans);
 }
 .mono { font-family: var(--mono); }
+
+/* Animações da landing de vendas */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes pulseRing {
+  0% { box-shadow: 0 0 0 0 rgba(47, 93, 255, 0.45); }
+  70% { box-shadow: 0 0 0 16px rgba(47, 93, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(47, 93, 255, 0); }
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+.hero-fade-1 { animation: fadeInUp 0.7s ease both; }
+.hero-fade-2 { animation: fadeInUp 0.7s ease 0.12s both; }
+.hero-fade-3 { animation: fadeInUp 0.7s ease 0.24s both; }
+.hero-fade-4 { animation: fadeInUp 0.7s ease 0.36s both; }
+.whatsapp-pulse { animation: pulseRing 2.5s ease-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .hero-fade-1, .hero-fade-2, .hero-fade-3, .hero-fade-4 {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .whatsapp-pulse { animation: none !important; }
+}
 a { color: inherit; text-decoration: none; }
 .container { max-width: 1080px; margin: 0 auto; padding: 32px 24px; }
 .crumb { color: var(--text-muted); font-family: var(--mono); font-size: 13px; margin-bottom: 24px; }

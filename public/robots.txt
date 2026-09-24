@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /login
+Disallow: /cliente/
+Disallow: /proposta/
+Disallow: /contrato/
+
+Sitemap: https://pedrogm.com.br/sitemap.xml
