@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
+import SalesLandingPage from './sales/SalesLandingPage'
 import PortfolioHome from './portfolio/PortfolioHome'
 import PortfolioTrilha from './portfolio/PortfolioTrilha'
 import PortfolioStartup from './portfolio/PortfolioStartup'
@@ -16,7 +17,8 @@ import Formularios from './pages/admin/Formularios'
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<PortfolioHome />} />
+      <Route path="/" element={<SalesLandingPage />} />
+      <Route path="/portifolio" element={<PortfolioHome />} />
       <Route path="/trilha" element={<PortfolioTrilha />} />
       <Route path="/startup" element={<PortfolioStartup />} />
       <Route path="/login" element={<Login />} />
