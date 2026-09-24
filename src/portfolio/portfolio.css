@@ -134,9 +134,9 @@ body {
 
 /* Navbar Scrolled */
 .nav-scrolled {
-  background-color: rgba(10, 10, 10, 0.85);
+  background-color: rgba(237, 234, 226, 0.92);
   backdrop-filter: blur(12px);
-  border-bottom-color: rgba(255, 255, 255, 0.08);
+  border-bottom-color: rgba(21, 21, 15, 0.08);
   padding-top: 1.25rem !important;
   padding-bottom: 1.25rem !important;
 }

@@ -2,58 +2,58 @@ import { usePortfolioEffects } from './usePortfolioEffects'
 import './portfolio.css'
 
 const html = `  <!-- Cursor Glow Follower -->
-  <div id="cursor-glow" class="pointer-events-none fixed -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-tr from-indigo-500/10 to-purple-500/10 rounded-full blur-3xl transition-opacity duration-500 z-0 opacity-0 md:opacity-100"></div>
+  <div id="cursor-glow" class="pointer-events-none fixed -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-tr from-blue-500/10 to-blue-400/10 rounded-full blur-3xl transition-opacity duration-500 z-0 opacity-0 md:opacity-100"></div>
 
   <!-- ================= NAV ================= -->
-  <nav id="navbar" class="fixed top-0 w-full z-50 px-6 py-6 md:px-12 flex justify-between items-center transition-all duration-300 border-b border-transparent">
-    <a href="#hero" class="text-sm font-semibold tracking-widest uppercase hover:text-gray-300 transition-colors relative z-50">Pedro Gomes</a>
+  <nav id="navbar" class="fixed top-0 w-full z-50 px-6 py-6 md:px-12 flex justify-between items-center transition-all duration-300 border-b border-transparent bg-[#EDEAE2]/85 backdrop-blur-md">
+    <a href="#hero" class="text-sm font-semibold tracking-widest uppercase text-[#15150F] hover:opacity-70 transition-opacity relative z-50">Pedro Gomes <span class="text-[#2F5DFF]">· tech</span></a>
     
-    <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white focus:outline-none relative z-50">
+    <button id="mobile-menu-btn" class="md:hidden text-[#15150F] hover:opacity-70 focus:outline-none relative z-50">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path id="menu-icon-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
       </svg>
     </button>
 
-    <div class="text-xs tracking-widest uppercase text-gray-400 space-x-8 hidden md:flex relative z-50">
-      <a href="#sobre" class="hover:text-white transition-colors">Sobre</a>
-      <a href="#skills" class="hover:text-white transition-colors">Skills</a>
-      <a href="#projetos" class="hover:text-white transition-colors">Projetos</a>
-      <a href="/trilha" class="hover:text-white transition-colors">Trilha</a>
-      <a href="#contato" class="hover:text-white transition-colors">Contato</a>
+    <div class="text-xs tracking-widest uppercase text-[#15150F]/65 space-x-8 hidden md:flex relative z-50">
+      <a href="#sobre" class="hover:opacity-70 transition-opacity">Sobre</a>
+      <a href="#skills" class="hover:opacity-70 transition-opacity">Skills</a>
+      <a href="#projetos" class="hover:opacity-70 transition-opacity">Projetos</a>
+      <a href="/trilha" class="hover:opacity-70 transition-opacity">Trilha</a>
+      <a href="#contato" class="hover:opacity-70 transition-opacity">Contato</a>
     </div>
 
     <!-- Menu Mobile -->
-    <div id="mobile-menu" class="fixed inset-0 bg-[#0a0a0a]/90 backdrop-blur-xl flex-col items-center justify-center gap-8 text-sm tracking-widest uppercase text-gray-400 opacity-0 pointer-events-none transition-opacity duration-500 md:hidden flex z-40">
-      <a href="#sobre" class="hover:text-white transition-colors mobile-link">Sobre</a>
-      <a href="#skills" class="hover:text-white transition-colors mobile-link">Skills</a>
-      <a href="#projetos" class="hover:text-white transition-colors mobile-link">Projetos</a>
-      <a href="/trilha" class="hover:text-white transition-colors mobile-link">Trilha</a>
-      <a href="#contato" class="hover:text-white transition-colors mobile-link">Contato</a>
+    <div id="mobile-menu" class="fixed inset-0 bg-[#EDEAE2]/95 backdrop-blur-xl flex-col items-center justify-center gap-8 text-sm tracking-widest uppercase text-[#15150F] opacity-0 pointer-events-none transition-opacity duration-500 md:hidden flex z-40">
+      <a href="#sobre" class="hover:opacity-70 transition-opacity mobile-link">Sobre</a>
+      <a href="#skills" class="hover:opacity-70 transition-opacity mobile-link">Skills</a>
+      <a href="#projetos" class="hover:opacity-70 transition-opacity mobile-link">Projetos</a>
+      <a href="/trilha" class="hover:opacity-70 transition-opacity mobile-link">Trilha</a>
+      <a href="#contato" class="hover:opacity-70 transition-opacity mobile-link">Contato</a>
     </div>
   </nav>
 
   <!-- ================= HERO ================= -->
-  <section id="hero" class="min-h-screen flex flex-col justify-center px-6 md:px-12 pt-32 pb-20 relative z-10">
+  <section id="hero" class="min-h-screen flex flex-col justify-center px-6 md:px-12 pt-32 pb-20 relative z-10 bg-[#EDEAE2] text-[#15150F]">
     <div class="max-w-7xl mx-auto w-full stagger-container active">
       
       <div class="stagger-item mb-8 flex items-center gap-3">
-        <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-        <p class="text-xs tracking-widest uppercase text-gray-400">
-          Pedro Gabriel Gomes <span class="mx-2">—</span> <span class="serif-text lowercase text-gray-500">Luziânia, GO</span>
+        <span class="w-2 h-2 rounded-full bg-[#2F5DFF] animate-pulse"></span>
+        <p class="text-xs tracking-widest uppercase text-[#15150F]/55">
+          Pedro Gabriel Gomes <span class="mx-2">—</span> <span class="serif-text lowercase text-[#15150F]/45">Luziânia, GO</span>
         </p>
       </div>
 
       <div class="stagger-item">
         <h1 class="text-5xl md:text-7xl lg:text-8xl font-medium leading-[1.1] tracking-tight max-w-5xl">
-          Construindo produtos <span class="serif-text text-gray-500 hover:text-gray-300 transition-colors duration-500">do zero,</span> da ideia ao deploy.
+          Construindo produtos <span class="serif-text text-[#2F5DFF]">do zero,</span> da ideia ao deploy.
         </h1>
       </div>
 
       <div class="stagger-item mt-20 flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
-        <p class="max-w-md text-gray-400 text-lg leading-relaxed font-light">
+        <p class="max-w-md text-[#15150F]/65 text-lg leading-relaxed font-light">
           Graduado em Análise e Desenvolvimento de Sistemas (ADS). Desenvolvedor Web e Founder criando soluções escaláveis e refinadas.
         </p>
-        <a href="#projetos" class="group flex items-center gap-4 text-xs tracking-widest uppercase border-b border-gray-700 pb-3 hover:border-white transition-all duration-300">
+        <a href="#projetos" class="group flex items-center gap-4 text-xs tracking-widest uppercase border-b border-[#15150F]/30 pb-3 hover:border-[#15150F] transition-all duration-300">
           Explorar Projetos 
           <span class="group-hover:translate-x-2 transition-transform duration-500">→</span>
         </a>
@@ -63,11 +63,11 @@ const html = `  <!-- Cursor Glow Follower -->
   </section>
 
   <!-- ================= SOBRE ================= -->
-  <section id="sobre" class="py-32 px-6 md:px-12 border-t border-gray-900/80 relative z-10">
+  <section id="sobre" class="py-32 px-6 md:px-12 border-t border-[#15150F]/10 relative z-10 bg-[#EDEAE2] text-[#15150F]">
     <div class="max-w-7xl mx-auto w-full flex flex-col md:flex-row gap-16 md:gap-28 items-center">
       
       <div class="w-full md:w-2/5 reveal">
-        <div class="profile-card relative group rounded-2xl overflow-hidden p-1 bg-gradient-to-b from-gray-800 to-transparent">
+        <div class="profile-card relative group rounded-2xl overflow-hidden p-1 bg-gradient-to-b from-[#15150F]/20 to-transparent">
           <div class="relative rounded-xl overflow-hidden bg-black">
             <img 
               src="/assets/perfil/foto-perfil.jpg" 
@@ -85,12 +85,12 @@ const html = `  <!-- Cursor Glow Follower -->
       <div class="w-full md:w-3/5 flex flex-col justify-center reveal">
         <h2 class="text-3xl md:text-5xl font-medium mb-8 leading-tight">
           Penso em produto como negócio. <br>
-          <span class="serif-text text-gray-500">Hoje, meu foco principal é a BITTO.</span>
+          <span class="serif-text text-[#2F5DFF]">Hoje, meu foco principal é a BITTO.</span>
         </h2>
-        <p class="text-gray-400 text-lg leading-relaxed font-light mb-6">
+        <p class="text-[#15150F]/65 text-lg leading-relaxed font-light mb-6">
           Construo produtos do zero passando por design, código e integração com APIs. Acredito que a tecnologia deve ser invisível e a experiência do usuário deve ser o centro de tudo.
         </p>
-        <p class="text-gray-400 text-lg leading-relaxed font-light">
+        <p class="text-[#15150F]/65 text-lg leading-relaxed font-light">
           Minha jornada une a lógica rigorosa da engenharia de software com a sensibilidade de criar interfaces fluidas, rápidas e memoráveis.
         </p>
       </div>
@@ -99,7 +99,7 @@ const html = `  <!-- Cursor Glow Follower -->
   </section>
 
   <!-- ================= SKILLS ================= -->
-  <section id="skills" class="py-32 px-6 md:px-12 bg-[#0d0d0d] relative z-10 border-t border-gray-900/50">
+  <section id="skills" class="py-32 px-6 md:px-12 bg-[#15150F] relative z-10 border-t border-gray-900/50">
     <div class="max-w-7xl mx-auto w-full">
       
       <div class="reveal mb-20">
@@ -195,7 +195,7 @@ const html = `  <!-- Cursor Glow Follower -->
   </section>
 
   <!-- ================= PROJETOS ================= -->
-  <section id="projetos" class="py-32 px-6 md:px-12 relative z-10">
+  <section id="projetos" class="py-32 px-6 md:px-12 relative z-10 bg-[#15150F]">
     <div class="max-w-7xl mx-auto w-full">
       
       <div class="reveal mb-24 md:mb-32">
@@ -319,20 +319,20 @@ const html = `  <!-- Cursor Glow Follower -->
   </section>
 
   <!-- ================= ZELOCAMP TEASER ================= -->
-  <section id="zelocamp" class="py-32 px-6 md:px-12 border-t border-gray-900 relative z-10">
+  <section id="zelocamp" class="py-32 px-6 md:px-12 border-t border-[#15150F]/10 relative z-10 bg-[#EDEAE2] text-[#15150F]">
     <div class="max-w-4xl mx-auto w-full reveal">
-      <p class="text-[10px] uppercase tracking-widest text-gray-500 mb-4">Além do Código</p>
+      <p class="text-[10px] uppercase tracking-widest text-[#15150F]/50 mb-4">Além do Código</p>
       <h2 class="text-4xl md:text-5xl font-medium mb-6">
-        Sou líder da <span class="serif-text text-gray-400">ZeloCamp</span>
+        Sou líder da <span class="serif-text text-[#2F5DFF]">ZeloCamp</span>
       </h2>
-      <p class="text-gray-400 text-base leading-relaxed font-light max-w-2xl mb-10">
+      <p class="text-[#15150F]/65 text-base leading-relaxed font-light max-w-2xl mb-10">
         Startup selecionada para o Desafio AgroStartup (SENAR/SEBRAE Goiás), levando um sistema de biosseguridade avícola inteligente da ideia até um pitch de verdade pra investidores. Hoje estamos na fase de pré-aceleração, com demoday previsto pra outubro.
       </p>
       <div class="flex flex-wrap gap-4">
-        <a href="/startup" class="inline-flex items-center gap-2 px-6 py-3 bg-white text-black rounded-full text-xs uppercase tracking-widest font-semibold hover:bg-gray-200 transition-colors">
+        <a href="/startup" class="inline-flex items-center gap-2 px-6 py-3 bg-[#15150F] text-[#EDEAE2] rounded-full text-xs uppercase tracking-widest font-semibold hover:opacity-90 transition-opacity">
           Conhecer Startup <span>→</span>
         </a>
-        <a href="/trilha" class="inline-flex items-center gap-2 px-6 py-3 border border-gray-700 rounded-full text-xs uppercase tracking-widest hover:bg-white hover:text-black transition-colors">
+        <a href="/trilha" class="inline-flex items-center gap-2 px-6 py-3 border border-[#15150F]/25 rounded-full text-xs uppercase tracking-widest hover:bg-[#15150F] hover:text-[#EDEAE2] transition-colors">
           Conhecer Desafio <span>→</span>
         </a>
       </div>
@@ -340,7 +340,7 @@ const html = `  <!-- Cursor Glow Follower -->
   </section>
 
   <!-- ================= CONTATO ================= -->
-  <section id="contato" class="py-32 px-6 md:px-12 bg-[#0c0c0e] border-t border-gray-800/80 relative z-10">
+  <section id="contato" class="py-32 px-6 md:px-12 bg-[#15150F] border-t border-gray-800/80 relative z-10">
     <div class="max-w-7xl mx-auto w-full">
       
       <div class="stagger-container flex flex-col items-center text-center">
@@ -408,11 +408,11 @@ const html = `  <!-- Cursor Glow Follower -->
   </section>
 
   <!-- ================= FOOTER ================= -->
-  <footer class="py-8 px-6 text-center border-t border-gray-900 relative z-10">
-    <p class="text-xs text-gray-600 tracking-widest uppercase">
+  <footer class="py-8 px-6 text-center border-t border-[#15150F]/10 relative z-10 bg-[#EDEAE2] text-[#15150F]">
+    <p class="text-xs text-[#15150F]/50 tracking-widest uppercase">
       © 2026 Pedro Gabriel Gomes — Construído com foco em excelência.
     </p>
-    <p class="text-[10px] text-gray-700 tracking-widest uppercase mt-2 flex items-center justify-center gap-1.5">
+    <p class="text-[10px] text-[#15150F]/40 tracking-widest uppercase mt-2 flex items-center justify-center gap-1.5">
       <span>☕</span> Cafés consumidos nesse projeto: 247
     </p>
   </footer>
@@ -421,5 +421,5 @@ const html = `  <!-- Cursor Glow Follower -->
 
 export default function PortfolioHome() {
   usePortfolioEffects()
-  return <div className="bg-[#0a0a0a] text-gray-100 antialiased selection:bg-white selection:text-black relative overflow-x-hidden" dangerouslySetInnerHTML={{ __html: html }} />
+  return <div className="bg-[#15150F] text-gray-100 antialiased selection:bg-[#2F5DFF] selection:text-white relative overflow-x-hidden" dangerouslySetInnerHTML={{ __html: html }} />
 }
