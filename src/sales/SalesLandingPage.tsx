@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import type { ReactNode, CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
+import { useSEO } from '../lib/seo'
 
 const WHATS_NUMBER = '5561936182176'
 const EMAIL = 'pedrogm.dev@gmail.com'
@@ -155,6 +156,12 @@ function Crumb({ children, dark }: { children: string; dark?: boolean }) {
 
 export default function SalesLandingPage() {
   const [menuOpen, setMenuOpen] = useState(false)
+  useSEO({
+    title: 'Pedro Gomes | Criação de Sites e Sistemas em Luziânia (GO)',
+    description:
+      'Desenvolvedor em Luziânia (GO): sites profissionais, landing pages de alta conversão, sistemas de gestão e automações de atendimento sob medida para pequenas empresas e autônomos.',
+    path: '/',
+  })
 
   return (
     <div className="antialiased min-h-screen" style={{ background: CREME, color: GRAFITE }}>
@@ -222,7 +229,7 @@ export default function SalesLandingPage() {
           <div className="mb-8 flex items-center justify-center gap-3 hero-fade-1">
             <span className="w-2 h-2 rounded-full" style={{ background: AZUL }} />
             <p className="text-xs tracking-widest uppercase" style={{ color: 'rgba(21,21,15,0.55)' }}>
-              Disponível para novos projetos
+              Disponível para novos projetos · Luziânia (GO) e região
             </p>
           </div>
 
@@ -489,7 +496,7 @@ export default function SalesLandingPage() {
 
       {/* FOOTER — claro */}
       <footer className="py-10 px-6 text-center">
-        <p className="text-xs tracking-widest uppercase" style={{ color: 'rgba(21,21,15,0.4)' }}>© 2026 Pedro Gabriel Gomes</p>
+        <p className="text-xs tracking-widest uppercase" style={{ color: 'rgba(21,21,15,0.4)' }}>© 2026 Pedro Gabriel Gomes · Luziânia, GO</p>
         <p className="text-xs mt-2">
           <Link to="/portifolio" className="hover:opacity-70 transition-opacity underline" style={{ color: 'rgba(21,21,15,0.5)' }}>
             Ver portfólio completo

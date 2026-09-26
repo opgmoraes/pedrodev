@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { useSEO } from '../lib/seo'
 
 const WHATS_NUMBER = '5561936182176'
 const EMAIL = 'pedrogm.dev@gmail.com'
@@ -85,6 +86,11 @@ const LINKS: LinkItem[] = [
 ]
 
 export default function LinkInBio() {
+  useSEO({
+    title: 'Pedro Gomes | Dev e Founder em Luziânia (GO) — Links',
+    description: 'Desenvolvedor sob medida pra pequenas empresas e profissionais autônomos em Luziânia (GO). Orçamento, portfólio e redes.',
+    path: '/link',
+  })
   return (
     <div className="relative overflow-hidden min-h-screen flex flex-col items-center px-6 py-16" style={{ background: CREME, color: GRAFITE }}>
       <div

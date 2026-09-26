@@ -1,4 +1,5 @@
 import { usePortfolioEffects } from './usePortfolioEffects'
+import { useSEO } from '../lib/seo'
 import './portfolio.css'
 
 const html = `  <!-- Cursor Glow Follower -->
@@ -415,5 +416,11 @@ const html = `  <!-- Cursor Glow Follower -->
 
 export default function PortfolioHome() {
   usePortfolioEffects()
+  useSEO({
+    title: 'Portfólio — Pedro Gomes | Dev e Founder em Luziânia (GO)',
+    description:
+      'Projetos que já construí: sites, sistemas e produtos do zero. Desenvolvedor web e founder em Luziânia, Goiás.',
+    path: '/portifolio',
+  })
   return <div className="bg-[#15150F] text-gray-100 antialiased selection:bg-[#2F5DFF] selection:text-white relative overflow-x-hidden" dangerouslySetInnerHTML={{ __html: html }} />
 }
