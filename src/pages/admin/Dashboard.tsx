@@ -22,19 +22,19 @@ export default function Dashboard() {
       <h1>Dashboard</h1>
       <div className="grid grid-3" style={{ marginTop: 20 }}>
         <div className="card">
-          <div className="mono" style={{ color: 'var(--text-muted)', fontSize: 12 }}>clientes</div>
-          <div style={{ fontSize: 32 }}>{counts.clientes}</div>
+          <div className="stat-label">clientes</div>
+          <div className="stat-value">{counts.clientes}</div>
         </div>
         <div className="card">
-          <div className="mono" style={{ color: 'var(--text-muted)', fontSize: 12 }}>projetos ativos</div>
-          <div style={{ fontSize: 32 }}>{counts.projetos}</div>
+          <div className="stat-label">projetos ativos</div>
+          <div className="stat-value">{counts.projetos}</div>
         </div>
-        <div className="card">
-          <div className="mono" style={{ color: 'var(--text-muted)', fontSize: 12 }}>a receber</div>
-          <div style={{ fontSize: 32 }}>—</div>
+        <div className="card" style={{ opacity: 0.6 }}>
+          <div className="stat-label">a receber</div>
+          <div className="stat-value" style={{ color: 'var(--text-faint)' }}>em breve</div>
         </div>
       </div>
-      <p style={{ color: 'var(--text-muted)', marginTop: 24, fontSize: 13 }}>
+      <p style={{ marginTop: 24 }}>
         V1 mostra contagem real de clientes/projetos direto do Firestore. Financeiro
         entra na V2.
       </p>
