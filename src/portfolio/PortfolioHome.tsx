@@ -5,7 +5,7 @@ const html = `  <!-- Cursor Glow Follower -->
   <div id="cursor-glow" class="pointer-events-none fixed -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-tr from-blue-500/10 to-blue-400/10 rounded-full blur-3xl transition-opacity duration-500 z-0 opacity-0 md:opacity-100"></div>
 
   <!-- ================= NAV ================= -->
-  <nav id="navbar" class="fixed top-0 w-full z-50 px-6 py-6 md:px-12 flex justify-between items-center transition-all duration-300 border-b border-transparent bg-[#EDEAE2]/85 backdrop-blur-md">
+  <nav id="navbar" class="fixed top-0 w-full z-[65] px-6 py-6 md:px-12 flex justify-between items-center transition-all duration-300 border-b border-transparent bg-[#EDEAE2]/85 backdrop-blur-md">
     <a href="#hero" class="text-sm font-semibold tracking-widest uppercase text-[#15150F] hover:opacity-70 transition-opacity relative z-50">Pedro Gomes <span class="text-[#2F5DFF]">· tech</span></a>
     
     <button id="mobile-menu-btn" aria-label="Abrir menu" class="md:hidden text-[#15150F] hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2F5DFF] relative z-[70]">
@@ -15,6 +15,7 @@ const html = `  <!-- Cursor Glow Follower -->
     </button>
 
     <div class="text-xs tracking-widest uppercase text-[#15150F]/65 space-x-8 hidden md:flex relative z-50">
+      <a href="/" class="hover:opacity-70 transition-opacity">Início</a>
       <a href="#sobre" class="hover:opacity-70 transition-opacity">Sobre</a>
       <a href="#skills" class="hover:opacity-70 transition-opacity">Skills</a>
       <a href="#projetos" class="hover:opacity-70 transition-opacity">Projetos</a>
@@ -23,6 +24,7 @@ const html = `  <!-- Cursor Glow Follower -->
 
     <!-- Menu Mobile -->
     <div id="mobile-menu" class="fixed inset-0 bg-[#EDEAE2] flex-col items-center justify-center gap-8 text-sm tracking-widest uppercase text-[#15150F] opacity-0 pointer-events-none transition-opacity duration-300 md:hidden flex z-[60]">
+      <a href="/" class="hover:opacity-70 transition-opacity mobile-link">Início</a>
       <a href="#sobre" class="hover:opacity-70 transition-opacity mobile-link">Sobre</a>
       <a href="#skills" class="hover:opacity-70 transition-opacity mobile-link">Skills</a>
       <a href="#projetos" class="hover:opacity-70 transition-opacity mobile-link">Projetos</a>

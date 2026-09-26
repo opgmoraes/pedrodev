@@ -160,7 +160,7 @@ export default function SalesLandingPage() {
     <div className="antialiased min-h-screen" style={{ background: CREME, color: GRAFITE }}>
       {/* NAV */}
       <nav
-        className="fixed top-0 w-full z-50 px-6 py-5 md:px-12 flex justify-between items-center backdrop-blur-md border-b"
+        className="fixed top-0 w-full z-[65] px-6 py-5 md:px-12 flex justify-between items-center backdrop-blur-md border-b"
         style={{ background: `${CREME}cc`, borderColor: 'rgba(21,21,15,0.1)' }}
       >
         <a href="#topo" className="text-sm font-semibold tracking-tight">
