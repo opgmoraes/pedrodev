@@ -1,5 +1,7 @@
+import { useEffect } from 'react'
 import { usePortfolioEffects } from './usePortfolioEffects'
 import { useSEO } from '../lib/seo'
+import { getPortfolioContent, STATUS_CLASS } from '../lib/portfolioContent'
 import './portfolio.css'
 
 const html = `  <!-- Cursor Glow Follower -->
@@ -55,7 +57,7 @@ const html = `  <!-- Cursor Glow Follower -->
       </div>
 
       <div class="stagger-item mt-20 flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
-        <p class="max-w-md text-[#15150F]/65 text-lg leading-relaxed font-light">
+        <p class="max-w-md text-[#15150F]/65 text-lg leading-relaxed font-light" id="cms-hero-desc">
           Graduado em Análise e Desenvolvimento de Sistemas (ADS). Desenvolvedor Web e Founder — construo do zero e cuido pra continuar funcionando depois.
         </p>
         <a href="#projetos" class="group flex items-center gap-4 text-xs tracking-widest uppercase border-b border-[#15150F]/30 pb-3 hover:border-[#15150F] transition-all duration-300">
@@ -92,10 +94,10 @@ const html = `  <!-- Cursor Glow Follower -->
           Penso em produto como negócio. <br>
           <span class="serif-text text-[#2F5DFF]">Hoje, meu foco principal é a BITTO.</span>
         </h2>
-        <p class="text-[#15150F]/65 text-lg leading-relaxed font-light mb-6">
+        <p class="text-[#15150F]/65 text-lg leading-relaxed font-light mb-6" id="cms-sobre-p1">
           Construo produtos do zero: penso no design, escrevo o código e ligo tudo às APIs que fazem funcionar de verdade. Quando o usuário nem repara na tecnologia por trás, é sinal de que deu certo.
         </p>
-        <p class="text-[#15150F]/65 text-lg leading-relaxed font-light">
+        <p class="text-[#15150F]/65 text-lg leading-relaxed font-light" id="cms-sobre-p2">
           Isso junta engenharia com atenção a detalhe: interface rápida, fluida e que não atravanca quem tá usando.
         </p>
       </div>
@@ -230,21 +232,21 @@ const html = `  <!-- Cursor Glow Follower -->
         <div class="w-full md:w-2/5 flex flex-col items-start">
           <div class="flex items-center gap-4 mb-6">
             <p class="serif-text text-gray-500 text-2xl">01</p>
-            <span class="px-3 py-1 border border-blue-500/30 bg-blue-500/10 rounded-full text-[10px] text-blue-400 tracking-widest uppercase font-medium">Em Produção</span>
+            <span id="cms-proj-1-status" class="px-3 py-1 border border-blue-500/30 bg-blue-500/10 rounded-full text-[10px] text-blue-400 tracking-widest uppercase font-medium">Em Produção</span>
           </div>
-          <h3 class="text-4xl font-medium mb-6">BITTO</h3>
-          <p class="text-gray-400 text-base leading-relaxed font-light mb-8">
+          <h3 id="cms-proj-1-title" class="text-4xl font-medium mb-6">BITTO</h3>
+          <p id="cms-proj-1-desc" class="text-gray-400 text-base leading-relaxed font-light mb-8">
             Plataforma de estudos alimentada por IA que transforma qualquer arquivo ou texto em flashcards, quizzes e resumos automáticos. Conta com sistema de XP, planner e assistente virtual.
           </p>
           <div class="flex gap-6">
-            <a href="https://www.usebitto.com" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-2 text-xs uppercase tracking-widest link-hover pb-1 font-semibold">
-              Acessar Plataforma <span class="group-hover:translate-x-1 transition-transform">↗</span>
+            <a id="cms-proj-1-link1" href="https://www.usebitto.com" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-2 text-xs uppercase tracking-widest link-hover pb-1 font-semibold">
+              <span id="cms-proj-1-link1-text">Acessar Plataforma</span> <span class="group-hover:translate-x-1 transition-transform">↗</span>
             </a>
-            <a href="https://wa.me/5561936182176?text=Ol%C3%A1%20Pedro%2C%20gostaria%20de%20solicitar%20acesso%20ao%20reposit%C3%B3rio%20do%20bitto." target="_blank" rel="noopener noreferrer" class="text-xs text-gray-500 uppercase tracking-widest hover:text-white transition-colors">
-              Repositório
+            <a id="cms-proj-1-link2" href="https://wa.me/5561936182176?text=Ol%C3%A1%20Pedro%2C%20gostaria%20de%20solicitar%20acesso%20ao%20reposit%C3%B3rio%20do%20bitto." target="_blank" rel="noopener noreferrer" class="text-xs text-gray-500 uppercase tracking-widest hover:text-white transition-colors">
+              <span id="cms-proj-1-link2-text">Repositório</span>
             </a>
           </div>
-          <p class="text-[11px] text-gray-600 mt-4">Repositório privado — código proprietário, acesso mediante solicitação.</p>
+          <p id="cms-proj-1-footnote" class="text-[11px] text-gray-600 mt-4">Repositório privado — código proprietário, acesso mediante solicitação.</p>
         </div>
       </article>
 
@@ -267,21 +269,21 @@ const html = `  <!-- Cursor Glow Follower -->
         <div class="w-full md:w-2/5 flex flex-col items-start">
           <div class="flex items-center gap-4 mb-6">
             <p class="serif-text text-gray-500 text-2xl">02</p>
-            <span class="px-3 py-1 border border-blue-500/30 bg-blue-500/10 rounded-full text-[10px] text-blue-400 tracking-widest uppercase font-medium">Em Produção</span>
+            <span id="cms-proj-2-status" class="px-3 py-1 border border-blue-500/30 bg-blue-500/10 rounded-full text-[10px] text-blue-400 tracking-widest uppercase font-medium">Em Produção</span>
           </div>
-          <h3 class="text-4xl font-medium mb-6">CineGift</h3>
-          <p class="text-gray-400 text-base leading-relaxed font-light mb-8">
+          <h3 id="cms-proj-2-title" class="text-4xl font-medium mb-6">CineGift</h3>
+          <p id="cms-proj-2-desc" class="text-gray-400 text-base leading-relaxed font-light mb-8">
             Experiência digital interativa que converte fotos, vídeos e mensagens em um ingresso de cinema personalizado para presentear pessoas especiais.
           </p>
           <div class="flex gap-6">
-            <a href="https://www.cinegift.com.br/" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-2 text-xs uppercase tracking-widest link-hover pb-1 font-semibold">
-              Acessar Plataforma <span class="group-hover:translate-x-1 transition-transform">↗</span>
+            <a id="cms-proj-2-link1" href="https://www.cinegift.com.br/" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-2 text-xs uppercase tracking-widest link-hover pb-1 font-semibold">
+              <span id="cms-proj-2-link1-text">Acessar Plataforma</span> <span class="group-hover:translate-x-1 transition-transform">↗</span>
             </a>
-            <a href="https://wa.me/5561936182176?text=Ol%C3%A1%20Pedro%2C%20gostaria%20de%20solicitar%20acesso%20ao%20reposit%C3%B3rio%20do%20CineGift." target="_blank" rel="noopener noreferrer" class="text-xs text-gray-500 uppercase tracking-widest hover:text-white transition-colors">
-              Repositório
+            <a id="cms-proj-2-link2" href="https://wa.me/5561936182176?text=Ol%C3%A1%20Pedro%2C%20gostaria%20de%20solicitar%20acesso%20ao%20reposit%C3%B3rio%20do%20CineGift." target="_blank" rel="noopener noreferrer" class="text-xs text-gray-500 uppercase tracking-widest hover:text-white transition-colors">
+              <span id="cms-proj-2-link2-text">Repositório</span>
             </a>
           </div>
-          <p class="text-[11px] text-gray-600 mt-4">Repositório privado — código proprietário, acesso mediante solicitação.</p>
+          <p id="cms-proj-2-footnote" class="text-[11px] text-gray-600 mt-4">Repositório privado — código proprietário, acesso mediante solicitação.</p>
         </div>
       </article>
 
@@ -306,18 +308,18 @@ const html = `  <!-- Cursor Glow Follower -->
         <div class="w-full md:w-2/5 flex flex-col items-start">
           <div class="flex items-center gap-4 mb-6">
             <p class="serif-text text-gray-500 text-2xl">03</p>
-            <span class="px-3 py-1 border border-amber-500/30 bg-amber-500/10 rounded-full text-[10px] text-amber-400 tracking-widest uppercase font-medium">Em Desenvolvimento</span>
+            <span id="cms-proj-3-status" class="px-3 py-1 border border-amber-500/30 bg-amber-500/10 rounded-full text-[10px] text-amber-400 tracking-widest uppercase font-medium">Em Desenvolvimento</span>
           </div>
-          <h3 class="text-4xl font-medium mb-6">Kont Hub</h3>
-          <p class="text-gray-400 text-base leading-relaxed font-light mb-8">
+          <h3 id="cms-proj-3-title" class="text-4xl font-medium mb-6">Kont Hub</h3>
+          <p id="cms-proj-3-desc" class="text-gray-400 text-base leading-relaxed font-light mb-8">
             MicroSaaS focado na gestão contábil moderna: CRM de clientes, pipeline Kanban de tarefas, gestão financeira e cofre de documentos em nuvem.
           </p>
           <div class="flex gap-6">
-            <a href="https://wa.me/5561936182176?text=Ol%C3%A1%20Pedro%2C%20gostaria%20de%20solicitar%20acesso%20ao%20reposit%C3%B3rio%20do%20Kont%20Hub." target="_blank" rel="noopener noreferrer" class="group flex items-center gap-2 text-xs uppercase tracking-widest link-hover pb-1 font-semibold">
-              Solicitar Repositório <span class="group-hover:translate-x-1 transition-transform">→</span>
+            <a id="cms-proj-3-link1" href="https://wa.me/5561936182176?text=Ol%C3%A1%20Pedro%2C%20gostaria%20de%20solicitar%20acesso%20ao%20reposit%C3%B3rio%20do%20Kont%20Hub." target="_blank" rel="noopener noreferrer" class="group flex items-center gap-2 text-xs uppercase tracking-widest link-hover pb-1 font-semibold">
+              <span id="cms-proj-3-link1-text">Solicitar Repositório</span> <span class="group-hover:translate-x-1 transition-transform">→</span>
             </a>
           </div>
-          <p class="text-[11px] text-gray-600 mt-4">Repositório privado — código proprietário, acesso mediante solicitação.</p>
+          <p id="cms-proj-3-footnote" class="text-[11px] text-gray-600 mt-4">Repositório privado — código proprietário, acesso mediante solicitação.</p>
         </div>
       </article>
 
@@ -422,5 +424,43 @@ export default function PortfolioHome() {
       'Projetos que já construí: sites, sistemas e produtos do zero. Desenvolvedor web e founder em Luziânia, Goiás.',
     path: '/portifolio',
   })
+
+  // Aplica o conteúdo editável (textos/status/links) salvo pelo admin em
+  // /admin/portfolio. Se ainda não houver nada salvo, a página mantém o
+  // texto estático de cima — nada quebra antes da primeira edição.
+  useEffect(() => {
+    getPortfolioContent().then((content) => {
+      if (!content) return
+      const setText = (id: string, value?: string) => {
+        if (!value) return
+        const el = document.getElementById(id)
+        if (el) el.textContent = value
+      }
+      const setHref = (id: string, value?: string) => {
+        if (!value) return
+        const el = document.getElementById(id)
+        if (el) el.setAttribute('href', value)
+      }
+
+      setText('cms-hero-desc', content.heroDescription)
+      setText('cms-sobre-p1', content.sobreP1)
+      setText('cms-sobre-p2', content.sobreP2)
+
+      content.projetos?.forEach((p, i) => {
+        const n = i + 1
+        setText(`cms-proj-${n}-title`, p.title)
+        setText(`cms-proj-${n}-desc`, p.description)
+        setText(`cms-proj-${n}-status`, p.statusText)
+        const statusEl = document.getElementById(`cms-proj-${n}-status`)
+        if (statusEl && p.statusColor) statusEl.className = STATUS_CLASS[p.statusColor]
+        setText(`cms-proj-${n}-link1-text`, p.link1Text)
+        setHref(`cms-proj-${n}-link1`, p.link1Url)
+        setText(`cms-proj-${n}-link2-text`, p.link2Text)
+        setHref(`cms-proj-${n}-link2`, p.link2Url)
+        setText(`cms-proj-${n}-footnote`, p.footnote)
+      })
+    })
+  }, [])
+
   return <div className="bg-[#15150F] text-gray-100 antialiased selection:bg-[#2F5DFF] selection:text-white relative overflow-x-hidden" dangerouslySetInnerHTML={{ __html: html }} />
 }

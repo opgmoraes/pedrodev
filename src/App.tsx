@@ -19,6 +19,7 @@ const ClienteDetalhe = lazy(() => import('./pages/admin/ClienteDetalhe'))
 const Projetos = lazy(() => import('./pages/admin/Projetos'))
 const Orcamentos = lazy(() => import('./pages/admin/Orcamentos'))
 const Formularios = lazy(() => import('./pages/admin/Formularios'))
+const AdminPortfolio = lazy(() => import('./pages/admin/Portfolio'))
 
 function RouteLoading() {
   return (
@@ -55,6 +56,7 @@ export default function App() {
           <Route path="orcamentos" element={<Orcamentos />} />
           <Route path="contratos" element={<Contratos />} />
           <Route path="formularios" element={<Formularios />} />
+          <Route path="portfolio" element={<AdminPortfolio />} />
         </Route>
       </Routes>
     </Suspense>

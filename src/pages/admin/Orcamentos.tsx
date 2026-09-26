@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { collection, addDoc, getDocs, orderBy, query, serverTimestamp } from 'firebase/firestore'
 import { db } from '../../lib/firebaseClient'
 import { buildWhatsappLink, templates } from '../../lib/whatsapp'
@@ -29,6 +29,15 @@ export default function Orcamentos() {
   const [form, setForm] = useState({ clientId: '', serviceId: '', service: '', items: '', value: '', deadlineDays: '' })
   const [quotes, setQuotes] = useState<Quote[]>([])
   const [loading, setLoading] = useState(false)
+  const [search, setSearch] = useState('')
+
+  const filtered = useMemo(() => {
+    const q = search.trim().toLowerCase()
+    if (!q) return quotes
+    return quotes.filter(
+      (qt) => (qt.clientName ?? '').toLowerCase().includes(q) || qt.service.toLowerCase().includes(q)
+    )
+  }, [quotes, search])
 
   function handleServiceSelect(serviceId: string) {
     const svc = getServiceById(serviceId)
@@ -159,13 +168,23 @@ export default function Orcamentos() {
       <h1>Orçamentos / Propostas</h1>
       <div className="grid grid-2" style={{ marginTop: 20, alignItems: 'start' }}>
         <div className="card">
+          <div className="list-toolbar">
+            <input
+              type="search"
+              className="list-search"
+              placeholder="buscar por cliente ou serviço…"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <span className="count-pill">{filtered.length} orçamento{filtered.length === 1 ? '' : 's'}</span>
+          </div>
           <div className="table-scroll">
           <table>
             <thead>
               <tr><th>cliente</th><th>serviço</th><th>valor</th><th>prazo</th><th>status</th><th>ações</th></tr>
             </thead>
             <tbody>
-              {quotes.map((q) => {
+              {filtered.map((q) => {
                 const linkOrcamento = whatsappOrcamento(q)
                 const linkFollowUp = whatsappFollowUp(q)
                 return (
@@ -238,6 +257,7 @@ export default function Orcamentos() {
                 )
               })}
               {quotes.length === 0 && <tr><td colSpan={6} style={{ color: 'var(--text-muted)' }}>nenhum orçamento ainda</td></tr>}
+              {filtered.length === 0 && quotes.length > 0 && <tr><td colSpan={6} style={{ color: 'var(--text-muted)' }}>nenhum orçamento bate com essa busca</td></tr>}
             </tbody>
           </table>
           </div>

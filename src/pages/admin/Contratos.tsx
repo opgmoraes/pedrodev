@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { collection, addDoc, getDocs, orderBy, query, serverTimestamp } from 'firebase/firestore'
 import { db } from '../../lib/firebaseClient'
 import { generateContractPdf } from '../../lib/pdf'
@@ -36,6 +36,15 @@ export default function Contratos() {
   const [quotes, setQuotes] = useState<Quote[]>([])
   const [contracts, setContracts] = useState<Contract[]>([])
   const [loading, setLoading] = useState(false)
+  const [search, setSearch] = useState('')
+
+  const filteredContracts = useMemo(() => {
+    const q = search.trim().toLowerCase()
+    if (!q) return contracts
+    return contracts.filter(
+      (c) => c.clientName.toLowerCase().includes(q) || c.service.toLowerCase().includes(q)
+    )
+  }, [contracts, search])
 
   async function load() {
     const [clientsSnap, quotesSnap, contractsSnap] = await Promise.all([
@@ -117,13 +126,23 @@ export default function Contratos() {
       )}
 
       <div className="card">
+        <div className="list-toolbar">
+          <input
+            type="search"
+            className="list-search"
+            placeholder="buscar por cliente ou serviço…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <span className="count-pill">{filteredContracts.length} contrato{filteredContracts.length === 1 ? '' : 's'}</span>
+        </div>
         <div className="table-scroll">
         <table>
           <thead>
             <tr><th>cliente</th><th>serviço</th><th>valor</th><th>status</th><th>ações</th></tr>
           </thead>
           <tbody>
-            {contracts.map((c) => {
+            {filteredContracts.map((c) => {
               const wa = c.clientPhone
                 ? buildWhatsappLink(
                     c.clientPhone,
@@ -182,6 +201,9 @@ export default function Contratos() {
             })}
             {contracts.length === 0 && (
               <tr><td colSpan={5} style={{ color: 'var(--text-muted)' }}>nenhum contrato ainda</td></tr>
+            )}
+            {filteredContracts.length === 0 && contracts.length > 0 && (
+              <tr><td colSpan={5} style={{ color: 'var(--text-muted)' }}>nenhum contrato bate com essa busca</td></tr>
             )}
           </tbody>
         </table>

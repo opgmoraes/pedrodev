@@ -18,6 +18,7 @@ const ICONS = {
   orcamentos: 'M9 14l2 2 4-4M3 7h18M3 7v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7M3 7l2-4h14l2 4',
   contratos: 'M9 12h6M9 16h6M9 8h6M6 3h9l3 3v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z',
   formularios: 'M8 3v3M16 3v3M4 8h16M6 5h12a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zM9 13l2 2 4-4',
+  portfolio: 'M4 4h16v12H4zM4 20h16M8 4v0M9 8h6M9 11h6M9 14h4',
 }
 
 const links = [
@@ -27,6 +28,7 @@ const links = [
   { to: '/admin/orcamentos', label: 'orçamentos', icon: ICONS.orcamentos },
   { to: '/admin/contratos', label: 'contratos', icon: ICONS.contratos },
   { to: '/admin/formularios', label: 'formulários', icon: ICONS.formularios },
+  { to: '/admin/portfolio', label: 'portfólio', icon: ICONS.portfolio },
 ]
 
 export default function AdminLayout() {
