@@ -21,16 +21,18 @@ const html = `  <!-- Cursor Glow Follower -->
       <a href="#projetos" class="hover:opacity-70 transition-opacity">Projetos</a>
       <a href="#contato" class="hover:opacity-70 transition-opacity">Contato</a>
     </div>
-
-    <!-- Menu Mobile -->
-    <div id="mobile-menu" class="fixed inset-0 bg-[#EDEAE2] flex-col items-center justify-center gap-8 text-sm tracking-widest uppercase text-[#15150F] opacity-0 pointer-events-none transition-opacity duration-300 md:hidden flex z-[60]">
-      <a href="/" class="hover:opacity-70 transition-opacity mobile-link">Início</a>
-      <a href="#sobre" class="hover:opacity-70 transition-opacity mobile-link">Sobre</a>
-      <a href="#skills" class="hover:opacity-70 transition-opacity mobile-link">Skills</a>
-      <a href="#projetos" class="hover:opacity-70 transition-opacity mobile-link">Projetos</a>
-      <a href="#contato" class="hover:opacity-70 transition-opacity mobile-link">Contato</a>
-    </div>
   </nav>
+
+  <!-- Menu Mobile — precisa ficar FORA da nav: nav tem backdrop-blur,
+       que cria um containing block novo pra filhos "fixed" e quebra o
+       inset-0 (o menu passava a se posicionar relativo à nav, não à tela). -->
+  <div id="mobile-menu" class="fixed inset-0 bg-[#EDEAE2] flex-col items-center justify-center gap-8 text-sm tracking-widest uppercase text-[#15150F] opacity-0 pointer-events-none transition-opacity duration-300 md:hidden flex z-[60]">
+    <a href="/" class="hover:opacity-70 transition-opacity mobile-link">Início</a>
+    <a href="#sobre" class="hover:opacity-70 transition-opacity mobile-link">Sobre</a>
+    <a href="#skills" class="hover:opacity-70 transition-opacity mobile-link">Skills</a>
+    <a href="#projetos" class="hover:opacity-70 transition-opacity mobile-link">Projetos</a>
+    <a href="#contato" class="hover:opacity-70 transition-opacity mobile-link">Contato</a>
+  </div>
 
   <!-- ================= HERO ================= -->
   <section id="hero" class="min-h-screen flex flex-col justify-center px-6 md:px-12 pt-32 pb-20 relative overflow-hidden z-10 bg-[#EDEAE2] text-[#15150F]">
