@@ -31,8 +31,10 @@ const html = `  <!-- Cursor Glow Follower -->
   </nav>
 
   <!-- ================= HERO ================= -->
-  <section id="hero" class="min-h-screen flex flex-col justify-center px-6 md:px-12 pt-32 pb-20 relative z-10 bg-[#EDEAE2] text-[#15150F]">
-    <div class="max-w-7xl mx-auto w-full stagger-container active">
+  <section id="hero" class="min-h-screen flex flex-col justify-center px-6 md:px-12 pt-32 pb-20 relative overflow-hidden z-10 bg-[#EDEAE2] text-[#15150F]">
+    <div aria-hidden class="absolute rounded-full pointer-events-none" style="width:420px;height:420px;top:-10%;right:-8%;background:#2F5DFF;filter:blur(100px);opacity:0.2;"></div>
+    <div aria-hidden class="absolute rounded-full pointer-events-none" style="width:320px;height:320px;bottom:-8%;left:-10%;background:#D9A441;filter:blur(90px);opacity:0.15;"></div>
+    <div class="relative z-10 max-w-7xl mx-auto w-full stagger-container active">
       
       <div class="stagger-item mb-8 flex items-center gap-3">
         <span class="w-2 h-2 rounded-full bg-[#2F5DFF] animate-pulse"></span>
@@ -97,8 +99,9 @@ const html = `  <!-- Cursor Glow Follower -->
   </section>
 
   <!-- ================= SKILLS ================= -->
-  <section id="skills" class="py-32 px-6 md:px-12 bg-[#15150F] relative z-10 border-t border-gray-900/50">
-    <div class="max-w-7xl mx-auto w-full">
+  <section id="skills" class="py-32 px-6 md:px-12 bg-[#15150F] relative overflow-hidden z-10 border-t border-gray-900/50">
+    <div aria-hidden class="absolute rounded-full pointer-events-none" style="width:480px;height:480px;top:-15%;left:50%;transform:translateX(-50%);background:#2F5DFF;filter:blur(110px);opacity:0.13;"></div>
+    <div class="relative z-10 max-w-7xl mx-auto w-full">
       
       <div class="reveal mb-20">
         <h2 class="text-4xl md:text-5xl font-medium">Tecnologias & <span class="serif-text text-gray-400">Ferramentas</span></h2>
@@ -107,7 +110,7 @@ const html = `  <!-- Cursor Glow Follower -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-12 stagger-container">
         
         <!-- FRONTEND -->
-        <div class="stagger-item bg-[#121212] p-8 rounded-xl border border-gray-800/60 hover:border-gray-700 transition-all duration-300">
+        <div class="stagger-item backdrop-blur-sm p-8 rounded-xl border border-gray-800/60 hover:border-gray-700 transition-all duration-300" style="background:rgba(18,18,18,0.6);box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);">
           <div class="flex items-center justify-between mb-8 pb-4 border-b border-gray-800">
             <span class="serif-text text-gray-500 text-2xl">01</span>
             <h3 class="text-xs tracking-widest uppercase text-white font-semibold">Frontend</h3>
@@ -137,7 +140,7 @@ const html = `  <!-- Cursor Glow Follower -->
         </div>
 
         <!-- BACKEND & INFRA -->
-        <div class="stagger-item bg-[#121212] p-8 rounded-xl border border-gray-800/60 hover:border-gray-700 transition-all duration-300">
+        <div class="stagger-item backdrop-blur-sm p-8 rounded-xl border border-gray-800/60 hover:border-gray-700 transition-all duration-300" style="background:rgba(18,18,18,0.6);box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);">
           <div class="flex items-center justify-between mb-8 pb-4 border-b border-gray-800">
             <span class="serif-text text-gray-500 text-2xl">02</span>
             <h3 class="text-xs tracking-widest uppercase text-white font-semibold">Backend & Infra</h3>
@@ -167,7 +170,7 @@ const html = `  <!-- Cursor Glow Follower -->
         </div>
 
         <!-- INTELIGÊNCIA ARTIFICIAL -->
-        <div class="stagger-item bg-[#121212] p-8 rounded-xl border border-gray-800/60 hover:border-gray-700 transition-all duration-300">
+        <div class="stagger-item backdrop-blur-sm p-8 rounded-xl border border-gray-800/60 hover:border-gray-700 transition-all duration-300" style="background:rgba(18,18,18,0.6);box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);">
           <div class="flex items-center justify-between mb-8 pb-4 border-b border-gray-800">
             <span class="serif-text text-gray-500 text-2xl">03</span>
             <h3 class="text-xs tracking-widest uppercase text-white font-semibold">IA & Integrações</h3>
@@ -317,8 +320,9 @@ const html = `  <!-- Cursor Glow Follower -->
   </section>
 
   <!-- ================= CONTATO ================= -->
-  <section id="contato" class="py-32 px-6 md:px-12 bg-[#15150F] border-t border-gray-800/80 relative z-10">
-    <div class="max-w-7xl mx-auto w-full">
+  <section id="contato" class="py-32 px-6 md:px-12 bg-[#15150F] border-t border-gray-800/80 relative overflow-hidden z-10">
+    <div aria-hidden class="absolute rounded-full pointer-events-none" style="width:460px;height:460px;top:50%;left:50%;transform:translate(-50%,-50%);background:#2F5DFF;filter:blur(110px);opacity:0.18;"></div>
+    <div class="relative z-10 max-w-7xl mx-auto w-full">
       
       <div class="stagger-container flex flex-col items-center text-center">
         
@@ -337,7 +341,7 @@ const html = `  <!-- Cursor Glow Follower -->
         </p>
 
         <!-- CAIXA DE E-MAIL COM BOTÃO DE COPIAR -->
-        <div class="stagger-item w-full max-w-xl bg-[#141417] p-4 md:p-3 rounded-2xl border border-gray-800 flex flex-col md:flex-row items-center justify-between gap-4 mb-16 shadow-xl">
+        <div class="stagger-item w-full max-w-xl backdrop-blur-sm p-4 md:p-3 rounded-2xl border border-gray-800 flex flex-col md:flex-row items-center justify-between gap-4 mb-16" style="background:rgba(20,20,23,0.65);box-shadow:inset 0 1px 0 rgba(255,255,255,0.06), 0 20px 40px -20px rgba(0,0,0,0.6);">
           <div class="flex items-center gap-3 md:pl-4 overflow-hidden">
             <span class="text-gray-500">✉️</span>
             <span id="email-text" class="text-sm md:text-base text-gray-200 font-mono truncate">pedrogm.dev@gmail.com</span>
@@ -350,7 +354,7 @@ const html = `  <!-- Cursor Glow Follower -->
         <!-- CARDS DE CANAIS DIRETO -->
         <div class="stagger-item grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full max-w-5xl">
           
-          <a href="https://wa.me/5561936182176?text=Ol%C3%A1%20Pedro%2C%20vi%20seu%20portf%C3%B3lio%2C%20vamos%20conversar%3F" target="_blank" rel="noopener noreferrer" class="group p-6 rounded-xl bg-[#121215] border border-gray-800/80 hover:border-blue-500/50 hover:bg-[#16161b] transition-all text-left">
+          <a href="https://wa.me/5561936182176?text=Ol%C3%A1%20Pedro%2C%20vi%20seu%20portf%C3%B3lio%2C%20vamos%20conversar%3F" target="_blank" rel="noopener noreferrer" class="group p-6 rounded-xl backdrop-blur-sm border border-gray-800/80 hover:border-blue-500/50 transition-all text-left" style="background:rgba(18,18,21,0.6);box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);">
             <div class="flex justify-between items-center mb-4">
               <svg class="w-6 h-6" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.001 2C6.478 2 2 6.478 2 12c0 1.821.487 3.53 1.338 5.003L2.05 22l5.144-1.302C8.622 21.526 10.263 22 12.001 22 17.523 22 22 17.522 22 12S17.523 2 12.001 2zm0 18.153c-1.583 0-3.05-.462-4.29-1.257l-.308-.19-3.076.78.802-3.02-.202-.31A8.13 8.13 0 013.848 12c0-4.494 3.659-8.153 8.153-8.153 4.494 0 8.153 3.659 8.153 8.153 0 4.494-3.659 8.153-8.153 8.153z"/></svg>
               <span class="text-xs text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">Conversar →</span>
@@ -359,7 +363,7 @@ const html = `  <!-- Cursor Glow Follower -->
             <p class="text-xs text-gray-500">+55 (61) 93618-2176</p>
           </a>
 
-          <a href="https://www.instagram.com/pedrogm.dev/" target="_blank" rel="noopener noreferrer" class="group p-6 rounded-xl bg-[#121215] border border-gray-800/80 hover:border-blue-500/50 hover:bg-[#16161b] transition-all text-left">
+          <a href="https://www.instagram.com/pedrogm.dev/" target="_blank" rel="noopener noreferrer" class="group p-6 rounded-xl backdrop-blur-sm border border-gray-800/80 hover:border-blue-500/50 transition-all text-left" style="background:rgba(18,18,21,0.6);box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);">
             <div class="flex justify-between items-center mb-4">
               <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#E4405F" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="#E4405F" stroke="none"></circle></svg>
               <span class="text-xs text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">Seguir →</span>
@@ -368,7 +372,7 @@ const html = `  <!-- Cursor Glow Follower -->
             <p class="text-xs text-gray-500">@pedrogm.dev</p>
           </a>
 
-          <a href="https://www.linkedin.com/in/pedrogmdev" target="_blank" rel="noopener noreferrer" class="group p-6 rounded-xl bg-[#121215] border border-gray-800/80 hover:border-blue-500/50 hover:bg-[#16161b] transition-all text-left">
+          <a href="https://www.linkedin.com/in/pedrogmdev" target="_blank" rel="noopener noreferrer" class="group p-6 rounded-xl backdrop-blur-sm border border-gray-800/80 hover:border-blue-500/50 transition-all text-left" style="background:rgba(18,18,21,0.6);box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);">
             <div class="flex justify-between items-center mb-4">
               <i class="devicon-linkedin-plain colored text-2xl"></i>
               <span class="text-xs text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">Ver perfil →</span>
@@ -377,7 +381,7 @@ const html = `  <!-- Cursor Glow Follower -->
             <p class="text-xs text-gray-500">/in/pedrogmdev</p>
           </a>
 
-          <a href="https://github.com/opgmoraes" target="_blank" rel="noopener noreferrer" class="group p-6 rounded-xl bg-[#121215] border border-gray-800/80 hover:border-purple-500/50 hover:bg-[#16161b] transition-all text-left">
+          <a href="https://github.com/opgmoraes" target="_blank" rel="noopener noreferrer" class="group p-6 rounded-xl backdrop-blur-sm border border-gray-800/80 hover:border-purple-500/50 transition-all text-left" style="background:rgba(18,18,21,0.6);box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);">
             <div class="flex justify-between items-center mb-4">
               <i class="devicon-github-original text-2xl text-white"></i>
               <span class="text-xs text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity">Ver projetos →</span>

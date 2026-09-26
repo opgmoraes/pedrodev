@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import type { ReactNode } from 'react'
+import type { ReactNode, CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 
 const WHATS_NUMBER = '5561936182176'
@@ -37,6 +37,19 @@ function Reveal({ children, className = '' }: { children: ReactNode; className?:
     <div ref={ref} className={`reveal ${visible ? 'is-visible' : ''} ${className}`}>
       {children}
     </div>
+  )
+}
+
+// Formas de luz borradas no fundo das seções — dão atmosfera e profundidade
+// sem virar poluição visual. Ficam atrás de tudo (z-0), o conteúdo real
+// sempre fica em z-10 por cima.
+function Glow({ color, style }: { color: string; style?: CSSProperties }) {
+  return (
+    <div
+      aria-hidden
+      className="absolute rounded-full pointer-events-none"
+      style={{ background: color, filter: 'blur(90px)', opacity: 0.35, ...style }}
+    />
   )
 }
 
@@ -192,8 +205,10 @@ export default function SalesLandingPage() {
       )}
 
       {/* HERO — claro */}
-      <section id="topo" className="min-h-screen flex flex-col justify-center px-6 md:px-12 pt-32 pb-20">
-        <div className="max-w-4xl mx-auto w-full text-center">
+      <section id="topo" className="relative overflow-hidden min-h-screen flex flex-col justify-center px-6 md:px-12 pt-32 pb-20">
+        <Glow color={AZUL} style={{ width: 420, height: 420, top: '-10%', right: '-10%' }} />
+        <Glow color="#D9A441" style={{ width: 320, height: 320, bottom: '-5%', left: '-8%', opacity: 0.18 }} />
+        <div className="relative z-10 max-w-4xl mx-auto w-full text-center">
           <div className="mb-8 flex items-center justify-center gap-3 hero-fade-1">
             <span className="w-2 h-2 rounded-full" style={{ background: AZUL }} />
             <p className="text-xs tracking-widest uppercase" style={{ color: 'rgba(21,21,15,0.55)' }}>
@@ -215,8 +230,8 @@ export default function SalesLandingPage() {
               href={waLink('Olá Pedro, vim pelo site e quero entender como você pode ajudar meu negócio.')}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-4 rounded-full text-sm uppercase tracking-widest font-semibold text-white hover:opacity-90 transition-opacity"
-              style={{ background: AZUL }}
+              className="px-8 py-4 rounded-full text-sm uppercase tracking-widest font-semibold text-white hover:opacity-90 transition-all hover:scale-105"
+              style={{ background: AZUL, boxShadow: `0 16px 40px -12px ${AZUL}80` }}
             >
               Conversar no WhatsApp agora
             </a>
@@ -232,8 +247,9 @@ export default function SalesLandingPage() {
       </section>
 
       {/* SERVIÇOS — escuro */}
-      <section id="servicos" className="py-28 px-6 md:px-12" style={{ background: GRAFITE, color: CREME }}>
-        <Reveal className="max-w-7xl mx-auto w-full">
+      <section id="servicos" className="relative overflow-hidden py-28 px-6 md:px-12" style={{ background: GRAFITE, color: CREME }}>
+        <Glow color={AZUL} style={{ width: 500, height: 500, top: '-15%', left: '50%', transform: 'translateX(-50%)', opacity: 0.15 }} />
+        <Reveal className="relative z-10 max-w-7xl mx-auto w-full">
           <div className="mb-16 text-center max-w-2xl mx-auto">
             <Crumb dark>o que eu faço</Crumb>
             <h2 className="text-3xl md:text-5xl font-medium mb-4">
@@ -248,8 +264,12 @@ export default function SalesLandingPage() {
             {SERVICOS.map((s) => (
               <div
                 key={s.titulo}
-                className="p-8 rounded-2xl border flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-                style={{ background: CARD_ESCURO, borderColor: 'rgba(237,234,226,0.08)' }}
+                className="p-8 rounded-2xl border backdrop-blur-sm flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_25px_60px_-20px_rgba(47,93,255,0.4)]"
+                style={{
+                  background: 'rgba(29,33,43,0.55)',
+                  borderColor: 'rgba(237,234,226,0.1)',
+                  boxShadow: 'inset 0 1px 0 rgba(237,234,226,0.08), 0 20px 40px -20px rgba(0,0,0,0.5)',
+                }}
               >
                 {s.tag && (
                   <span
@@ -341,23 +361,24 @@ export default function SalesLandingPage() {
       </section>
 
       {/* PROVA — escuro */}
-      <section id="provas" className="py-28 px-6 md:px-12" style={{ background: GRAFITE, color: CREME }}>
-        <Reveal className="max-w-6xl mx-auto w-full">
+      <section id="provas" className="relative overflow-hidden py-28 px-6 md:px-12" style={{ background: GRAFITE, color: CREME }}>
+        <Glow color="#D9A441" style={{ width: 380, height: 380, bottom: '-10%', right: '-10%', opacity: 0.12 }} />
+        <Reveal className="relative z-10 max-w-6xl mx-auto w-full">
           <div className="mb-16 text-center max-w-2xl mx-auto">
             <Crumb dark>construído do zero</Crumb>
             <h2 className="text-3xl md:text-5xl font-medium mb-4">O que eu já construí</h2>
             <p className="text-lg font-light" style={{ color: 'rgba(237,234,226,0.6)' }}>Plataformas completas, do zero ao ar.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" style={{ background: CARD_ESCURO, borderColor: 'rgba(237,234,226,0.08)' }}>
+            <div className="p-6 rounded-xl border backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_25px_60px_-20px_rgba(47,93,255,0.35)]" style={{ background: 'rgba(29,33,43,0.55)', borderColor: 'rgba(237,234,226,0.1)', boxShadow: 'inset 0 1px 0 rgba(237,234,226,0.08)' }}>
               <h4 className="font-semibold mb-2">BITTO</h4>
               <p className="text-sm" style={{ color: 'rgba(237,234,226,0.6)' }}>Plataforma de estudos com IA — transforma qualquer material em flashcards, quizzes e resumos.</p>
             </div>
-            <div className="p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" style={{ background: CARD_ESCURO, borderColor: 'rgba(237,234,226,0.08)' }}>
+            <div className="p-6 rounded-xl border backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_25px_60px_-20px_rgba(47,93,255,0.35)]" style={{ background: 'rgba(29,33,43,0.55)', borderColor: 'rgba(237,234,226,0.1)', boxShadow: 'inset 0 1px 0 rgba(237,234,226,0.08)' }}>
               <h4 className="font-semibold mb-2">CineGift</h4>
               <p className="text-sm" style={{ color: 'rgba(237,234,226,0.6)' }}>Experiência digital que transforma fotos e vídeos em um ingresso de cinema personalizado.</p>
             </div>
-            <div className="p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" style={{ background: CARD_ESCURO, borderColor: 'rgba(237,234,226,0.08)' }}>
+            <div className="p-6 rounded-xl border backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_25px_60px_-20px_rgba(47,93,255,0.35)]" style={{ background: 'rgba(29,33,43,0.55)', borderColor: 'rgba(237,234,226,0.1)', boxShadow: 'inset 0 1px 0 rgba(237,234,226,0.08)' }}>
               <h4 className="font-semibold mb-2">Kont Hub</h4>
               <p className="text-sm" style={{ color: 'rgba(237,234,226,0.6)' }}>Sistema de gestão contábil: CRM, pipeline de tarefas, financeiro e cofre de documentos.</p>
             </div>
@@ -395,8 +416,9 @@ export default function SalesLandingPage() {
       </section>
 
       {/* CTA FINAL — escuro */}
-      <section className="py-28 px-6 md:px-12" style={{ background: GRAFITE, color: CREME }}>
-        <Reveal className="max-w-3xl mx-auto w-full text-center">
+      <section className="relative overflow-hidden py-28 px-6 md:px-12" style={{ background: GRAFITE, color: CREME }}>
+        <Glow color={AZUL} style={{ width: 460, height: 460, top: '50%', left: '50%', transform: 'translate(-50%,-50%)', opacity: 0.22 }} />
+        <Reveal className="relative z-10 max-w-3xl mx-auto w-full text-center">
           <h2 className="text-4xl md:text-6xl font-medium mb-6">
             Bora <em style={{ color: AZUL, fontStyle: 'italic' }} className="font-serif">resolver</em> isso?
           </h2>
@@ -407,8 +429,8 @@ export default function SalesLandingPage() {
             href={waLink('Olá Pedro, vim pelo site e quero conversar sobre um projeto.')}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm uppercase tracking-widest font-semibold text-white hover:opacity-90 transition-opacity"
-            style={{ background: AZUL }}
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm uppercase tracking-widest font-semibold text-white hover:opacity-90 transition-all hover:scale-105"
+            style={{ background: AZUL, boxShadow: `0 20px 50px -15px ${AZUL}99` }}
           >
             Falar com Pedro agora <span>→</span>
           </a>

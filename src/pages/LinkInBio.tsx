@@ -86,13 +86,23 @@ const LINKS: LinkItem[] = [
 
 export default function LinkInBio() {
   return (
-    <div className="min-h-screen flex flex-col items-center px-6 py-16" style={{ background: CREME, color: GRAFITE }}>
-      <div className="w-full max-w-sm mx-auto flex flex-col items-center">
+    <div className="relative overflow-hidden min-h-screen flex flex-col items-center px-6 py-16" style={{ background: CREME, color: GRAFITE }}>
+      <div
+        aria-hidden
+        className="absolute rounded-full pointer-events-none"
+        style={{ width: 380, height: 380, top: '-12%', right: '-15%', background: AZUL, filter: 'blur(100px)', opacity: 0.22 }}
+      />
+      <div
+        aria-hidden
+        className="absolute rounded-full pointer-events-none"
+        style={{ width: 300, height: 300, bottom: '-10%', left: '-12%', background: '#D9A441', filter: 'blur(90px)', opacity: 0.15 }}
+      />
+      <div className="relative z-10 w-full max-w-sm mx-auto flex flex-col items-center">
         <img
           src="/assets/perfil/foto-perfil.jpg"
           alt="Pedro Gabriel Gomes"
           className="w-24 h-24 rounded-full object-cover mb-5 border-4"
-          style={{ borderColor: CREME, boxShadow: `0 0 0 3px ${AZUL}` }}
+          style={{ borderColor: CREME, boxShadow: `0 0 0 3px ${AZUL}, 0 12px 30px -8px ${AZUL}66` }}
         />
         <h1 className="text-xl font-semibold mb-1">Pedro Gomes</h1>
         <p className="text-sm text-center mb-8" style={{ color: 'rgba(21,21,15,0.6)' }}>
@@ -106,11 +116,21 @@ export default function LinkInBio() {
               href={link.href}
               target={link.external ? '_blank' : undefined}
               rel={link.external ? 'noopener noreferrer' : undefined}
-              className="flex items-center gap-4 w-full p-4 rounded-2xl border transition-all duration-200 hover:-translate-y-0.5"
+              className="flex items-center gap-4 w-full p-4 rounded-2xl border backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5"
               style={
                 link.highlight
-                  ? { background: AZUL, borderColor: AZUL, color: '#fff' }
-                  : { background: GRAFITE, borderColor: 'rgba(237,234,226,0.08)', color: CREME }
+                  ? {
+                      background: AZUL,
+                      borderColor: AZUL,
+                      color: '#fff',
+                      boxShadow: `inset 0 1px 0 rgba(255,255,255,0.25), 0 20px 40px -15px ${AZUL}80`,
+                    }
+                  : {
+                      background: 'rgba(21,21,15,0.82)',
+                      borderColor: 'rgba(237,234,226,0.1)',
+                      color: CREME,
+                      boxShadow: 'inset 0 1px 0 rgba(237,234,226,0.08), 0 16px 32px -18px rgba(0,0,0,0.4)',
+                    }
               }
             >
               <span
