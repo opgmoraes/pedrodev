@@ -67,6 +67,7 @@ export default function Projetos() {
       <h1>Projetos</h1>
       <div className="grid grid-2" style={{ marginTop: 20, alignItems: 'start' }}>
         <div className="card">
+          <div className="table-scroll">
           <table>
             <thead>
               <tr>
@@ -96,6 +97,7 @@ export default function Projetos() {
               )}
             </tbody>
           </table>
+          </div>
         </div>
         <form onSubmit={handleSubmit} className="card">
           <div className="mono" style={{ fontSize: 12, color: 'var(--text-muted)' }}>novo projeto</div>

@@ -121,7 +121,6 @@ a.link-underline:hover { text-decoration-color: var(--text); }
 @media (max-width: 720px) {
   .grid-2, .grid-3 { grid-template-columns: 1fr; }
   .container { padding: var(--space-5) var(--space-4); }
-  .sidebar { min-height: auto; border-right: none; border-bottom: 1px solid var(--border); }
 }
 
 input, textarea, select {
@@ -235,3 +234,66 @@ tbody tr:hover { background: var(--bg-alt); }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 999px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--text-faint); }
+
+/* Tabelas com scroll horizontal em telas estreitas, em vez de estourar o layout */
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.table-scroll table { min-width: 560px; }
+
+/* ===================== ADMIN SHELL (layout responsivo) ===================== */
+.admin-shell { display: grid; grid-template-columns: 220px 1fr; min-height: 100vh; }
+.admin-topbar { display: none; }
+.admin-drawer-backdrop { display: none; }
+.admin-main { min-width: 0; } /* evita que tabelas largas estourem a coluna do grid */
+
+@media (max-width: 900px) {
+  .admin-shell { display: block; }
+  .admin-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: var(--space-3) var(--space-4);
+  }
+  .admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100dvh;
+    width: min(78vw, 260px);
+    z-index: 70;
+    transform: translateX(-100%);
+    transition: transform 220ms ease;
+    background: var(--bg);
+    box-shadow: 20px 0 40px -20px rgba(0,0,0,0.5);
+  }
+  .admin-sidebar.is-open { transform: translateX(0); }
+  .admin-drawer-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 60;
+  }
+}
+
+.admin-menu-btn { padding: 8px; border-radius: var(--radius-sm); }
+.admin-menu-icon, .admin-menu-icon::before, .admin-menu-icon::after {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform 200ms ease, opacity 200ms ease;
+}
+.admin-menu-icon { position: relative; }
+.admin-menu-icon::before, .admin-menu-icon::after { content: ''; position: absolute; left: 0; }
+.admin-menu-icon::before { top: -6px; }
+.admin-menu-icon::after { top: 6px; }
+.admin-menu-icon.is-open { background: transparent; }
+.admin-menu-icon.is-open::before { transform: translateY(6px) rotate(45deg); }
+.admin-menu-icon.is-open::after { transform: translateY(-6px) rotate(-45deg); }

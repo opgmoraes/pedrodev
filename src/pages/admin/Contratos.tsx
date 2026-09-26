@@ -97,8 +97,10 @@ export default function Contratos() {
                   key={q.id}
                   style={{
                     display: 'flex',
+                    flexWrap: 'wrap',
                     justifyContent: 'space-between',
                     alignItems: 'center',
+                    gap: 10,
                     padding: '8px 0',
                     borderBottom: '1px solid var(--border)',
                   }}
@@ -114,73 +116,77 @@ export default function Contratos() {
         </div>
       )}
 
-      <table>
-        <thead>
-          <tr><th>cliente</th><th>serviço</th><th>valor</th><th>status</th><th>ações</th></tr>
-        </thead>
-        <tbody>
-          {contracts.map((c) => {
-            const wa = c.clientPhone
-              ? buildWhatsappLink(
-                  c.clientPhone,
-                  `Olá, ${c.clientName}! Segue o contrato do seu projeto pra leitura e aceite:\n\n${window.location.origin}/contrato/${c.slug}`
-                )
-              : null
-            return (
-              <tr key={c.id}>
-                <td>{c.clientName}</td>
-                <td>{c.service}</td>
-                <td>R$ {c.value}</td>
-                <td>
-                  <span
-                    className="badge"
-                    style={c.status === 'aceito' ? { borderColor: 'var(--accent)', color: 'var(--accent)' } : undefined}
-                  >
-                    {c.status}
-                  </span>
-                </td>
-                <td style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                  <a href={`/contrato/${c.slug}`} target="_blank" rel="noreferrer">
-                    <span className="badge">ver contrato</span>
-                  </a>
-                  <span
-                    className="badge"
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => navigator.clipboard.writeText(`${window.location.origin}/contrato/${c.slug}`)}
-                  >
-                    copiar link
-                  </span>
-                  {wa && (
-                    <a href={wa} target="_blank" rel="noreferrer">
-                      <span className="badge">enviar whatsapp</span>
+      <div className="card">
+        <div className="table-scroll">
+        <table>
+          <thead>
+            <tr><th>cliente</th><th>serviço</th><th>valor</th><th>status</th><th>ações</th></tr>
+          </thead>
+          <tbody>
+            {contracts.map((c) => {
+              const wa = c.clientPhone
+                ? buildWhatsappLink(
+                    c.clientPhone,
+                    `Olá, ${c.clientName}! Segue o contrato do seu projeto pra leitura e aceite:\n\n${window.location.origin}/contrato/${c.slug}`
+                  )
+                : null
+              return (
+                <tr key={c.id}>
+                  <td>{c.clientName}</td>
+                  <td>{c.service}</td>
+                  <td>R$ {c.value}</td>
+                  <td>
+                    <span
+                      className="badge"
+                      style={c.status === 'aceito' ? { borderColor: 'var(--accent)', color: 'var(--accent)' } : undefined}
+                    >
+                      {c.status}
+                    </span>
+                  </td>
+                  <td style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                    <a href={`/contrato/${c.slug}`} target="_blank" rel="noreferrer">
+                      <span className="badge">ver contrato</span>
                     </a>
-                  )}
-                  <span
-                    className="badge"
-                    style={{ cursor: 'pointer' }}
-                    onClick={() =>
-                      generateContractPdf({
-                        clientName: c.clientName,
-                        document: c.clientDocument,
-                        address: c.clientAddress,
-                        service: c.service,
-                        items: c.items,
-                        value: c.value,
-                        deadlineDays: c.deadlineDays,
-                      })
-                    }
-                  >
-                    baixar pdf
-                  </span>
-                </td>
-              </tr>
-            )
-          })}
-          {contracts.length === 0 && (
-            <tr><td colSpan={5} style={{ color: 'var(--text-muted)' }}>nenhum contrato ainda</td></tr>
-          )}
-        </tbody>
-      </table>
+                    <span
+                      className="badge"
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => navigator.clipboard.writeText(`${window.location.origin}/contrato/${c.slug}`)}
+                    >
+                      copiar link
+                    </span>
+                    {wa && (
+                      <a href={wa} target="_blank" rel="noreferrer">
+                        <span className="badge">enviar whatsapp</span>
+                      </a>
+                    )}
+                    <span
+                      className="badge"
+                      style={{ cursor: 'pointer' }}
+                      onClick={() =>
+                        generateContractPdf({
+                          clientName: c.clientName,
+                          document: c.clientDocument,
+                          address: c.clientAddress,
+                          service: c.service,
+                          items: c.items,
+                          value: c.value,
+                          deadlineDays: c.deadlineDays,
+                        })
+                      }
+                    >
+                      baixar pdf
+                    </span>
+                  </td>
+                </tr>
+              )
+            })}
+            {contracts.length === 0 && (
+              <tr><td colSpan={5} style={{ color: 'var(--text-muted)' }}>nenhum contrato ainda</td></tr>
+            )}
+          </tbody>
+        </table>
+        </div>
+      </div>
     </div>
   )
 }

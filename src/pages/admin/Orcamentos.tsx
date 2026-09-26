@@ -159,6 +159,7 @@ export default function Orcamentos() {
       <h1>Orçamentos / Propostas</h1>
       <div className="grid grid-2" style={{ marginTop: 20, alignItems: 'start' }}>
         <div className="card">
+          <div className="table-scroll">
           <table>
             <thead>
               <tr><th>cliente</th><th>serviço</th><th>valor</th><th>prazo</th><th>status</th><th>ações</th></tr>
@@ -239,6 +240,7 @@ export default function Orcamentos() {
               {quotes.length === 0 && <tr><td colSpan={6} style={{ color: 'var(--text-muted)' }}>nenhum orçamento ainda</td></tr>}
             </tbody>
           </table>
+          </div>
         </div>
         <form onSubmit={handleSubmit} className="card">
           <div className="mono" style={{ fontSize: 12, color: 'var(--text-muted)' }}>novo orçamento</div>

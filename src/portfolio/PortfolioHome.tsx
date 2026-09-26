@@ -8,7 +8,7 @@ const html = `  <!-- Cursor Glow Follower -->
   <nav id="navbar" class="fixed top-0 w-full z-50 px-6 py-6 md:px-12 flex justify-between items-center transition-all duration-300 border-b border-transparent bg-[#EDEAE2]/85 backdrop-blur-md">
     <a href="#hero" class="text-sm font-semibold tracking-widest uppercase text-[#15150F] hover:opacity-70 transition-opacity relative z-50">Pedro Gomes <span class="text-[#2F5DFF]">· tech</span></a>
     
-    <button id="mobile-menu-btn" aria-label="Abrir menu" class="md:hidden text-[#15150F] hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2F5DFF] relative z-50">
+    <button id="mobile-menu-btn" aria-label="Abrir menu" class="md:hidden text-[#15150F] hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2F5DFF] relative z-[70]">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path id="menu-icon-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
       </svg>

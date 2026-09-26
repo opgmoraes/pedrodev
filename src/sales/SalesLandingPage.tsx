@@ -185,7 +185,7 @@ export default function SalesLandingPage() {
         </div>
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 rounded"
+          className="md:hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 rounded relative z-[70]"
           style={{ color: GRAFITE, outlineColor: AZUL }}
           aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
           aria-expanded={menuOpen}

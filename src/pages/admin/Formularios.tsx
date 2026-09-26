@@ -22,15 +22,20 @@ export default function Formularios() {
       <div className="grid" style={{ marginTop: 20 }}>
         {subs.map((s) => (
           <div key={s.id} className="card">
-            <div className="mono" style={{ fontSize: 12, color: 'var(--text-muted)' }}>
+            <div className="mono" style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 10 }}>
               cliente: {s.clientSlug}
             </div>
-            <pre style={{ whiteSpace: 'pre-wrap', fontSize: 13, marginTop: 8 }}>
-              {JSON.stringify(s.answers, null, 2)}
-            </pre>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {Object.entries(s.answers).map(([question, answer]) => (
+                <div key={question} style={{ borderTop: '1px solid var(--border-soft)', paddingTop: 8 }}>
+                  <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 2 }}>{question}</div>
+                  <div style={{ fontSize: 14 }}>{answer || '—'}</div>
+                </div>
+              ))}
+            </div>
           </div>
         ))}
-        {subs.length === 0 && <p style={{ color: 'var(--text-muted)' }}>nenhum briefing enviado ainda</p>}
+        {subs.length === 0 && <p>nenhum briefing enviado ainda</p>}
       </div>
     </div>
   )
