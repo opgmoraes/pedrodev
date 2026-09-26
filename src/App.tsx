@@ -6,12 +6,11 @@ import ProtectedRoute from './components/ProtectedRoute'
 // Carregadas sob demanda: só baixam quando o visitante realmente navega
 // pra essas rotas, em vez de entrar no pacote inicial de "/".
 const PortfolioHome = lazy(() => import('./portfolio/PortfolioHome'))
-const PortfolioTrilha = lazy(() => import('./portfolio/PortfolioTrilha'))
-const PortfolioStartup = lazy(() => import('./portfolio/PortfolioStartup'))
 const Login = lazy(() => import('./pages/Login'))
 const ClienteArea = lazy(() => import('./pages/ClienteArea'))
 const PropostaPublica = lazy(() => import('./pages/public/PropostaPublica'))
 const ContratoPublico = lazy(() => import('./pages/public/ContratoPublico'))
+const LinkInBio = lazy(() => import('./pages/LinkInBio'))
 const Contratos = lazy(() => import('./pages/admin/Contratos'))
 const AdminLayout = lazy(() => import('./components/AdminLayout'))
 const Dashboard = lazy(() => import('./pages/admin/Dashboard'))
@@ -35,12 +34,11 @@ export default function App() {
       <Routes>
         <Route path="/" element={<SalesLandingPage />} />
         <Route path="/portifolio" element={<PortfolioHome />} />
-        <Route path="/trilha" element={<PortfolioTrilha />} />
-        <Route path="/startup" element={<PortfolioStartup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cliente/:slug" element={<ClienteArea />} />
         <Route path="/proposta/:slug" element={<PropostaPublica />} />
         <Route path="/contrato/:slug" element={<ContratoPublico />} />
+        <Route path="/link" element={<LinkInBio />} />
 
         <Route
           path="/admin"

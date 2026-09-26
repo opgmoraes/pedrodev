@@ -18,7 +18,6 @@ const html = `  <!-- Cursor Glow Follower -->
       <a href="#sobre" class="hover:opacity-70 transition-opacity">Sobre</a>
       <a href="#skills" class="hover:opacity-70 transition-opacity">Skills</a>
       <a href="#projetos" class="hover:opacity-70 transition-opacity">Projetos</a>
-      <a href="/trilha" class="hover:opacity-70 transition-opacity">Trilha</a>
       <a href="#contato" class="hover:opacity-70 transition-opacity">Contato</a>
     </div>
 
@@ -27,7 +26,6 @@ const html = `  <!-- Cursor Glow Follower -->
       <a href="#sobre" class="hover:opacity-70 transition-opacity mobile-link">Sobre</a>
       <a href="#skills" class="hover:opacity-70 transition-opacity mobile-link">Skills</a>
       <a href="#projetos" class="hover:opacity-70 transition-opacity mobile-link">Projetos</a>
-      <a href="/trilha" class="hover:opacity-70 transition-opacity mobile-link">Trilha</a>
       <a href="#contato" class="hover:opacity-70 transition-opacity mobile-link">Contato</a>
     </div>
   </nav>
@@ -318,27 +316,6 @@ const html = `  <!-- Cursor Glow Follower -->
     </div>
   </section>
 
-  <!-- ================= ZELOCAMP TEASER ================= -->
-  <section id="zelocamp" class="py-32 px-6 md:px-12 border-t border-[#15150F]/10 relative z-10 bg-[#EDEAE2] text-[#15150F]">
-    <div class="max-w-4xl mx-auto w-full reveal">
-      <p class="text-[10px] uppercase tracking-widest text-[#15150F]/50 mb-4">Além do Código</p>
-      <h2 class="text-4xl md:text-5xl font-medium mb-6">
-        Sou líder da <span class="serif-text text-[#2F5DFF]">ZeloCamp</span>
-      </h2>
-      <p class="text-[#15150F]/65 text-base leading-relaxed font-light max-w-2xl mb-10">
-        Startup selecionada para o Desafio AgroStartup (SENAR/SEBRAE Goiás), levando um sistema de biosseguridade avícola inteligente da ideia até um pitch de verdade pra investidores. Hoje estamos na fase de pré-aceleração, com demoday previsto pra outubro.
-      </p>
-      <div class="flex flex-wrap gap-4">
-        <a href="/startup" class="inline-flex items-center gap-2 px-6 py-3 bg-[#15150F] text-[#EDEAE2] rounded-full text-xs uppercase tracking-widest font-semibold hover:opacity-90 transition-opacity">
-          Conhecer Startup <span>→</span>
-        </a>
-        <a href="/trilha" class="inline-flex items-center gap-2 px-6 py-3 border border-[#15150F]/25 rounded-full text-xs uppercase tracking-widest hover:bg-[#15150F] hover:text-[#EDEAE2] transition-colors">
-          Conhecer Desafio <span>→</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
   <!-- ================= CONTATO ================= -->
   <section id="contato" class="py-32 px-6 md:px-12 bg-[#15150F] border-t border-gray-800/80 relative z-10">
     <div class="max-w-7xl mx-auto w-full">
@@ -371,7 +348,7 @@ const html = `  <!-- Cursor Glow Follower -->
         </div>
 
         <!-- CARDS DE CANAIS DIRETO -->
-        <div class="stagger-item grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
+        <div class="stagger-item grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full max-w-5xl">
           
           <a href="https://wa.me/5561936182176?text=Ol%C3%A1%20Pedro%2C%20vi%20seu%20portf%C3%B3lio%2C%20vamos%20conversar%3F" target="_blank" rel="noopener noreferrer" class="group p-6 rounded-xl bg-[#121215] border border-gray-800/80 hover:border-blue-500/50 hover:bg-[#16161b] transition-all text-left">
             <div class="flex justify-between items-center mb-4">
@@ -379,7 +356,16 @@ const html = `  <!-- Cursor Glow Follower -->
               <span class="text-xs text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">Conversar →</span>
             </div>
             <h4 class="text-sm font-semibold text-white mb-1">WhatsApp</h4>
-            <p class="text-xs text-gray-500">+55 (61) 99335-9477</p>
+            <p class="text-xs text-gray-500">+55 (61) 93618-2176</p>
+          </a>
+
+          <a href="https://www.instagram.com/pedrogm.dev/" target="_blank" rel="noopener noreferrer" class="group p-6 rounded-xl bg-[#121215] border border-gray-800/80 hover:border-blue-500/50 hover:bg-[#16161b] transition-all text-left">
+            <div class="flex justify-between items-center mb-4">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#E4405F" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="#E4405F" stroke="none"></circle></svg>
+              <span class="text-xs text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">Seguir →</span>
+            </div>
+            <h4 class="text-sm font-semibold text-white mb-1">Instagram</h4>
+            <p class="text-xs text-gray-500">@pedrogm.dev</p>
           </a>
 
           <a href="https://www.linkedin.com/in/pedrogmdev" target="_blank" rel="noopener noreferrer" class="group p-6 rounded-xl bg-[#121215] border border-gray-800/80 hover:border-blue-500/50 hover:bg-[#16161b] transition-all text-left">
