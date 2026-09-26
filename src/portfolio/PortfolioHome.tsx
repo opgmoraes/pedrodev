@@ -22,7 +22,7 @@ const html = `  <!-- Cursor Glow Follower -->
     </div>
 
     <!-- Menu Mobile -->
-    <div id="mobile-menu" class="fixed inset-0 bg-[#EDEAE2]/95 backdrop-blur-xl flex-col items-center justify-center gap-8 text-sm tracking-widest uppercase text-[#15150F] opacity-0 pointer-events-none transition-opacity duration-500 md:hidden flex z-40">
+    <div id="mobile-menu" class="fixed inset-0 bg-[#EDEAE2] flex-col items-center justify-center gap-8 text-sm tracking-widest uppercase text-[#15150F] opacity-0 pointer-events-none transition-opacity duration-300 md:hidden flex z-[60]">
       <a href="#sobre" class="hover:opacity-70 transition-opacity mobile-link">Sobre</a>
       <a href="#skills" class="hover:opacity-70 transition-opacity mobile-link">Skills</a>
       <a href="#projetos" class="hover:opacity-70 transition-opacity mobile-link">Projetos</a>
@@ -51,7 +51,7 @@ const html = `  <!-- Cursor Glow Follower -->
 
       <div class="stagger-item mt-20 flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
         <p class="max-w-md text-[#15150F]/65 text-lg leading-relaxed font-light">
-          Graduado em Análise e Desenvolvimento de Sistemas (ADS). Desenvolvedor Web e Founder criando soluções escaláveis e refinadas.
+          Graduado em Análise e Desenvolvimento de Sistemas (ADS). Desenvolvedor Web e Founder — construo do zero e cuido pra continuar funcionando depois.
         </p>
         <a href="#projetos" class="group flex items-center gap-4 text-xs tracking-widest uppercase border-b border-[#15150F]/30 pb-3 hover:border-[#15150F] transition-all duration-300">
           Explorar Projetos 
@@ -88,10 +88,10 @@ const html = `  <!-- Cursor Glow Follower -->
           <span class="serif-text text-[#2F5DFF]">Hoje, meu foco principal é a BITTO.</span>
         </h2>
         <p class="text-[#15150F]/65 text-lg leading-relaxed font-light mb-6">
-          Construo produtos do zero passando por design, código e integração com APIs. Acredito que a tecnologia deve ser invisível e a experiência do usuário deve ser o centro de tudo.
+          Construo produtos do zero: penso no design, escrevo o código e ligo tudo às APIs que fazem funcionar de verdade. Quando o usuário nem repara na tecnologia por trás, é sinal de que deu certo.
         </p>
         <p class="text-[#15150F]/65 text-lg leading-relaxed font-light">
-          Minha jornada une a lógica rigorosa da engenharia de software com a sensibilidade de criar interfaces fluidas, rápidas e memoráveis.
+          Isso junta engenharia com atenção a detalhe: interface rápida, fluida e que não atravanca quem tá usando.
         </p>
       </div>
 
@@ -332,8 +332,8 @@ const html = `  <!-- Cursor Glow Follower -->
         </div>
 
         <h2 class="text-5xl md:text-7xl font-medium leading-tight mb-8 stagger-item">
-          Vamos construir <br> 
-          <span class="serif-text text-gray-400">algo incrível juntos?</span>
+          Tem um projeto <br> 
+          <span class="serif-text text-gray-400">em mente?</span>
         </h2>
 
         <p class="max-w-xl text-gray-400 text-base md:text-lg font-light mb-12 stagger-item">
@@ -400,7 +400,7 @@ const html = `  <!-- Cursor Glow Follower -->
   <!-- ================= FOOTER ================= -->
   <footer class="py-8 px-6 text-center border-t border-[#15150F]/10 relative z-10 bg-[#EDEAE2] text-[#15150F]">
     <p class="text-xs text-[#15150F]/50 tracking-widest uppercase">
-      © 2026 Pedro Gabriel Gomes — Construído com foco em excelência.
+      © 2026 Pedro Gabriel Gomes
     </p>
     <p class="text-[10px] text-[#15150F]/40 tracking-widest uppercase mt-2 flex items-center justify-center gap-1.5">
       <span>☕</span> Cafés consumidos nesse projeto: 247

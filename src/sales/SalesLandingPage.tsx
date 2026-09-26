@@ -131,7 +131,7 @@ const COMO_FUNCIONA = [
 
 const PARA_QUEM = {
   sim: [
-    'Pequenas empresas e profissionais liberais que querem vender mais online',
+    'Pequenas empresas e profissionais autônomos que querem vender mais online',
     'Quem precisa de algo pronto em semanas, não em meses',
     'Quem quer um site ou sistema que é seu, sem depender de plataforma alheia',
   ],
@@ -202,8 +202,8 @@ export default function SalesLandingPage() {
 
       {menuOpen && (
         <div
-          className="fixed inset-0 z-40 backdrop-blur-xl flex flex-col items-center justify-center gap-8 text-sm tracking-widest uppercase"
-          style={{ background: `${CREME}f5`, color: GRAFITE }}
+          className="fixed inset-0 z-[60] flex flex-col items-center justify-center gap-8 text-sm tracking-widest uppercase"
+          style={{ background: CREME, color: GRAFITE }}
         >
           <a onClick={() => setMenuOpen(false)} href="#servicos">Serviços</a>
           <a onClick={() => setMenuOpen(false)} href="#como-funciona">Como funciona</a>

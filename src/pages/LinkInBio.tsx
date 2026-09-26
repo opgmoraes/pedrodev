@@ -106,7 +106,7 @@ export default function LinkInBio() {
         />
         <h1 className="text-xl font-semibold mb-1">Pedro Gomes</h1>
         <p className="text-sm text-center mb-8" style={{ color: 'rgba(21,21,15,0.6)' }}>
-          Desenvolvedor sob medida pra pequenas empresas e profissionais liberais
+          Desenvolvedor sob medida pra pequenas empresas e profissionais autônomos
         </p>
 
         <div className="w-full flex flex-col gap-3">
