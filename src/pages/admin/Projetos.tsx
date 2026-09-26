@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { collection, addDoc, getDocs, orderBy, query, serverTimestamp, doc, updateDoc } from 'firebase/firestore'
 import { db } from '../../lib/firebaseClient'
 
@@ -25,6 +25,15 @@ export default function Projetos() {
   const [clients, setClients] = useState<Client[]>([])
   const [form, setForm] = useState({ name: '', clientId: '', status: 'Rascunho' })
   const [loading, setLoading] = useState(false)
+  const [search, setSearch] = useState('')
+
+  const filtered = useMemo(() => {
+    const q = search.trim().toLowerCase()
+    if (!q) return projects
+    return projects.filter(
+      (p) => p.name.toLowerCase().includes(q) || (p.clientName ?? '').toLowerCase().includes(q)
+    )
+  }, [projects, search])
 
   async function load() {
     const [pSnap, cSnap] = await Promise.all([
@@ -67,6 +76,16 @@ export default function Projetos() {
       <h1>Projetos</h1>
       <div className="grid grid-2" style={{ marginTop: 20, alignItems: 'start' }}>
         <div className="card">
+          <div className="list-toolbar">
+            <input
+              type="search"
+              className="list-search"
+              placeholder="buscar por projeto ou cliente…"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <span className="count-pill">{filtered.length} projeto{filtered.length === 1 ? '' : 's'}</span>
+          </div>
           <div className="table-scroll">
           <table>
             <thead>
@@ -77,7 +96,7 @@ export default function Projetos() {
               </tr>
             </thead>
             <tbody>
-              {projects.map((p) => (
+              {filtered.map((p) => (
                 <tr key={p.id}>
                   <td>{p.name}</td>
                   <td>{p.clientName ?? '—'}</td>
@@ -90,6 +109,11 @@ export default function Projetos() {
                   </td>
                 </tr>
               ))}
+              {filtered.length === 0 && projects.length > 0 && (
+                <tr>
+                  <td colSpan={3} style={{ color: 'var(--text-muted)' }}>nenhum projeto bate com essa busca</td>
+                </tr>
+              )}
               {projects.length === 0 && (
                 <tr>
                   <td colSpan={3} style={{ color: 'var(--text-muted)' }}>nenhum projeto ainda</td>

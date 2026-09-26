@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { collection, addDoc, getDocs, orderBy, query, serverTimestamp } from 'firebase/firestore'
 import { db } from '../../lib/firebaseClient'
 import { buildWhatsappLink, templates } from '../../lib/whatsapp'
+import { getInitials, getAvatarColor } from '../../lib/avatar'
 
 type Client = {
   id: string
@@ -26,6 +27,15 @@ export default function Clientes() {
   const [form, setForm] = useState(emptyForm)
   const [loading, setLoading] = useState(false)
   const [showMore, setShowMore] = useState(false)
+  const [search, setSearch] = useState('')
+
+  const filtered = useMemo(() => {
+    const q = search.trim().toLowerCase()
+    if (!q) return clients
+    return clients.filter(
+      (c) => c.name.toLowerCase().includes(q) || (c.company ?? '').toLowerCase().includes(q)
+    )
+  }, [clients, search])
 
   async function load() {
     const snap = await getDocs(query(collection(db, 'clients'), orderBy('createdAt', 'desc')))
@@ -70,6 +80,16 @@ export default function Clientes() {
       <h1>Clientes</h1>
       <div className="grid grid-2" style={{ marginTop: 20, alignItems: 'start' }}>
         <div className="card">
+          <div className="list-toolbar">
+            <input
+              type="search"
+              className="list-search"
+              placeholder="buscar por nome ou empresa…"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <span className="count-pill">{filtered.length} cliente{filtered.length === 1 ? '' : 's'}</span>
+          </div>
           <div className="table-scroll">
           <table>
             <thead>
@@ -81,9 +101,16 @@ export default function Clientes() {
               </tr>
             </thead>
             <tbody>
-              {clients.map((c) => (
+              {filtered.map((c) => (
                 <tr key={c.id}>
-                  <td>{c.name}</td>
+                  <td>
+                    <div className="name-cell">
+                      <div className="avatar avatar-sm" style={{ background: getAvatarColor(c.name) }}>
+                        {getInitials(c.name)}
+                      </div>
+                      {c.name}
+                    </div>
+                  </td>
                   <td>{c.company || '—'}</td>
                   <td style={{ display: 'flex', gap: 6 }}>
                     {c.phone ? (
@@ -108,6 +135,11 @@ export default function Clientes() {
                   </td>
                 </tr>
               ))}
+              {filtered.length === 0 && clients.length > 0 && (
+                <tr>
+                  <td colSpan={4} style={{ color: 'var(--text-muted)' }}>nenhum cliente bate com essa busca</td>
+                </tr>
+              )}
               {clients.length === 0 && (
                 <tr>
                   <td colSpan={4} style={{ color: 'var(--text-muted)' }}>nenhum cliente ainda</td>
