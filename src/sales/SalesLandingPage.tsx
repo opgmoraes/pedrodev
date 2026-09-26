@@ -183,9 +183,19 @@ export default function SalesLandingPage() {
             Falar no WhatsApp
           </a>
         </div>
-        <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden" style={{ color: GRAFITE }}>
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="md:hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 rounded"
+          style={{ color: GRAFITE, outlineColor: AZUL }}
+          aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
+          aria-expanded={menuOpen}
+        >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
+            {menuOpen ? (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
+            )}
           </svg>
         </button>
       </nav>
@@ -230,15 +240,15 @@ export default function SalesLandingPage() {
               href={waLink('Olá Pedro, vim pelo site e quero entender como você pode ajudar meu negócio.')}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-4 rounded-full text-sm uppercase tracking-widest font-semibold text-white hover:opacity-90 transition-all hover:scale-105"
-              style={{ background: AZUL, boxShadow: `0 16px 40px -12px ${AZUL}80` }}
+              className="px-8 py-4 rounded-full text-sm uppercase tracking-widest font-semibold text-white hover:opacity-90 transition-all hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+              style={{ background: AZUL, boxShadow: `0 16px 40px -12px ${AZUL}80`, outlineColor: AZUL }}
             >
               Conversar no WhatsApp agora
             </a>
             <a
               href="#servicos"
-              className="px-8 py-4 rounded-full text-sm uppercase tracking-widest border hover:opacity-70 transition-opacity"
-              style={{ borderColor: 'rgba(21,21,15,0.3)' }}
+              className="px-8 py-4 rounded-full text-sm uppercase tracking-widest border hover:opacity-70 hover:border-[rgba(21,21,15,0.5)] transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+              style={{ borderColor: 'rgba(21,21,15,0.3)', outlineColor: AZUL }}
             >
               Ver serviços
             </a>
@@ -266,9 +276,11 @@ export default function SalesLandingPage() {
                 key={s.titulo}
                 className="p-8 rounded-2xl border backdrop-blur-sm flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_25px_60px_-20px_rgba(47,93,255,0.4)]"
                 style={{
-                  background: 'rgba(29,33,43,0.55)',
-                  borderColor: 'rgba(237,234,226,0.1)',
-                  boxShadow: 'inset 0 1px 0 rgba(237,234,226,0.08), 0 20px 40px -20px rgba(0,0,0,0.5)',
+                  background: s.tag ? 'rgba(47,93,255,0.08)' : 'rgba(29,33,43,0.55)',
+                  borderColor: s.tag ? `${AZUL}66` : 'rgba(237,234,226,0.1)',
+                  boxShadow: s.tag
+                    ? `inset 0 1px 0 rgba(237,234,226,0.08), 0 20px 45px -18px ${AZUL}55`
+                    : 'inset 0 1px 0 rgba(237,234,226,0.08), 0 20px 40px -20px rgba(0,0,0,0.5)',
                 }}
               >
                 {s.tag && (
@@ -429,7 +441,7 @@ export default function SalesLandingPage() {
             href={waLink('Olá Pedro, vim pelo site e quero conversar sobre um projeto.')}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm uppercase tracking-widest font-semibold text-white hover:opacity-90 transition-all hover:scale-105"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm uppercase tracking-widest font-semibold text-white hover:opacity-90 transition-all hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
             style={{ background: AZUL, boxShadow: `0 20px 50px -15px ${AZUL}99` }}
           >
             Falar com Pedro agora <span>→</span>

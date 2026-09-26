@@ -116,7 +116,7 @@ export default function LinkInBio() {
               href={link.href}
               target={link.external ? '_blank' : undefined}
               rel={link.external ? 'noopener noreferrer' : undefined}
-              className="flex items-center gap-4 w-full p-4 rounded-2xl border backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5"
+              className="flex items-center gap-4 w-full p-4 rounded-2xl border backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
               style={
                 link.highlight
                   ? {
@@ -124,12 +124,14 @@ export default function LinkInBio() {
                       borderColor: AZUL,
                       color: '#fff',
                       boxShadow: `inset 0 1px 0 rgba(255,255,255,0.25), 0 20px 40px -15px ${AZUL}80`,
+                      outlineColor: '#fff',
                     }
                   : {
                       background: 'rgba(21,21,15,0.82)',
                       borderColor: 'rgba(237,234,226,0.1)',
                       color: CREME,
                       boxShadow: 'inset 0 1px 0 rgba(237,234,226,0.08), 0 16px 32px -18px rgba(0,0,0,0.4)',
+                      outlineColor: AZUL,
                     }
               }
             >
