@@ -1,6 +1,6 @@
-import { initializeApp } from 'firebase/app'
-import { getAuth, GoogleAuthProvider } from 'firebase/auth'
-import { getFirestore } from 'firebase/firestore'
+import { initializeApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -9,13 +9,27 @@ const firebaseConfig = {
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
+};
+
+export const hasFirebaseConfig = Boolean(
+  firebaseConfig.apiKey && firebaseConfig.projectId && firebaseConfig.appId,
+);
+
+if (!hasFirebaseConfig) {
+  console.warn(
+    "Firebase não configurado. Copie .env.example para .env e preencha as chaves.",
+  );
 }
 
-if (!firebaseConfig.apiKey) {
-  console.warn('Firebase não configurado. Copie .env.example para .env e preencha as chaves.')
-}
-
-export const app = initializeApp(firebaseConfig)
-export const auth = getAuth(app)
-export const db = getFirestore(app)
-export const googleProvider = new GoogleAuthProvider()
+export const app = initializeApp(
+  hasFirebaseConfig
+    ? firebaseConfig
+    : {
+        apiKey: "not-configured",
+        projectId: "not-configured",
+        appId: "not-configured",
+      },
+);
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+export const googleProvider = new GoogleAuthProvider();

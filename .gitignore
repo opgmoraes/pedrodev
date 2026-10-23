@@ -11,3 +11,8 @@ dist/
 # editores/SO
 .DS_Store
 *.log
+
+# estado local de build e emuladores
+*.tsbuildinfo
+.firebase/
+*-debug.log*

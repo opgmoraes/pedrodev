@@ -1,9 +1,10 @@
 import { doc, getDoc, setDoc } from 'firebase/firestore'
-import { db } from './firebaseClient'
+import { db, hasFirebaseConfig } from './firebaseClient'
 
 export type ProjectStatus = 'azul' | 'ambar' | 'verde'
 
 export type PortfolioProject = {
+  id?: string
   title: string
   description: string
   statusText: string
@@ -19,12 +20,13 @@ export type PortfolioContent = {
   heroDescription: string
   sobreP1: string
   sobreP2: string
-  projetos: [PortfolioProject, PortfolioProject, PortfolioProject]
+  projetos: PortfolioProject[]
 }
 
 const DOC_REF = doc(db, 'siteContent', 'portfolio')
 
 export async function getPortfolioContent(): Promise<Partial<PortfolioContent> | null> {
+  if (!hasFirebaseConfig) return null
   const snap = await getDoc(DOC_REF)
   return snap.exists() ? (snap.data() as Partial<PortfolioContent>) : null
 }

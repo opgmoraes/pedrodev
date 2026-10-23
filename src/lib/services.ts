@@ -64,7 +64,7 @@ export const SERVICOS: ServiceItem[] = [
     id: 'captacao-leads',
     titulo: 'Sistema de Captação de Leads',
     publico: 'Negócios que precisam transformar visitantes em contatos/clientes de forma organizada.',
-    descricao: 'Solução focada em transformar visitantes em contatos/clientes, sem precisar da API oficial do WhatsApp.',
+    descricao: 'Captação e organização de contatos para facilitar o atendimento e acompanhar novas oportunidades.',
     itens: [
       'Landing page',
       'Formulário de captura',

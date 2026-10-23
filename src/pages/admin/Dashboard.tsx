@@ -1,76 +1,184 @@
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { collection, getCountFromServer } from 'firebase/firestore'
-import { db } from '../../lib/firebaseClient'
-
-const ICON = {
-  clientes: 'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z',
-  projetos: 'M20.25 14.15v4.25c0 1.09-.79 2.04-1.87 2.18-2.09.28-4.22.42-6.38.42s-4.29-.14-6.38-.42a2.18 2.18 0 0 1-1.87-2.18v-4.25M3 12.49V8.7c0-1.08.77-2.02 1.84-2.18a48 48 0 0 1 3.41-.38m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.89',
-  financeiro: 'M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6',
-}
-
-function greeting() {
-  const h = new Date().getHours()
-  if (h < 12) return 'Bom dia'
-  if (h < 18) return 'Boa tarde'
-  return 'Boa noite'
-}
-
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../lib/firebaseClient";
+import { publicStatus, publishAllLinks } from "../../lib/sharing";
+import { money } from "../../lib/brand";
+import { ErrorMessage, loadError } from "../../components/Feedback";
+type Row = {
+  id: string;
+  name?: string;
+  clientName?: string;
+  status?: string;
+  service?: string;
+  value?: number;
+};
 export default function Dashboard() {
-  const [counts, setCounts] = useState({ clientes: 0, projetos: 0 })
-
+  const [data, setData] = useState<{
+    clients: Row[];
+    projects: Row[];
+    quotes: Row[];
+    payments: Row[];
+  }>({ clients: [], projects: [], quotes: [], payments: [] });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [syncing, setSyncing] = useState(false);
+  const [notice, setNotice] = useState("");
   useEffect(() => {
     async function load() {
-      const [clientesSnap, projetosSnap] = await Promise.all([
-        getCountFromServer(collection(db, 'clients')),
-        getCountFromServer(collection(db, 'projects')),
-      ])
-      setCounts({ clientes: clientesSnap.data().count, projetos: projetosSnap.data().count })
+      try {
+        const [clients, projects, quotes, payments] = await Promise.all(
+          ["clients", "projects", "quotes", "payments"].map((c) =>
+            getDocs(collection(db, c)),
+          ),
+        );
+        setData({
+          clients: clients.docs.map((d) => ({ id: d.id, ...d.data() })),
+          projects: projects.docs.map((d) => ({ id: d.id, ...d.data() })),
+          quotes: await Promise.all(
+            quotes.docs.map(async (d) => ({
+              id: d.id,
+              ...d.data(),
+              status: await publicStatus("quotes", d.data()),
+            })),
+          ),
+          payments: payments.docs.map((d) => ({ id: d.id, ...d.data() })),
+        });
+      } catch {
+        setError(loadError);
+      } finally {
+        setLoading(false);
+      }
     }
-    load()
-  }, [])
-
+    load();
+  }, []);
+  async function sync() {
+    setSyncing(true);
+    setError("");
+    setNotice("");
+    try {
+      await publishAllLinks();
+      setNotice("Links de clientes, propostas e contratos atualizados.");
+    } catch {
+      setError(
+        "Não foi possível atualizar os links. Confira as regras de acesso e tente novamente.",
+      );
+    } finally {
+      setSyncing(false);
+    }
+  }
+  const active = data.projects.filter((p) => p.status !== "Concluído");
+  const pending = data.quotes.filter((q) => q.status === "pendente");
+  const receivable = data.payments
+    .filter((p) => p.status === "pendente")
+    .reduce((sum, p) => sum + (p.value || 0), 0);
+  const hour = new Date().getHours();
   return (
-    <div>
-      <div className="crumb">admin / dashboard</div>
-      <h1>{greeting()}, Pedro</h1>
-      <p className="page-subtitle">visão geral do que está rodando agora</p>
-
+    <>
+      <div className="dashboard-welcome">
+        <div
+          className="studio-eyebrow"
+          style={{
+            fontSize: 10,
+            letterSpacing: ".14em",
+            color: "#9fbbe6",
+            marginBottom: 15,
+          }}
+        >
+          VISÃO GERAL
+        </div>
+        <h1>
+          {hour < 12 ? "Bom dia" : hour < 18 ? "Boa tarde" : "Boa noite"},
+          Pedro.
+        </h1>
+        <p>Um novo dia para transformar boas ideias em entregas.</p>
+      </div>
+      <ErrorMessage message={error} />
+      {loading && <p role="status">Carregando indicadores…</p>}
       <div className="grid grid-3">
-        <div className="card">
-          <div className="stat-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round"><path d={ICON.clientes} /></svg>
-          </div>
-          <div className="stat-label">clientes</div>
-          <div className="stat-value">{counts.clientes}</div>
-        </div>
-        <div className="card">
-          <div className="stat-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round"><path d={ICON.projetos} /></svg>
-          </div>
-          <div className="stat-label">projetos ativos</div>
-          <div className="stat-value">{counts.projetos}</div>
-        </div>
-        <div className="card" style={{ opacity: 0.6 }}>
-          <div className="stat-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round"><path d={ICON.financeiro} /></svg>
-          </div>
-          <div className="stat-label">a receber</div>
-          <div className="stat-value" style={{ color: 'var(--text-faint)' }}>em breve</div>
-        </div>
+        {[
+          ["Clientes", data.clients.length, "/admin/clientes"],
+          ["Projetos em andamento", active.length, "/admin/projetos"],
+          ["Contas a receber", money(receivable), "/admin/financeiro"],
+        ].map(([label, value, path]) => (
+          <Link className="card" to={String(path)} key={label}>
+            <div className="stat-label">{label}</div>
+            <div className="stat-value">{loading ? "—" : value}</div>
+            <span style={{ color: "var(--accent)", fontSize: 11 }}>
+              Ver detalhes ↗
+            </span>
+          </Link>
+        ))}
       </div>
-
-      <h2>ações rápidas</h2>
-      <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-        <Link to="/admin/clientes"><button className="secondary">+ novo cliente</button></Link>
-        <Link to="/admin/projetos"><button className="secondary">+ novo projeto</button></Link>
-        <Link to="/admin/orcamentos"><button className="secondary">+ novo orçamento</button></Link>
+      <div className="grid grid-2 dashboard-lists">
+        <section className="card">
+          <h2>Projetos em andamento</h2>
+          {!active.length && !loading && (
+            <p>Nenhum projeto em andamento. Cadastre o próximo.</p>
+          )}
+          {active.slice(0, 5).map((p) => (
+            <Link
+              className="dashboard-list-row"
+              to="/admin/projetos"
+              key={p.id}
+            >
+              <span>{p.name}</span>
+              <span className="badge">{p.status}</span>
+            </Link>
+          ))}
+          <Link to="/admin/projetos" className="link-underline">
+            Gerenciar projetos ↗
+          </Link>
+        </section>
+        <section className="card">
+          <h2>Propostas aguardando resposta</h2>
+          {!pending.length && !loading && <p>Nenhuma proposta pendente.</p>}
+          {pending.slice(0, 5).map((q) => (
+            <Link
+              className="dashboard-list-row"
+              to="/admin/orcamentos"
+              key={q.id}
+            >
+              <span>
+                {q.clientName || "Cliente"}
+                <small>{q.service}</small>
+              </span>
+              <span className="dashboard-money">{money(q.value || 0)}</span>
+            </Link>
+          ))}
+          <Link to="/admin/orcamentos" className="link-underline">
+            Gerenciar propostas ↗
+          </Link>
+        </section>
       </div>
-
-      <p style={{ marginTop: 32 }}>
-        V1 mostra contagem real de clientes/projetos direto do Firestore. Financeiro
-        entra na V2.
-      </p>
-    </div>
-  )
+      <h2>Ações rápidas</h2>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+        <Link to="/admin/clientes" className="badge badge-accent">
+          + Novo cliente
+        </Link>
+        <Link to="/admin/projetos" className="badge badge-accent">
+          + Novo projeto
+        </Link>
+        <Link to="/admin/orcamentos" className="badge badge-accent">
+          + Nova proposta
+        </Link>
+      </div>
+      <section className="card" style={{ marginTop: 28 }}>
+        <h2>Links compartilhados</h2>
+        <p>
+          Se você já tinha clientes e propostas cadastrados antes desta
+          atualização, prepare os links existentes uma vez. As novas criações
+          são preparadas automaticamente.
+        </p>
+        <button className="secondary" onClick={sync} disabled={syncing}>
+          {syncing ? "Atualizando…" : "Preparar links existentes"}
+        </button>
+        {notice && (
+          <p className="form-feedback" role="status">
+            {notice}
+          </p>
+        )}
+      </section>
+    </>
+  );
 }

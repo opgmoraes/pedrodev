@@ -6,9 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:rules": "firebase emulators:exec --only firestore --project demo-pedrodev \"node --test tests/firestore.rules.test.mjs\"",
+    "check": "tsc --noEmit"
   },
   "dependencies": {
+    "@fortawesome/free-brands-svg-icons": "^7.3.1",
     "firebase": "^10.13.2",
     "jspdf": "^2.5.2",
     "react": "^18.3.1",
@@ -16,10 +19,12 @@
     "react-router-dom": "^6.26.2"
   },
   "devDependencies": {
+    "@firebase/rules-unit-testing": "^3.0.4",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.6.1",
+    "firebase-tools": "^13.35.1",
     "postcss": "^8.5.28",
     "tailwindcss": "^3.4.19",
     "typescript": "^5.5.4",

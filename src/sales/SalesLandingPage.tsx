@@ -1,522 +1,401 @@
-import { useEffect, useRef, useState } from 'react'
-import type { ReactNode, CSSProperties } from 'react'
-import { Link } from 'react-router-dom'
-import { useSEO } from '../lib/seo'
+import { useEffect, useRef, useState } from "react";
+import type { ReactNode } from "react";
+import { Link } from "react-router-dom";
+import { useSEO } from "../lib/seo";
+import { BRAND, contactLink } from "../lib/brand";
+import { SERVICOS } from "../lib/services";
+import SocialLinks from "../components/SocialLinks";
+import type {
+  PortfolioContent,
+  PortfolioProject,
+} from "../lib/portfolioContent";
+import "./sales.css";
+import CloudBridge from "./CloudBridge";
+import RecruiterSection from "./RecruiterSection";
+import ProjectShowcase from "./ProjectShowcase";
+import { useStudioMotion } from "./useStudioMotion";
 
-const WHATS_NUMBER = '5561936182176'
-const EMAIL = 'pedrogm.dev@gmail.com'
-const INSTAGRAM_URL = 'https://www.instagram.com/pedrogm.dev/'
-
-function waLink(message: string) {
-  return `https://wa.me/${WHATS_NUMBER}?text=${encodeURIComponent(message)}`
-}
-
-// Revela a seção com um fade + leve subida quando ela entra na tela —
-// dispara uma vez só (não fica escondendo/mostrando ao rolar pra cima e
-// pra baixo) e respeita quem prefere menos movimento na tela.
-function Reveal({ children, className = '' }: { children: ReactNode; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [visible, setVisible] = useState(false)
-
+const steps = [
+  ["Conversa", "Entendo seu negócio e o que você precisa resolver."],
+  ["Proposta", "Escopo, prazo e investimento definidos antes de começar."],
+  ["Direção visual", "Uma experiência alinhada à identidade da sua marca."],
+  ["Desenvolvimento", "Seu projeto ganha forma, com acompanhamento próximo."],
+  ["Revisão", "Você testa e aprova os ajustes combinados."],
+  ["Entrega", "Projeto publicado, com seus arquivos, acessos e orientações."],
+];
+const faqs = [
+  ["Qual é o prazo?", "Landing pages a partir de 7 dias úteis. O prazo final depende do escopo e dos materiais."],
+  ["Como funciona o pagamento?", "Entrada e saldo na entrega, conforme a proposta aprovada."],
+  ["Os arquivos e acessos ficam comigo?", "Sim. Você recebe os arquivos e acessos previstos no escopo, além do suporte combinado."],
+];
+const serviceCopy: Record<string, [string, string]> = {
+  "landing-page": ["Landing pages", "Apresente sua oferta e leve visitantes ao WhatsApp."],
+  "site-institucional": ["Sites institucionais", "Mostre seus serviços e facilite o primeiro contato."],
+  "captacao-leads": ["Captação de leads", "Receba contatos e acompanhe cada oportunidade."],
+  "sistemas-automacoes": ["Sistemas & automações", "Organize a operação e automatize tarefas repetitivas."],
+};
+function Reveal({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const el = ref.current
-    if (!el) return
+    const el = ref.current;
+    if (!el || !("IntersectionObserver" in window)) return;
+    const animations: Animation[] = [];
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true)
-          observer.disconnect()
+      (entries) => {
+        if (!entries[0].isIntersecting) return;
+        observer.disconnect();
+        if (preference.matches) return;
+        const targets = Array.from(el.children) as HTMLElement[];
+        for (const [i, target] of targets.entries()) {
+          animations.push(
+            target.animate(
+              [
+                {
+                  opacity: 0.25,
+                  transform: "translateY(26px)",
+                  filter: "blur(4px)",
+                },
+                { opacity: 1, transform: "translateY(0)", filter: "blur(0px)" },
+              ],
+              {
+                duration: 800,
+                delay: Math.min(i * 80, 240),
+                easing: "cubic-bezier(.16,1,.3,1)",
+                fill: "backwards",
+              },
+            ),
+          );
         }
       },
-      { threshold: 0.15 }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
-
+      { threshold: 0.12 },
+    );
+    observer.observe(el);
+    const stop = () => {
+      if (preference.matches) animations.forEach((a) => a.finish());
+    };
+    preference.addEventListener("change", stop);
+    return () => {
+      observer.disconnect();
+      animations.forEach((a) => a.cancel());
+      preference.removeEventListener("change", stop);
+    };
+  }, []);
   return (
-    <div ref={ref} className={`reveal ${visible ? 'is-visible' : ''} ${className}`}>
+    <div ref={ref} className={className}>
       {children}
     </div>
-  )
+  );
 }
-
-// Formas de luz borradas no fundo das seções — dão atmosfera e profundidade
-// sem virar poluição visual. Ficam atrás de tudo (z-0), o conteúdo real
-// sempre fica em z-10 por cima.
-function Glow({ color, style }: { color: string; style?: CSSProperties }) {
+function CTA({
+  children = "Conversar sobre meu projeto",
+  className = "",
+}: {
+  children?: ReactNode;
+  className?: string;
+}) {
   return (
-    <div
-      aria-hidden
-      className="absolute rounded-full pointer-events-none"
-      style={{ background: color, filter: 'blur(90px)', opacity: 0.35, ...style }}
-    />
-  )
-}
-
-// Paleta: creme/grafite alternados (nunca só escuro), com azul como
-// única cor de destaque — usada com moderação em CTAs, ícones e nas
-// palavras em itálico serifado dos títulos.
-const CREME = '#EDEAE2'
-const GRAFITE = '#15150F'
-const CARD_CLARO = '#C7CCD6' // cinza-azulado neutro, equivalente ao "sage" do Jonas
-const CARD_ESCURO = '#1D212B'
-const AZUL = '#2F5DFF'
-
-const SERVICOS = [
-  {
-    tag: 'Mais visto',
-    titulo: 'Landing Page de Alta Conversão',
-    dor: 'O link do anúncio cai num site genérico e o cliente some.',
-    entrega: 'Página feita pra vender: rápida, direta, com WhatsApp em destaque.',
-    bullets: [
-      'Foco no que o cliente quer resolver, não em enfeite',
-      'Rápida no celular — de lá vem a maioria das visitas',
-      'Pronta pra usar em anúncio, bio ou cartão',
-    ],
-    prazo: 'Até 7 dias úteis',
-    cta: 'Quero uma landing page',
-  },
-  {
-    titulo: 'Sistema de Gestão Simples',
-    dor: 'Planilha quebrando, pedido perdido no meio das conversas.',
-    entrega: 'Sistema simples pra controlar clientes, pedidos ou agenda — só o essencial.',
-    bullets: [
-      'Sob medida pro seu processo, não um modelo genérico',
-      'Interface simples, dá pra usar pelo celular',
-      'É seu: acesso e dados exportáveis, sem refém',
-    ],
-    prazo: '2 a 4 semanas (após entender seu processo)',
-    cta: 'Quero organizar minha gestão',
-  },
-  {
-    titulo: 'Automação de Atendimento',
-    dor: 'Demora pra responder faz o cliente desistir.',
-    entrega: 'Assistente que responde no WhatsApp/site e já manda pra você só quem tá pronto pra fechar.',
-    bullets: [
-      'Responde dúvidas e horários sozinho, 24h',
-      'Te avisa quando o cliente quer negociar',
-      'Fala na linguagem do seu negócio',
-    ],
-    prazo: 'Até 10 dias úteis',
-    cta: 'Quero automatizar meu atendimento',
-  },
-  {
-    titulo: 'Site Profissional',
-    dor: 'Negócio some no Google, ou o site parece de 2015.',
-    entrega: 'Site institucional moderno, com o que gera confiança em quem te conhece agora.',
-    bullets: [
-      'Design com a cara do seu negócio',
-      'Otimizado pra aparecer no Google',
-      'Treinamento rápido pra ajustes simples sozinho',
-    ],
-    prazo: 'Até 14 dias úteis',
-    cta: 'Quero um site profissional',
-  },
-]
-
-const FAQ = [
-  { p: 'Vai demorar muito?', r: 'Prazo combinado antes de começar, com aviso a cada etapa. Nada de sumir durante o projeto.' },
-  { p: 'E se eu não souber explicar o que eu quero?', r: 'Normal. A primeira conversa é pra eu entender seu negócio — você não precisa chegar com briefing pronto.' },
-  { p: 'Vai ser difícil de usar depois?', r: 'Não. Entrego com explicação simples e fico disponível pra dúvidas depois. Se você usa WhatsApp, consegue usar.' },
-  { p: 'E se der problema depois da entrega?', r: 'Todo projeto sai com período de ajustes incluso — bug de funcionamento eu corrijo sem custo.' },
-  { p: 'Como funciona o pagamento?', r: 'Entrada + parcela na entrega. Você só paga o restante com o resultado no ar e aprovado.' },
-]
-
-const COMO_FUNCIONA = [
-  { n: '01', t: 'Conversa inicial', d: 'Me chama no WhatsApp e já te dou um direcionamento — sem formulário longo.' },
-  { n: '02', t: 'Proposta clara', d: 'Escopo, prazo e valor por escrito antes de qualquer pagamento.' },
-  { n: '03', t: 'Construção com você por perto', d: 'Mostro o andamento nas etapas principais, antes de virar retrabalho.' },
-  { n: '04', t: 'Entrega + suporte', d: 'Tudo funcionando, com explicação de uso e período de ajustes garantido.' },
-]
-
-const PARA_QUEM = {
-  sim: [
-    'Pequenas empresas e profissionais autônomos que querem vender mais online',
-    'Quem precisa de algo pronto em semanas, não em meses',
-    'Quem quer um site ou sistema que é seu, sem depender de plataforma alheia',
-  ],
-  nao: [
-    'Projetos gigantes com equipe própria de TI já definida',
-    'Quem busca só o mais barato do mercado, sem se importar com qualidade',
-    'Quem precisa de algo pronto ainda hoje',
-  ],
-}
-
-function Crumb({ children, dark }: { children: string; dark?: boolean }) {
-  return (
-    <p
-      className="text-[11px] tracking-[0.2em] uppercase mb-4"
-      style={{ color: dark ? 'rgba(237,234,226,0.45)' : 'rgba(21,21,15,0.45)' }}
+    <a
+      className={`studio-button ${className}`}
+      href={contactLink()}
+      target="_blank"
+      rel="noopener noreferrer"
     >
       {children}
-    </p>
-  )
+      <span aria-hidden="true">↗</span>
+    </a>
+  );
 }
-
-export default function SalesLandingPage() {
-  const [menuOpen, setMenuOpen] = useState(false)
+export default function SalesLandingPage({
+  portfolio = false,
+}: {
+  portfolio?: boolean;
+}) {
+  const studioRef = useRef<HTMLDivElement>(null);
+  useStudioMotion(studioRef);
+  const [menu, setMenu] = useState(false);
+  const [content, setContent] = useState<Partial<PortfolioContent>>({});
+  const [cms, setCms] = useState<PortfolioProject[]>([]);
   useSEO({
-    title: 'Pedro Gomes | Criação de Sites e Sistemas em Luziânia (GO)',
+    title: portfolio
+      ? "Projetos | Pedro Gomes"
+      : "Pedro Gomes | Sites e sistemas com a sua identidade",
     description:
-      'Desenvolvedor em Luziânia (GO): sites profissionais, landing pages de alta conversão, sistemas de gestão e automações de atendimento sob medida para pequenas empresas e autônomos.',
-    path: '/',
-  })
-
+      "Sites, landing pages e sistemas web sob medida. Conheça projetos reais de Pedro Gomes e converse sobre o seu negócio.",
+    path: portfolio ? "/portifolio" : "/",
+  });
+  useEffect(() => {
+    import("../lib/portfolioContent")
+      .then(({ getPortfolioContent }) => getPortfolioContent())
+      .then((c) => {
+        if (c) {
+          setContent(c);
+          if (c.projetos) setCms(c.projetos);
+        }
+      })
+      .catch(() => {});
+  }, []);
+  useEffect(() => {
+    if (!menu) return;
+    const close = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenu(false);
+    };
+    document.addEventListener("keydown", close);
+    return () => document.removeEventListener("keydown", close);
+  }, [menu]);
   return (
-    <div className="antialiased min-h-screen" style={{ background: CREME, color: GRAFITE }}>
-      {/* NAV */}
-      <nav
-        className="fixed top-0 w-full z-[65] px-6 py-5 md:px-12 flex justify-between items-center backdrop-blur-md border-b"
-        style={{ background: `${CREME}cc`, borderColor: 'rgba(21,21,15,0.1)' }}
-      >
-        <a href="#topo" className="text-sm font-semibold tracking-tight">
-          Pedro Gomes <span style={{ color: AZUL }}>· tech</span>
-        </a>
-        <div className="text-xs tracking-widest uppercase space-x-8 hidden md:flex items-center" style={{ color: 'rgba(21,21,15,0.65)' }}>
-          <a href="#servicos" className="hover:opacity-70 transition-opacity">Serviços</a>
-          <a href="#como-funciona" className="hover:opacity-70 transition-opacity">Como funciona</a>
-          <a href="#provas" className="hover:opacity-70 transition-opacity">O que já construí</a>
-          <a href="#faq" className="hover:opacity-70 transition-opacity">Dúvidas</a>
-          <a href="#contato" className="hover:opacity-70 transition-opacity">Contato</a>
-          <Link to="/portifolio" className="hover:opacity-70 transition-opacity">Portfólio</Link>
-          <a
-            href={waLink('Olá Pedro, vim pelo site e quero saber mais sobre um projeto.')}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-5 py-2.5 rounded-full font-semibold normal-case tracking-normal text-white hover:opacity-90 transition-opacity"
-            style={{ background: GRAFITE }}
-          >
-            Falar no WhatsApp
-          </a>
-        </div>
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 rounded relative z-[70]"
-          style={{ color: GRAFITE, outlineColor: AZUL }}
-          aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
-          aria-expanded={menuOpen}
+    <div className="studio" ref={studioRef}>
+      <a className="skip-link" href="#conteudo">
+        Pular para o conteúdo
+      </a>
+      <header className="studio-nav">
+        <Link className="studio-brand" to="/" aria-label="Pedro Gomes — início">
+          pg<span>.</span>
+        </Link>
+        <nav
+          className={menu ? "studio-links is-open" : "studio-links"}
+          aria-label="Navegação principal"
+          id="studio-menu"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            {menuOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
-            )}
-          </svg>
-        </button>
-      </nav>
-
-      {menuOpen && (
-        <div
-          className="fixed inset-0 z-[60] flex flex-col items-center justify-center gap-8 text-sm tracking-widest uppercase"
-          style={{ background: CREME, color: GRAFITE }}
-        >
-          <a onClick={() => setMenuOpen(false)} href="#servicos">Serviços</a>
-          <a onClick={() => setMenuOpen(false)} href="#como-funciona">Como funciona</a>
-          <a onClick={() => setMenuOpen(false)} href="#provas">O que já construí</a>
-          <a onClick={() => setMenuOpen(false)} href="#faq">Dúvidas</a>
-          <a onClick={() => setMenuOpen(false)} href="#contato">Contato</a>
-          <Link onClick={() => setMenuOpen(false)} to="/portifolio">Portfólio</Link>
-        </div>
-      )}
-
-      {/* HERO — claro */}
-      <section id="topo" className="relative overflow-hidden min-h-screen flex flex-col justify-center px-6 md:px-12 pt-32 pb-20">
-        <Glow color={AZUL} style={{ width: 420, height: 420, top: '-10%', right: '-10%' }} />
-        <Glow color="#D9A441" style={{ width: 320, height: 320, bottom: '-5%', left: '-8%', opacity: 0.18 }} />
-        <div className="relative z-10 max-w-4xl mx-auto w-full text-center">
-          <div className="mb-8 flex items-center justify-center gap-3 hero-fade-1">
-            <span className="w-2 h-2 rounded-full" style={{ background: AZUL }} />
-            <p className="text-xs tracking-widest uppercase" style={{ color: 'rgba(21,21,15,0.55)' }}>
-              Disponível para novos projetos · Luziânia (GO) e região
-            </p>
-          </div>
-
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-medium leading-[1.15] tracking-tight mb-6 hero-fade-2">
-            Site, sistema ou atendimento{' '}
-            <em className="font-serif" style={{ color: AZUL, fontStyle: 'italic' }}>travando</em> o seu negócio?
-          </h1>
-
-          <p className="max-w-xl mx-auto text-lg md:text-xl leading-relaxed font-light mb-12 hero-fade-3" style={{ color: 'rgba(21,21,15,0.65)' }}>
-            Eu resolvo isso — sob medida, com prazo e valor definidos antes de começar.
-          </p>
-
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 hero-fade-4">
-            <a
-              href={waLink('Olá Pedro, vim pelo site e quero entender como você pode ajudar meu negócio.')}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-4 rounded-full text-sm uppercase tracking-widest font-semibold text-white hover:opacity-90 transition-all hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
-              style={{ background: AZUL, boxShadow: `0 16px 40px -12px ${AZUL}80`, outlineColor: AZUL }}
-            >
-              Conversar no WhatsApp agora
-            </a>
-            <a
-              href="#servicos"
-              className="px-8 py-4 rounded-full text-sm uppercase tracking-widest border hover:opacity-70 hover:border-[rgba(21,21,15,0.5)] transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
-              style={{ borderColor: 'rgba(21,21,15,0.3)', outlineColor: AZUL }}
-            >
-              Ver serviços
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* SERVIÇOS — escuro */}
-      <section id="servicos" className="relative overflow-hidden py-28 px-6 md:px-12" style={{ background: GRAFITE, color: CREME }}>
-        <Glow color={AZUL} style={{ width: 500, height: 500, top: '-15%', left: '50%', transform: 'translateX(-50%)', opacity: 0.15 }} />
-        <Reveal className="relative z-10 max-w-7xl mx-auto w-full">
-          <div className="mb-16 text-center max-w-2xl mx-auto">
-            <Crumb dark>o que eu faço</Crumb>
-            <h2 className="text-3xl md:text-5xl font-medium mb-4">
-              O que eu <em style={{ color: AZUL, fontStyle: 'italic' }} className="font-serif">resolvo</em> pra você
-            </h2>
-            <p className="text-lg font-light" style={{ color: 'rgba(237,234,226,0.6)' }}>
-              Escolha o que está travando seu negócio agora.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {SERVICOS.map((s) => (
-              <div
-                key={s.titulo}
-                className="p-8 rounded-2xl border backdrop-blur-sm flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_25px_60px_-20px_rgba(47,93,255,0.4)]"
-                style={{
-                  background: s.tag ? 'rgba(47,93,255,0.08)' : 'rgba(29,33,43,0.55)',
-                  borderColor: s.tag ? `${AZUL}66` : 'rgba(237,234,226,0.1)',
-                  boxShadow: s.tag
-                    ? `inset 0 1px 0 rgba(237,234,226,0.08), 0 20px 45px -18px ${AZUL}55`
-                    : 'inset 0 1px 0 rgba(237,234,226,0.08), 0 20px 40px -20px rgba(0,0,0,0.5)',
-                }}
-              >
-                {s.tag && (
-                  <span
-                    className="self-start mb-4 px-3 py-1 rounded-full text-[10px] tracking-widest uppercase font-medium border"
-                    style={{ color: AZUL, borderColor: `${AZUL}55`, background: `${AZUL}1a` }}
-                  >
-                    {s.tag}
-                  </span>
-                )}
-                <h3 className="text-2xl font-medium mb-3">{s.titulo}</h3>
-                <p className="text-sm italic mb-4" style={{ color: 'rgba(237,234,226,0.45)' }}>{s.dor}</p>
-                <p className="mb-6 leading-relaxed" style={{ color: 'rgba(237,234,226,0.85)' }}>{s.entrega}</p>
-                <ul className="space-y-2 mb-6 flex-1">
-                  {s.bullets.map((b) => (
-                    <li key={b} className="flex gap-2 text-sm" style={{ color: 'rgba(237,234,226,0.65)' }}>
-                      <span className="shrink-0" style={{ color: AZUL }}>✓</span>
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-                <p className="text-xs mb-4" style={{ color: 'rgba(237,234,226,0.4)' }}>{s.prazo}</p>
-                <a
-                  href={waLink(`Olá Pedro, tenho interesse em: ${s.titulo}.`)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-semibold border-b pb-2 hover:opacity-70 transition-opacity self-start"
-                  style={{ borderColor: 'rgba(237,234,226,0.3)' }}
-                >
-                  {s.cta} <span>→</span>
-                </a>
-              </div>
-            ))}
-          </div>
-        </Reveal>
-      </section>
-
-      {/* COMO FUNCIONA — claro */}
-      <section id="como-funciona" className="py-28 px-6 md:px-12">
-        <Reveal className="max-w-6xl mx-auto w-full">
-          <div className="mb-16 text-center max-w-2xl mx-auto">
-            <Crumb>o processo</Crumb>
-            <h2 className="text-3xl md:text-5xl font-medium mb-4">Como funciona</h2>
-            <p className="text-lg font-light" style={{ color: 'rgba(21,21,15,0.6)' }}>Sem mistério, sem sumiço.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {COMO_FUNCIONA.map((step) => (
-              <div key={step.n} className="transition-transform duration-300 hover:-translate-y-1">
-                <span className="text-4xl font-medium font-serif italic" style={{ color: `${GRAFITE}33` }}>{step.n}</span>
-                <h3 className="text-lg font-semibold mt-4 mb-2">{step.t}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: 'rgba(21,21,15,0.6)' }}>{step.d}</p>
-              </div>
-            ))}
-          </div>
-        </Reveal>
-      </section>
-
-      {/* PARA QUEM — cartões cinza-azulado sobre claro, como os cards "sage" do Jonas */}
-      <section className="py-28 px-6 md:px-12" style={{ background: '#E3E0D6' }}>
-        <Reveal className="max-w-4xl mx-auto w-full">
-          <div className="mb-16 text-center">
-            <Crumb>o encaixe</Crumb>
-            <h2 className="text-3xl md:text-5xl font-medium mb-4">
-              É <em style={{ color: AZUL, fontStyle: 'italic' }} className="font-serif">pra você</em> se...
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-8 rounded-2xl" style={{ background: CARD_CLARO }}>
-              <h3 className="text-xs uppercase tracking-widest font-semibold mb-4" style={{ color: '#1a2e7a' }}>É pra você</h3>
-              <ul className="space-y-3">
-                {PARA_QUEM.sim.map((item) => (
-                  <li key={item} className="flex gap-2 text-sm" style={{ color: '#20232b' }}>
-                    <span className="shrink-0 font-semibold" style={{ color: AZUL }}>✓</span>{item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="p-8 rounded-2xl border" style={{ borderColor: 'rgba(21,21,15,0.15)' }}>
-              <h3 className="text-xs uppercase tracking-widest font-semibold mb-4" style={{ color: 'rgba(21,21,15,0.5)' }}>Não é pra você</h3>
-              <ul className="space-y-3">
-                {PARA_QUEM.nao.map((item) => (
-                  <li key={item} className="flex gap-2 text-sm" style={{ color: 'rgba(21,21,15,0.55)' }}>
-                    <span className="shrink-0" style={{ color: 'rgba(21,21,15,0.35)' }}>✕</span>{item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </Reveal>
-      </section>
-
-      {/* PROVA — escuro */}
-      <section id="provas" className="relative overflow-hidden py-28 px-6 md:px-12" style={{ background: GRAFITE, color: CREME }}>
-        <Glow color="#D9A441" style={{ width: 380, height: 380, bottom: '-10%', right: '-10%', opacity: 0.12 }} />
-        <Reveal className="relative z-10 max-w-6xl mx-auto w-full">
-          <div className="mb-16 text-center max-w-2xl mx-auto">
-            <Crumb dark>construído do zero</Crumb>
-            <h2 className="text-3xl md:text-5xl font-medium mb-4">O que eu já construí</h2>
-            <p className="text-lg font-light" style={{ color: 'rgba(237,234,226,0.6)' }}>Plataformas completas, do zero ao ar.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-xl border backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_25px_60px_-20px_rgba(47,93,255,0.35)]" style={{ background: 'rgba(29,33,43,0.55)', borderColor: 'rgba(237,234,226,0.1)', boxShadow: 'inset 0 1px 0 rgba(237,234,226,0.08)' }}>
-              <h4 className="font-semibold mb-2">BITTO</h4>
-              <p className="text-sm" style={{ color: 'rgba(237,234,226,0.6)' }}>Plataforma de estudos com IA — transforma qualquer material em flashcards, quizzes e resumos.</p>
-            </div>
-            <div className="p-6 rounded-xl border backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_25px_60px_-20px_rgba(47,93,255,0.35)]" style={{ background: 'rgba(29,33,43,0.55)', borderColor: 'rgba(237,234,226,0.1)', boxShadow: 'inset 0 1px 0 rgba(237,234,226,0.08)' }}>
-              <h4 className="font-semibold mb-2">CineGift</h4>
-              <p className="text-sm" style={{ color: 'rgba(237,234,226,0.6)' }}>Experiência digital que transforma fotos e vídeos em um ingresso de cinema personalizado.</p>
-            </div>
-            <div className="p-6 rounded-xl border backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_25px_60px_-20px_rgba(47,93,255,0.35)]" style={{ background: 'rgba(29,33,43,0.55)', borderColor: 'rgba(237,234,226,0.1)', boxShadow: 'inset 0 1px 0 rgba(237,234,226,0.08)' }}>
-              <h4 className="font-semibold mb-2">Kont Hub</h4>
-              <p className="text-sm" style={{ color: 'rgba(237,234,226,0.6)' }}>Sistema de gestão contábil: CRM, pipeline de tarefas, financeiro e cofre de documentos.</p>
-            </div>
-          </div>
-          <p className="text-center text-sm mt-10" style={{ color: 'rgba(237,234,226,0.45)' }}>
-            Quer ver a história completa por trás desses projetos?{' '}
-            <Link to="/portifolio" className="underline hover:opacity-70 transition-opacity" style={{ color: CREME }}>Conheça meu portfólio</Link>
-          </p>
-        </Reveal>
-      </section>
-
-      {/* FAQ — claro */}
-      <section id="faq" className="py-28 px-6 md:px-12">
-        <Reveal className="max-w-3xl mx-auto w-full">
-          <div className="mb-16 text-center">
-            <Crumb>dúvidas</Crumb>
-            <h2 className="text-3xl md:text-5xl font-medium mb-4">Perguntas que todo mundo faz</h2>
-          </div>
-          <div className="space-y-4">
-            {FAQ.map((item) => (
-              <details
-                key={item.p}
-                className="group rounded-xl border p-6"
-                style={{ borderColor: 'rgba(21,21,15,0.15)', background: '#E3E0D6' }}
-              >
-                <summary className="cursor-pointer list-none flex items-center justify-between font-medium">
-                  {item.p}
-                  <span className="group-open:rotate-45 transition-transform text-xl" style={{ color: AZUL }}>+</span>
-                </summary>
-                <p className="text-sm leading-relaxed mt-4" style={{ color: 'rgba(21,21,15,0.65)' }}>{item.r}</p>
-              </details>
-            ))}
-          </div>
-        </Reveal>
-      </section>
-
-      {/* CTA FINAL — escuro */}
-      <section className="relative overflow-hidden py-28 px-6 md:px-12" style={{ background: GRAFITE, color: CREME }}>
-        <Glow color={AZUL} style={{ width: 460, height: 460, top: '50%', left: '50%', transform: 'translate(-50%,-50%)', opacity: 0.22 }} />
-        <Reveal className="relative z-10 max-w-3xl mx-auto w-full text-center">
-          <h2 className="text-4xl md:text-6xl font-medium mb-6">
-            Bora <em style={{ color: AZUL, fontStyle: 'italic' }} className="font-serif">resolver</em> isso?
-          </h2>
-          <p className="text-lg font-light mb-10" style={{ color: 'rgba(237,234,226,0.65)' }}>
-            Me chama no WhatsApp e me conta o que está travando. Em minutos eu já te digo o melhor caminho.
-          </p>
-          <a
-            href={waLink('Olá Pedro, vim pelo site e quero conversar sobre um projeto.')}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm uppercase tracking-widest font-semibold text-white hover:opacity-90 transition-all hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-            style={{ background: AZUL, boxShadow: `0 20px 50px -15px ${AZUL}99` }}
-          >
-            Falar com Pedro agora <span>→</span>
-          </a>
-        </Reveal>
-      </section>
-
-      {/* CONTATO — claro */}
-      <section id="contato" className="py-24 px-6 md:px-12">
-        <Reveal className="max-w-3xl mx-auto w-full text-center">
-          <Crumb>fale comigo</Crumb>
-          <h2 className="text-2xl md:text-3xl font-medium mb-10">Outros jeitos de me encontrar</h2>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              href={waLink('Olá Pedro, vim pelo site e quero conversar sobre um projeto.')}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-6 py-3 rounded-full border text-sm font-medium hover:opacity-70 transition-opacity"
-              style={{ borderColor: 'rgba(21,21,15,0.2)' }}
-            >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.03c-.24.68-1.4 1.3-1.93 1.38-.5.08-1.13.11-1.82-.11-.42-.13-.96-.31-1.65-.6-2.9-1.25-4.79-4.17-4.94-4.36-.14-.2-1.18-1.57-1.18-3 0-1.42.75-2.12 1.01-2.41.27-.29.58-.36.78-.36.19 0 .39 0 .56.01.18.01.42-.07.65.5.24.58.82 2 .89 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.48-.14.14-.28.29-.12.56.16.28.71 1.17 1.52 1.9 1.05.94 1.93 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.18-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.13.07.72-.17 1.4z" /></svg>
-              WhatsApp
-            </a>
-            <a
-              href={`mailto:${EMAIL}`}
-              className="flex items-center gap-2 px-6 py-3 rounded-full border text-sm font-medium hover:opacity-70 transition-opacity"
-              style={{ borderColor: 'rgba(21,21,15,0.2)' }}
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75l9.75 6.75 9.75-6.75M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25h-15A2.25 2.25 0 002.25 6.75v10.5A2.25 2.25 0 004.5 19.5z" /></svg>
-              {EMAIL}
-            </a>
-            <a
-              href={INSTAGRAM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-6 py-3 rounded-full border text-sm font-medium hover:opacity-70 transition-opacity"
-              style={{ borderColor: 'rgba(21,21,15,0.2)' }}
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" /></svg>
-              @pedrogm.dev
-            </a>
-          </div>
-        </Reveal>
-      </section>
-
-      {/* FOOTER — claro */}
-      <footer className="py-10 px-6 text-center">
-        <p className="text-xs tracking-widest uppercase" style={{ color: 'rgba(21,21,15,0.4)' }}>© 2026 Pedro Gabriel Gomes · Luziânia, GO</p>
-        <p className="text-xs mt-2">
-          <Link to="/portifolio" className="hover:opacity-70 transition-opacity underline" style={{ color: 'rgba(21,21,15,0.5)' }}>
-            Ver portfólio completo
+          <Link to="/portifolio" onClick={() => setMenu(false)}>
+            Portfólio
           </Link>
-        </p>
+          <a
+            href={portfolio ? "/#servicos" : "#servicos"}
+            onClick={() => setMenu(false)}
+          >
+            Serviços
+          </a>
+          <a href="#recrutadores" onClick={() => setMenu(false)}>
+            Recrutadores
+          </a>
+          <a href="#contato" onClick={() => setMenu(false)}>
+            Contato
+          </a>
+        </nav>
+        <a
+          className="studio-nav-contact"
+          href={contactLink()}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          WhatsApp <span>↗</span>
+        </a>
+        <button
+          className="studio-menu"
+          aria-label={menu ? "Fechar menu" : "Abrir menu"}
+          aria-expanded={menu}
+          aria-controls="studio-menu"
+          onClick={() => setMenu(!menu)}
+        >
+          {menu ? "✕" : "☰"}
+        </button>
+      </header>
+      <main id="conteudo">
+        <section
+          className={`studio-hero ${portfolio ? "is-portfolio" : ""}`}
+          id="topo"
+          data-motion-scene
+        >
+          <div className="hero-atmosphere" aria-hidden="true">
+            <div className="hero-glow hero-glow-one" />
+            <div className="hero-glow hero-glow-two" />
+            <div className="hero-light-grid" />
+          </div>
+          <div className="studio-hero-copy">
+            <p className="studio-eyebrow">PEDRO GOMES · DESENVOLVEDOR WEB</p>
+            <h1>
+              {portfolio ? (
+                <>
+                  <span className="hero-line">
+                    <span>Ideias que</span>
+                  </span>
+                  <span className="hero-line">
+                    <span>ganharam</span>
+                  </span>
+                  <span className="hero-line">
+                    <span>
+                      <em>vida digital.</em>
+                    </span>
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="hero-line">
+                    <span>Seu próximo</span>
+                  </span>
+                  <span className="hero-line">
+                    <span>nível começa</span>
+                  </span>
+                  <span className="hero-line">
+                    <span>
+                      <em>no digital.</em>
+                    </span>
+                  </span>
+                </>
+              )}
+            </h1>
+            <p className="studio-hero-description">
+              {portfolio
+                ? content.heroDescription ||
+                  "Interfaces e produtos que saíram do papel."
+                : "Apresente seu negócio, facilite o contato e organize sua rotina com sites e sistemas sob medida."}
+            </p>
+            <div className="studio-hero-actions">
+              <CTA>{portfolio ? "Falar no WhatsApp" : "Conversar sobre meu projeto"}</CTA>
+              {portfolio ? (
+                <a href="#projetos" className="studio-outline-button">
+                  Explorar projetos <span aria-hidden="true">↓</span>
+                </a>
+              ) : (
+                <Link to="/portifolio" className="studio-outline-button">
+                  Ver meu portfólio <span aria-hidden="true">↗</span>
+                </Link>
+              )}
+            </div>
+            <SocialLinks />
+          </div>
+          <div className="studio-portrait">
+            <div className="portrait-aura" aria-hidden="true" />
+            <img
+              className="portrait-blur"
+              src={BRAND.cinematic}
+              alt=""
+              aria-hidden="true"
+              width="1254"
+              height="1254"
+            />
+            <img
+              className="portrait-main"
+              src={BRAND.cinematic}
+              alt="Pedro Gomes, desenvolvedor web, com iluminação azul"
+              {...{ fetchpriority: "high" }}
+              width="1254"
+              height="1254"
+            />
+            <div className="portrait-foreground" aria-hidden="true" />
+            <span className="portrait-signature">
+              PEDRO GOMES <small>DESIGN + CODE</small>
+            </span>
+          </div>
+          <div className="hero-bottom">
+            <span>
+              <i /> DISPONÍVEL PARA NOVOS PROJETOS
+            </span>
+            <a href="#projetos">
+              Explore meu trabalho <span>↓</span>
+            </a>
+          </div>
+        </section>
+        <CloudBridge />
+        <ProjectShowcase portfolio={portfolio} cms={cms} />
+        <RecruiterSection />
+        {!portfolio && (
+          <section className="studio-solutions studio-section" id="servicos">
+            <Reveal>
+              <div className="studio-section-heading">
+                <div>
+                  <p className="studio-eyebrow">SERVIÇOS</p>
+                  <h2>O que vamos <em>construir?</em></h2>
+                </div>
+
+              </div>
+              <div className="studio-services">
+                {SERVICOS.map((s, i) => (
+                  <a
+                    href={contactLink(
+                      `Olá Pedro, tenho interesse em ${s.titulo}.`,
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    key={s.id}
+                  >
+                    <span className="studio-service-number">0{i + 1}</span>
+                    <h3>{serviceCopy[s.id]?.[0] || s.titulo}</h3>
+                    <p>{serviceCopy[s.id]?.[1] || s.descricao}</p>
+                    <span className="studio-service-arrow" aria-hidden="true">
+                      ↗
+                    </span>
+                  </a>
+                ))}
+              </div>
+            </Reveal>
+          </section>
+        )}
+        {!portfolio && (
+          <section className="studio-process studio-section" id="processo">
+            <Reveal>
+              <div className="studio-section-heading">
+                <div>
+                  <p className="studio-eyebrow">COMO FUNCIONA · 6 ETAPAS</p>
+                  <h2>Você acompanha.<br /><em>Do início à entrega.</em></h2>
+                </div>
+
+              </div>
+              <ol className="studio-steps">
+                {steps.map(([title, text], i) => (
+                  <li key={title}>
+                    <span>0{i + 1}</span>
+                    <h3>{title}</h3>
+                    <p>{text}</p>
+                  </li>
+                ))}
+              </ol>
+            </Reveal>
+          </section>
+        )}
+        {!portfolio && (
+          <section className="studio-faq studio-section" id="faq">
+            <Reveal className="studio-split">
+              <div>
+                <p className="studio-eyebrow">FAQ</p>
+                <h2>Dúvidas <em>rápidas.</em></h2>
+              </div>
+              <div>
+                {faqs.map(([q, a]) => (
+                  <details key={q}>
+                    <summary>
+                      {q}
+                      <span aria-hidden="true">+</span>
+                    </summary>
+                    <p>{a}</p>
+                  </details>
+                ))}
+              </div>
+            </Reveal>
+          </section>
+        )}
+        <section className="studio-final studio-section" id="contato">
+          <Reveal>
+            <h2>Vamos <em>conversar?</em></h2>
+            <p className="studio-final-note">Conte sua ideia. Eu ajudo a definir o próximo passo.</p>
+            <CTA>Conversar sobre meu projeto</CTA>
+            <SocialLinks className="social-links-contact" />
+            <a className="studio-email" href={`mailto:${BRAND.email}`}>
+              {BRAND.email}
+            </a>
+          </Reveal>
+        </section>
+      </main>
+      <footer className="studio-footer">
+        <Link className="studio-brand" to="/">
+          pg<span>.</span>
+        </Link>
+        <span>© {new Date().getFullYear()} Pedro Gomes</span>
+        <div>
+          <Link to="/portifolio">Portfólio</Link>
+          <a href="#recrutadores">Recrutadores</a>
+          <Link to="/login">Área interna</Link>
+        </div>
+        <a href="#topo">Voltar ao topo ↑</a>
       </footer>
 
-      {/* WHATSAPP FLUTUANTE */}
-      <a
-        href={waLink('Olá Pedro, vim pelo site e quero conversar sobre um projeto.')}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Falar no WhatsApp"
-        className="whatsapp-pulse fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center hover:opacity-90 transition-opacity"
-        style={{ background: AZUL }}
-      >
-        <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.03c-.24.68-1.4 1.3-1.93 1.38-.5.08-1.13.11-1.82-.11-.42-.13-.96-.31-1.65-.6-2.9-1.25-4.79-4.17-4.94-4.36-.14-.2-1.18-1.57-1.18-3 0-1.42.75-2.12 1.01-2.41.27-.29.58-.36.78-.36.19 0 .39 0 .56.01.18.01.42-.07.65.5.24.58.82 2 .89 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.48-.14.14-.28.29-.12.56.16.28.71 1.17 1.52 1.9 1.05.94 1.93 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.18-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.13.07.72-.17 1.4z" />
-        </svg>
-      </a>
     </div>
-  )
+  );
 }
