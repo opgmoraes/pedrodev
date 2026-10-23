@@ -30,6 +30,8 @@ type Quote = {
   items?: string[];
   value: number;
   deadlineDays: number;
+  paymentTerms?: string;
+  notes?: string;
   status?: string;
 };
 type Contract = {
@@ -44,12 +46,15 @@ type Contract = {
   items?: string[];
   value: number;
   deadlineDays: number;
+  paymentTerms?: string;
+  notes?: string;
   slug: string;
   status: "pendente" | "aceito";
 };
 
 export default function Contratos() {
   const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
   const [clients, setClients] = useState<Client[]>([]);
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [contracts, setContracts] = useState<Contract[]>([]);
@@ -130,7 +135,9 @@ export default function Contratos() {
         items: quote.items ?? [],
         value: quote.value,
         deadlineDays: quote.deadlineDays,
-        slug: generateSlug(),
+        paymentTerms: quote.paymentTerms || "",
+        notes: quote.notes || "",
+        slug: generateSlug(client?.company || client?.name),
         status: "pendente",
         createdAt: serverTimestamp(),
       });
@@ -146,6 +153,7 @@ export default function Contratos() {
   return (
     <div>
       <ErrorMessage message={error} />
+      {notice && <p className="form-feedback" role="status">{notice}</p>}
       <div className="crumb">admin / contratos</div>
       <h1>Contratos</h1>
 
@@ -251,28 +259,29 @@ export default function Contratos() {
                       >
                         <span className="badge">ver contrato</span>
                       </a>
-                      <span
-                        className="badge"
-                        style={{ cursor: "pointer" }}
-                        onClick={() =>
-                          navigator.clipboard.writeText(
-                            `${window.location.origin}/contrato/${c.slug}`,
-                          )
-                        }
+                      <button type="button" className="badge secondary"
+                        onClick={async () => {
+                          try { await navigator.clipboard.writeText(`${window.location.origin}/contrato/${c.slug}`); setNotice('Link do contrato copiado.'); }
+                          catch { setError('Não foi possível copiar. Abra o contrato e copie o endereço.'); }
+                        }}
                       >
                         copiar link
-                      </span>
+                      </button>
                       {wa && (
                         <a href={wa} target="_blank" rel="noreferrer">
                           <span className="badge">enviar whatsapp</span>
                         </a>
                       )}
-                      <span
-                        className="badge"
-                        style={{ cursor: "pointer" }}
+                      <button type="button" className="badge secondary"
                         onClick={() =>
                           generateContractPdf({
                             clientName: c.clientName,
+                            company: c.clientCompany,
+                            paymentTerms: c.paymentTerms,
+                            notes: c.notes,
+                            reference: c.slug,
+                            status: c.status,
+                            publicUrl: `${window.location.origin}/contrato/${c.slug}`,
                             document: c.clientDocument,
                             address: c.clientAddress,
                             service: c.service,
@@ -283,7 +292,7 @@ export default function Contratos() {
                         }
                       >
                         baixar pdf
-                      </span>
+                      </button>
                     </td>
                   </tr>
                 );

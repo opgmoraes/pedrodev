@@ -1,3 +1,4 @@
+import "../components/client-document.css";
 import ArrowIcon from "../components/ArrowIcon";
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
@@ -13,7 +14,7 @@ import { PROJECT_STEPS, statusStep } from "../lib/projectStatus";
 import { ErrorMessage, loadError, saveError } from "../components/Feedback";
 import { contactLink } from "../lib/brand";
 type Project = { name: string; status: string; deadline?: string };
-type Client = { name: string; projects: Project[] };
+type Client = { name: string; company?: string; projects?: Project[]; documents?: { kind: "quotes" | "contracts"; slug: string; service: string }[] };
 const questions = [
   ["negocio", "Conte sobre o seu negócio", 4000],
   ["publico", "Quem você quer alcançar?", 4000],
@@ -41,6 +42,7 @@ export default function ClienteArea() {
     setError("");
     setClient(null);
     setSent(false);
+    setAnswers({ negocio: "", publico: "", objetivo: "", cores: "", referencias: "" });
     async function load() {
       try {
         if (!hasFirebaseConfig) throw new Error("configuration");
@@ -75,8 +77,8 @@ export default function ClienteArea() {
     }
   }
   return (
-    <div className="portal-shell">
-      <div className="system-brandbar">
+    <div className="client-document client-portal">
+      <div className="document-nav">
         <Link to="/">Pedro Gomes · tech</Link>
         <a href={contactLink()} target="_blank" rel="noopener noreferrer">
           Precisa de ajuda? <ArrowIcon />
@@ -109,7 +111,11 @@ export default function ClienteArea() {
           <p style={{ color: "var(--text-muted)", marginBottom: 30 }}>
             Seu projeto, do início à entrega. Acompanhe por aqui.
           </p>
-          {client.projects.length ? (
+          <section className="portal-documents" aria-labelledby="portal-documents-title">
+            <div className="portal-section-heading"><div><span className="document-eyebrow">SEUS DOCUMENTOS</span><h2 id="portal-documents-title">Tudo em um só lugar.</h2></div><span>Propostas e contratos do seu projeto</span></div>
+            {client.documents?.length ? <div className="portal-documents-grid">{client.documents.map(item => <Link className="portal-document-card" key={`${item.kind}-${item.slug}`} to={`/${item.kind === 'quotes' ? 'proposta' : 'contrato'}/${item.slug}`}><span className="document-eyebrow">{item.kind === 'quotes' ? 'PROPOSTA COMERCIAL' : 'CONTRATO DE SERVIÇOS'}</span><h3>{item.service}</h3><span>Abrir documento <ArrowIcon /></span></Link>)}</div> : <p>Quando sua proposta estiver pronta, ela aparecerá aqui.</p>}
+          </section>
+          {client.projects?.length ? (
             client.projects.map((project, i) => (
               <section
                 className="card"

@@ -79,7 +79,7 @@ export default function Clientes() {
       e.preventDefault();
       setError("");
       setLoading(true);
-      const slug = generateSlug();
+      const slug = generateSlug(form.company || form.name);
       await createClient({ ...form, slug, createdAt: serverTimestamp() });
       setForm(emptyForm);
       setLoading(false);

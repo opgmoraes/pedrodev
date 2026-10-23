@@ -7,6 +7,7 @@ import {
   where,
   setDoc,
   writeBatch,
+  arrayUnion,
 } from "firebase/firestore";
 import { db } from "./firebaseClient";
 
@@ -20,6 +21,9 @@ export function quoteView(data: Record<string, any>) {
     items: data.items || [],
     value: data.value || 0,
     deadlineDays: data.deadlineDays || 0,
+    paymentTerms: data.paymentTerms || "",
+    notes: data.notes || "",
+    clientSlug: data.clientSlug || "",
     status: data.status || "pendente",
   };
 }
@@ -41,15 +45,25 @@ export async function publicStatus(
   );
   return snap.exists() ? snap.data().status : data.status || "pendente";
 }
+function sharedDocument(kind: "quotes" | "contracts", data: Record<string, any>) {
+  return { kind, slug: data.slug, service: data.service || "Projeto" };
+}
 export async function publishClient(clientId: string) {
   const client = await getDoc(doc(db, "clients", clientId));
   if (!client.exists() || !client.data().slug) return;
-  const projects = await getDocs(
-    query(collection(db, "projects"), where("clientId", "==", clientId)),
+  const [projects, quotes, contracts] = await Promise.all(
+    ["projects", "quotes", "contracts"].map(kind => getDocs(
+      query(collection(db, kind), where("clientId", "==", clientId)),
+    )),
   );
   const c = client.data();
   await setDoc(doc(db, "publicClients", c.slug), {
     name: c.name,
+    company: c.company || "",
+    documents: [
+      ...quotes.docs.filter(d => d.data().slug).map(d => sharedDocument("quotes", d.data())),
+      ...contracts.docs.filter(d => d.data().slug).map(d => sharedDocument("contracts", d.data())),
+    ],
     projects: projects.docs
       .filter((p) => p.data().clientId === clientId)
       .map((p) => ({
@@ -86,6 +100,9 @@ export async function createShared(
   kind: "quotes" | "contracts",
   data: Record<string, any>,
 ) {
+  const client = await getDoc(doc(db, "clients", data.clientId));
+  if (!client.exists() || !client.data().slug) throw new Error("Cliente sem área pública. Prepare os links no dashboard.");
+  data = { ...data, clientSlug: client.data().slug };
   const privateRef = doc(collection(db, kind));
   const batch = writeBatch(db);
   batch.set(privateRef, data);
@@ -93,6 +110,11 @@ export async function createShared(
     doc(db, kind === "quotes" ? "publicQuotes" : "publicContracts", data.slug),
     kind === "quotes" ? quoteView(data) : contractView(data),
   );
+  batch.set(doc(db, "publicClients", client.data().slug), {
+    name: client.data().name,
+    company: client.data().company || "",
+    documents: arrayUnion(sharedDocument(kind, data)),
+  }, { merge: true });
   await batch.commit();
 }
 
@@ -102,6 +124,8 @@ export async function createClient(data: Record<string, any>) {
   batch.set(ref, data);
   batch.set(doc(db, "publicClients", data.slug), {
     name: data.name,
+    company: data.company || "",
+    documents: [],
     projects: [],
   });
   await batch.commit();

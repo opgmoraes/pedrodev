@@ -1267,3 +1267,4 @@ tbody tr:hover {
   background: #edf2fa;
   border-color: #dce5f2;
 }
+.client-link-card{display:flex;justify-content:space-between;align-items:center;gap:24px}.client-link-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.client-link-card h2{margin-top:0}@media(max-width:760px){.client-link-card{display:block}.client-link-actions{margin-top:18px}}

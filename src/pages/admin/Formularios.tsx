@@ -1,3 +1,5 @@
+import { generateBriefingPdf } from "../../lib/pdf";
+import { BRIEFING_LABELS } from "../../lib/documentContent";
 import { ErrorMessage, loadError, saveError } from "../../components/Feedback";
 import { useEffect, useState } from "react";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
@@ -5,6 +7,8 @@ import { db } from "../../lib/firebaseClient";
 
 type Submission = {
   id: string;
+  clientName?: string;
+  clientCompany?: string;
   clientSlug: string;
   answers: Record<string, string>;
 };
@@ -22,9 +26,9 @@ export default function Formularios() {
             orderBy("createdAt", "desc"),
           ),
         );
-        setSubs(
-          snap.docs.map((d) => ({ id: d.id, ...d.data() }) as Submission),
-        );
+        const clients = await getDocs(collection(db, "clients"));
+        const bySlug = new Map(clients.docs.map(c => [c.data().slug, c.data()]));
+        setSubs(snap.docs.map(d => ({ id: d.id, ...d.data(), clientName: bySlug.get(d.data().clientSlug)?.name, clientCompany: bySlug.get(d.data().clientSlug)?.company }) as Submission));
       } catch {
         setError(loadError);
       }
@@ -48,12 +52,13 @@ export default function Formularios() {
                 marginBottom: 10,
               }}
             >
-              cliente: {s.clientSlug}
+              cliente: {s.clientName || s.clientSlug}
             </div>
+            <button className="secondary" style={{ marginBottom: 20 }} onClick={() => generateBriefingPdf({ clientName: s.clientName || 'Cliente', company: s.clientCompany, answers: s.answers, reference: s.id })}>Baixar briefing em PDF</button>
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               {Object.entries(s.answers).map(([question, answer]) => (
                 <div
-                  key={question}
+                  key={BRIEFING_LABELS[question] || question}
                   style={{
                     borderTop: "1px solid var(--border-soft)",
                     paddingTop: 8,
@@ -66,7 +71,7 @@ export default function Formularios() {
                       marginBottom: 2,
                     }}
                   >
-                    {question}
+                    {BRIEFING_LABELS[question] || question}
                   </div>
                   <div style={{ fontSize: 14 }}>{answer || "—"}</div>
                 </div>

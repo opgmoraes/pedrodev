@@ -1,3 +1,4 @@
+import { buildWhatsappLink, templates } from "../../lib/whatsapp";
 import { publishClient } from "../../lib/sharing";
 import { ErrorMessage, loadError, saveError } from "../../components/Feedback";
 import { useEffect, useState } from "react";
@@ -161,6 +162,14 @@ export default function ClienteDetalhe() {
           {notice}
         </p>
       )}
+      <section className="card client-link-card" style={{ marginBottom: 20 }}>
+        <div><h2>Área exclusiva do cliente</h2><p>Propostas, contratos, andamento e briefing em um único endereço.</p><code style={{ overflowWrap: 'anywhere', fontSize: 11 }}>{window.location.origin}/cliente/{client.slug}</code></div>
+        <div className="client-link-actions">
+          <a className="badge badge-accent" href={`/cliente/${client.slug}`} target="_blank" rel="noreferrer">Abrir área</a>
+          <button className="secondary" onClick={async () => { try { await navigator.clipboard.writeText(`${window.location.origin}/cliente/${client.slug}`); setNotice('Link da área do cliente copiado.'); } catch { setError('Não foi possível copiar. Selecione e copie o endereço exibido acima.'); } }}>Copiar link</button>
+          {client.phone && <a className="badge badge-accent" href={buildWhatsappLink(client.phone, templates.briefingLink(client.name, `${window.location.origin}/cliente/${client.slug}`))} target="_blank" rel="noreferrer">Enviar no WhatsApp</a>}
+        </div>
+      </section>
       <button className="secondary" onClick={() => setEditing(!editing)}>
         {editing ? "Fechar edição" : "Editar dados do cliente"}
       </button>

@@ -38,11 +38,14 @@ type Quote = {
   value: number;
   deadlineDays: number;
   slug?: string;
+  paymentTerms?: string;
+  notes?: string;
   status?: "pendente" | "aprovado" | "recusado";
 };
 
 export default function Orcamentos() {
   const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
   const [clients, setClients] = useState<Client[]>([]);
   const [form, setForm] = useState({
     clientId: "",
@@ -51,6 +54,8 @@ export default function Orcamentos() {
     items: "",
     value: "",
     deadlineDays: "",
+    paymentTerms: "",
+    notes: "",
   });
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [loading, setLoading] = useState(false);
@@ -110,9 +115,9 @@ export default function Orcamentos() {
             return {
               id: d.id,
               clientId: data.clientId,
-              clientName: client?.name,
+              clientName: data.clientName || client?.name,
               clientPhone: client?.phone,
-              clientCompany: client?.company,
+              clientCompany: data.clientCompany || client?.company,
               clientDocument: client?.document,
               clientAddress: client?.address,
               serviceId: data.serviceId,
@@ -121,6 +126,8 @@ export default function Orcamentos() {
               value: data.value,
               deadlineDays: data.deadlineDays,
               slug: data.slug,
+              paymentTerms: data.paymentTerms,
+              notes: data.notes,
               status: await publicStatus("quotes", data),
             };
           }),
@@ -158,7 +165,9 @@ export default function Orcamentos() {
           : [],
         value: Number(form.value),
         deadlineDays: Number(form.deadlineDays),
-        slug: generateSlug(),
+        paymentTerms: form.paymentTerms.trim(),
+        notes: form.notes.trim(),
+        slug: generateSlug(client?.company || client?.name),
         status: "pendente",
         createdAt: serverTimestamp(),
       });
@@ -169,6 +178,8 @@ export default function Orcamentos() {
         items: "",
         value: "",
         deadlineDays: "",
+    paymentTerms: "",
+    notes: "",
       });
       setLoading(false);
       load();
@@ -206,29 +217,41 @@ export default function Orcamentos() {
     generateProposalPdf({
       clientName: q.clientName,
       company: q.clientCompany,
+      publicUrl: q.slug ? `${window.location.origin}/proposta/${q.slug}` : undefined,
       service: q.service,
       items: q.items,
       value: q.value,
       deadlineDays: q.deadlineDays,
+      paymentTerms: q.paymentTerms,
+      notes: q.notes,
+      reference: q.slug || q.id,
+      status: q.status,
     });
   }
 
   function handleContractPdf(q: Quote) {
     if (!q.clientName) return;
     generateContractPdf({
+      draft: true,
       clientName: q.clientName,
+      company: q.clientCompany,
       document: q.clientDocument,
       address: q.clientAddress,
       service: q.service,
       items: q.items,
       value: q.value,
       deadlineDays: q.deadlineDays,
+      paymentTerms: q.paymentTerms,
+      notes: q.notes,
+      reference: q.slug || q.id,
+      status: "pendente",
     });
   }
 
   return (
     <div>
       <ErrorMessage message={error} />
+      {notice && <p className="form-feedback" role="status">{notice}</p>}
       <div className="crumb">admin / orcamentos</div>
       <h1>Orçamentos / Propostas</h1>
       <div
@@ -324,17 +347,14 @@ export default function Orcamentos() {
                             >
                               <span className="badge">ver proposta</span>
                             </a>
-                            <span
-                              className="badge"
-                              style={{ cursor: "pointer" }}
-                              onClick={() => {
-                                navigator.clipboard.writeText(
-                                  `${window.location.origin}/proposta/${q.slug}`,
-                                );
+                            <button type="button" className="badge secondary"
+                              onClick={async () => {
+                                try { await navigator.clipboard.writeText(`${window.location.origin}/proposta/${q.slug}`); setNotice('Link da proposta copiado.'); }
+                                catch { setError('Não foi possível copiar. Abra a proposta e copie o endereço.'); }
                               }}
                             >
                               copiar link
-                            </span>
+                            </button>
                           </>
                         )}
                         {linkOrcamento && (
@@ -363,20 +383,16 @@ export default function Orcamentos() {
                             </a>
                           </>
                         )}
-                        <span
-                          className="badge"
-                          style={{ cursor: "pointer" }}
+                        <button type="button" className="badge secondary"
                           onClick={() => handleProposalPdf(q)}
                         >
                           PDF proposta
-                        </span>
-                        <span
-                          className="badge"
-                          style={{ cursor: "pointer" }}
+                        </button>
+                        <button type="button" className="badge secondary"
                           onClick={() => handleContractPdf(q)}
                         >
-                          PDF contrato
-                        </span>
+                          Minuta de contrato
+                        </button>
                       </td>
                     </tr>
                   );
@@ -487,6 +503,10 @@ export default function Orcamentos() {
             onChange={(e) => setForm({ ...form, deadlineDays: e.target.value })}
             required
           />
+          <label htmlFor="quote-payment">Condições de pagamento</label>
+          <textarea id="quote-payment" rows={3} maxLength={2000} placeholder="Ex.: 50% no início e 50% na entrega." value={form.paymentTerms} onChange={e => setForm({ ...form, paymentTerms: e.target.value })} />
+          <label htmlFor="quote-notes">Combinados específicos (opcional)</label>
+          <textarea id="quote-notes" rows={3} maxLength={4000} placeholder="Revisões, materiais, manutenção e outros detalhes combinados." value={form.notes} onChange={e => setForm({ ...form, notes: e.target.value })} />
           <button style={{ marginTop: 20 }} disabled={loading}>
             {loading ? "salvando…" : "criar orçamento"}
           </button>

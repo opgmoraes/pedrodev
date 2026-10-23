@@ -1,177 +1,110 @@
 import { jsPDF } from "jspdf";
+import { PDF_LOGO, PDF_LOGO_RATIO } from "./pdfLogo";
+import { PDF_REGULAR, PDF_BOLD } from "./pdfFonts";
+import { BRAND, money } from "./brand";
+import { BRIEFING_LABELS, DEFAULT_PAYMENT_TERMS, DOCUMENT_CONDITIONS, documentReference, type CommercialDocument } from "./documentContent";
 
-// Geração simples de PDF client-side com jsPDF.
-// Visual minimalista em mono, alinhado ao design system do sistema.
+const BLUE = '#1657f5', NAVY = '#0d2345', MUTED = '#61718a';
+const LEFT = 44, WIDTH = 507, BOTTOM = 760;
+const clean = (text: string) => text.replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g, '').replace(/[\u2010-\u2015]/g, '-').replace(/\u00a0/g, ' ');
+function filename(name: string) { return name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'cliente'; }
 
-const BRAND = "Pedro Gomes | Tech";
-
-function baseDoc() {
-  const doc = new jsPDF({ unit: "pt", format: "a4" });
-  doc.setFont("helvetica", "normal");
-  return doc;
-}
-
-function header(doc: jsPDF, title: string) {
-  doc.setFillColor(22, 87, 245);
-  doc.rect(0, 0, 595, 6, "F");
-  doc.setFontSize(10);
-  doc.setTextColor(22, 87, 245);
-  doc.text(BRAND, 40, 40);
-  doc.setFontSize(20);
-  doc.setTextColor(20);
-  doc.text(title, 40, 70);
-  doc.setDrawColor(220);
-  doc.line(40, 85, 555, 85);
-}
-
-function footer(doc: jsPDF) {
-  const date = new Date().toLocaleDateString("pt-BR", {
-    timeZone: "America/Sao_Paulo",
-  });
-  doc.setFontSize(9);
-  doc.setTextColor(150);
-  doc.text(`Documento gerado em ${date} — ${BRAND}`, 40, 800);
-}
-
-export function generateProposalPdf(params: {
-  clientName: string;
-  company?: string;
-  service: string;
-  items?: string[];
-  value: number;
-  deadlineDays: number;
-}) {
-  const doc = baseDoc();
-  header(doc, "Proposta Comercial");
-
-  let y = 120;
-  doc.setFontSize(12);
-  doc.setTextColor(30);
-
-  const lines = [
-    `Cliente: ${params.clientName}${params.company ? ` (${params.company})` : ""}`,
-    "",
-    "Escopo do serviço:",
-    params.service,
-    ...(params.items && params.items.length > 0
-      ? params.items.map((i) => `• ${i}`)
-      : []),
-    "",
-    `Valor: R$ ${params.value.toFixed(2)}`,
-    `Prazo estimado: ${params.deadlineDays} dias corridos a partir da confirmação`,
-    "",
-    "Condições:",
-    "- Pagamento conforme acordo comercial (à vista ou parcelado).",
-    "- Início do projeto após confirmação do pagamento e envio do briefing.",
-    "- Prazo contado a partir da data de recebimento das informações completas.",
-  ];
-
-  for (const line of lines) {
-    const wrapped: string[] = doc.splitTextToSize(line, 500);
-    for (const part of wrapped) {
-      if (y > 755) {
-        footer(doc);
-        doc.addPage();
-        header(doc, "Proposta Comercial");
-        y = 120;
-        doc.setFontSize(12);
-        doc.setTextColor(30);
-      }
-      doc.text(part, 40, y);
-      y += 16;
+function documentLayout(title: string, client: string, reference?: string) {
+  const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+  doc.addFileToVFS('PedroSans-Regular.ttf', PDF_REGULAR);
+  doc.addFileToVFS('PedroSans-Bold.ttf', PDF_BOLD);
+  doc.addFont('PedroSans-Regular.ttf', 'PedroSans', 'normal');
+  doc.addFont('PedroSans-Bold.ttf', 'PedroSans', 'bold');
+  doc.setProperties({ title: `${title} | ${client}`, author: BRAND.name, creator: 'PedroDEV' });
+  let y = 0;
+  const text = (value: string, x: number, top: number, size = 10, color = NAVY, font = 'normal') => {
+    doc.setFont('PedroSans', font); doc.setFontSize(size); doc.setTextColor(color); doc.text(clean(value), x, top);
+  };
+  const header = (first: boolean) => {
+    doc.setFillColor(NAVY); doc.rect(0, 0, 596, first ? 160 : 88, 'F');
+    doc.addImage(PDF_LOGO, 'PNG', LEFT, 28, 40, 40 / PDF_LOGO_RATIO, 'pg-wordmark', 'FAST');
+    text('Pedro Gomes', 98, 40, 12, '#ffffff', 'bold');
+    text('DESENVOLVIMENTO DIGITAL', 98, 54, 7, '#b6c9e8');
+    doc.setFont('PedroSans', 'normal'); doc.setFontSize(8);
+    text(documentReference(reference), 551 - doc.getTextWidth(documentReference(reference)), 42, 8, '#b6c9e8');
+    if (first) {
+      text(title, LEFT, 105, 29, '#ffffff', 'bold');
+      text('Estratégia, design e tecnologia para o seu projeto.', LEFT, 130, 10, '#b6c9e8');
     }
-    y += 6;
-  }
-
-  footer(doc);
-  for (let page = 1; page <= doc.getNumberOfPages(); page++) {
-    doc.setPage(page);
-    doc.setFontSize(9);
-    doc.setTextColor(150);
-    doc.text(`${page} / ${doc.getNumberOfPages()}`, 520, 800);
-  }
-  doc.save(
-    `proposta-${params.clientName.toLowerCase().replace(/\s+/g, "-")}.pdf`,
-  );
+    doc.setFillColor(BLUE); doc.rect(0, first ? 160 : 88, 596, 4, 'F');
+    y = first ? 194 : 120;
+  };
+  header(true);
+  const ensure = (space: number) => {
+    if (y + space > BOTTOM) { doc.addPage(); header(false); }
+  };
+  const paragraph = (value: string, size = 11, color = NAVY, bold = false, indent = 0) => {
+    doc.setFont('PedroSans', bold ? 'bold' : 'normal'); doc.setFontSize(size);
+    const lines: string[] = doc.splitTextToSize(clean(value), WIDTH - indent);
+    for (const line of lines) { ensure(size * 1.5); text(line, LEFT + indent, y, size, color, bold ? 'bold' : 'normal'); y += size * 1.5; }
+    y += 7;
+  };
+  const section = (label: string, value: string) => {
+    ensure(70); y += 10; paragraph(label.toUpperCase(), 8, BLUE, true); paragraph(value);
+  };
+  const finish = (prefix: string, download: boolean) => {
+    const count = doc.getNumberOfPages();
+    for (let page = 1; page <= count; page++) {
+      doc.setPage(page); doc.setDrawColor('#dee5ef'); doc.line(LEFT, 787, 551, 787);
+      text('Pedro Gomes · pedrogm.com.br', LEFT, 805, 8, MUTED);
+      text(`Gerado em ${new Date().toLocaleDateString('pt-BR')} · ${page}/${count}`, 365, 805, 8, MUTED);
+      doc.link(LEFT, 794, 200, 16, { url: 'https://pedrogm.com.br' });
+    }
+    if (download) doc.save(`${prefix}-${filename(client)}.pdf`);
+    return doc;
+  };
+  return { doc, text, paragraph, section, ensure, finish, get y() { return y; }, set y(value: number) { y = value; } };
 }
 
-export function generateContractPdf(params: {
-  clientName: string;
-  document?: string;
-  address?: string;
-  service: string;
-  items?: string[];
-  value: number;
-  deadlineDays: number;
-}) {
-  const doc = baseDoc();
-  header(doc, "Contrato de Prestação de Serviços");
-
-  let y = 120;
-  doc.setFontSize(11);
-  doc.setTextColor(30);
-
-  const lines = [
-    "CONTRATANTE:",
-    `${params.clientName}${params.document ? ` — CPF/CNPJ: ${params.document}` : ""}`,
-    params.address ? `Endereço: ${params.address}` : "",
-    "",
-    "CONTRATADO:",
-    "Pedro Gomes | Tech",
-    "",
-    "OBJETO DO CONTRATO:",
-    params.service,
-    ...(params.items && params.items.length > 0
-      ? params.items.map((i) => `• ${i}`)
-      : []),
-    "",
-    "VALOR E CONDIÇÕES DE PAGAMENTO:",
-    `R$ ${params.value.toFixed(2)}, conforme condições acordadas entre as partes.`,
-    "",
-    "PRAZO:",
-    `${params.deadlineDays} dias corridos, a contar da data de início do projeto.`,
-    "",
-    "DISPOSIÇÕES GERAIS:",
-    "- O cliente é responsável pela titularidade do domínio e, quando aplicável,",
-    "  das contas de infraestrutura utilizadas no projeto.",
-    "- O contratado receberá acesso de administrador/desenvolvedor.",
-    "- Revisões e ajustes seguem o escopo definido nesta proposta; alterações",
-    "  fora do escopo poderão gerar custo adicional, mediante acordo prévio.",
-    "",
-    "",
-    "_________________________________          _________________________________",
-    "Contratante                                    Contratado",
-  ];
-
-  for (const line of lines) {
-    if (!line) {
-      y += 10;
-      continue;
-    }
-    const wrapped = doc.splitTextToSize(line, 500);
-    for (const part of wrapped) {
-      if (y > 755) {
-        footer(doc);
-        doc.addPage();
-        header(doc, "Contrato de Prestação de Serviços");
-        y = 120;
-        doc.setFontSize(11);
-        doc.setTextColor(30);
-      }
-      doc.text(part, 40, y);
-      y += 15;
-    }
-    y += 4;
+function commercialPdf(params: CommercialDocument, contract: boolean, download: boolean) {
+  const layout = documentLayout(contract ? (params.draft ? 'Minuta de contrato' : 'Contrato de serviços') : 'Proposta comercial', params.clientName, params.reference);
+  const { doc, text, paragraph, section, ensure } = layout;
+  paragraph(contract ? 'CONTRATANTE' : 'PREPARADA EXCLUSIVAMENTE PARA', 8, BLUE, true);
+  paragraph(params.clientName, 22, NAVY, true);
+  if (params.company) paragraph(params.company, 11, MUTED);
+  if (contract && params.document) paragraph(`CPF/CNPJ: ${params.document}`, 10, MUTED);
+  if (contract && params.address) paragraph(`Endereço: ${params.address}`, 10, MUTED);
+  if (contract) paragraph(`Contratado: ${BRAND.name} | Desenvolvimento digital`, 10, MUTED);
+  section(contract ? '01 / Objeto e entregas' : '01 / Seu projeto', params.service);
+  for (const [index, item] of (params.items || []).entries()) {
+    paragraph(`${String(index + 1).padStart(2, '0')}   ${item}`, 10, NAVY, false, 12);
   }
-
-  footer(doc);
-  for (let page = 1; page <= doc.getNumberOfPages(); page++) {
-    doc.setPage(page);
-    doc.setFontSize(9);
-    doc.setTextColor(150);
-    doc.text(`${page} / ${doc.getNumberOfPages()}`, 520, 800);
+  ensure(100); layout.y += 10;
+  const boxY = layout.y;
+  doc.setFillColor('#edf3ff'); doc.roundedRect(LEFT, boxY, WIDTH, 78, 10, 10, 'F');
+  text('INVESTIMENTO', LEFT + 18, boxY + 23, 8, BLUE, 'bold');
+  text(money(params.value), LEFT + 18, boxY + 53, 24, NAVY, 'bold');
+  text('PRAZO ESTIMADO', 365, boxY + 23, 8, BLUE, 'bold');
+  text(`${params.deadlineDays} dias`, 365, boxY + 53, 22, NAVY, 'bold');
+  layout.y += 98;
+  section('02 / Pagamento', params.paymentTerms || DEFAULT_PAYMENT_TERMS);
+  if (params.notes) section('03 / Combinados do projeto', params.notes);
+  for (const [label, content] of DOCUMENT_CONDITIONS) section(label, content);
+  if (params.status) {
+    const status = { pendente: 'Aguardando resposta', aprovado: 'Proposta aprovada', recusado: 'Ajustes solicitados', aceito: 'Contrato aceito' }[params.status] || params.status;
+    section('Situação na emissão deste PDF', status);
   }
-  doc.save(
-    `contrato-${params.clientName.toLowerCase().replace(/\s+/g, "-")}.pdf`,
-  );
+  if (params.publicUrl && /^https?:\/\//.test(params.publicUrl)) {
+    ensure(86); layout.y += 12;
+    doc.setFillColor(BLUE); doc.roundedRect(LEFT, layout.y, WIDTH, 43, 8, 8, 'F');
+    text(contract ? 'Abrir contrato e registrar aceite' : 'Ver proposta e responder', LEFT + 16, layout.y + 27, 11, '#ffffff', 'bold');
+    doc.link(LEFT, layout.y, WIDTH, 43, { url: params.publicUrl }); layout.y += 64;
+    paragraph('O botão acima abre a versão online deste documento.', 9, MUTED);
+  }
+  return layout.finish(contract ? 'contrato' : 'proposta', download);
+}
+export function generateProposalPdf(params: CommercialDocument, download = true) { return commercialPdf(params, false, download); }
+export function generateContractPdf(params: CommercialDocument, download = true) { return commercialPdf(params, true, download); }
+export function generateBriefingPdf(params: { clientName: string; company?: string; answers: Record<string, string>; reference?: string }, download = true) {
+  const layout = documentLayout('Briefing do projeto', params.clientName, params.reference);
+  layout.paragraph('DIREÇÃO DO PROJETO', 8, BLUE, true);
+  layout.paragraph(params.clientName, 22, NAVY, true);
+  if (params.company) layout.paragraph(params.company, 11, MUTED);
+  for (const key of Object.keys(BRIEFING_LABELS)) layout.section(BRIEFING_LABELS[key], params.answers[key] || 'Não informado');
+  return layout.finish('briefing', download);
 }

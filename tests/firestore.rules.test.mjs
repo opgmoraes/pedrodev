@@ -135,3 +135,39 @@ test("briefing válido é aceito sem revelar respostas e rejeita links inexisten
     }),
   );
 });
+
+test("fluxo de cliente, proposta, contrato e central de documentos preserva os dados privados", async () => {
+  const { build } = await import('esbuild');
+  const { mkdir } = await import('node:fs/promises');
+  const { pathToFileURL } = await import('node:url');
+  const assert = await import('node:assert/strict');
+  await mkdir('node_modules/.cache/pedrodev', { recursive: true });
+  const source = (await readFile('src/lib/sharing.ts', 'utf8')).replace('import { db } from "./firebaseClient";', 'const db = globalThis.__sharingTestDb;');
+  await build({ stdin: { contents: source, loader: 'ts', resolveDir: process.cwd() }, bundle: true, platform: 'node', packages: 'external', format: 'esm', outfile: 'node_modules/.cache/pedrodev/sharing-test.mjs' });
+  const adminDb = env.authenticatedContext('owner').firestore();
+  globalThis.__sharingTestDb = adminDb;
+  const sharing = await import(pathToFileURL(`${process.cwd()}/node_modules/.cache/pedrodev/sharing-test.mjs`));
+  const publicDb = env.unauthenticatedContext().firestore();
+  const client = await sharing.createClient({ name: 'Cliente do fluxo', company: 'Studio', slug: 'studio-token-unico', phone: 'privado', document: 'privado', email: 'privado' });
+  await sharing.createShared('quotes', { clientId: client.id, clientName: 'Cliente do fluxo', service: 'Site', items: ['Design'], value: 1497, deadlineDays: 15, paymentTerms: '50% no início', notes: 'Duas revisões', slug: 'proposta-token-unico', status: 'pendente' });
+  const publicQuote = doc(publicDb, 'publicQuotes', 'proposta-token-unico');
+  assert.equal((await getDoc(publicQuote)).data().paymentTerms, '50% no início');
+  await assertFails(updateDoc(publicQuote, { paymentTerms: 'Gratuito' }));
+  await updateDoc(publicQuote, { status: 'aprovado', statusUpdatedAt: serverTimestamp() });
+  assert.equal(await sharing.publicStatus('quotes', { slug: 'proposta-token-unico' }), 'aprovado');
+  await sharing.createShared('contracts', { clientId: client.id, clientName: 'Cliente do fluxo', service: 'Site', value: 1497, deadlineDays: 15, slug: 'contrato-token-unico', paymentTerms: '50% no início', status: 'pendente' });
+  const contract = doc(publicDb, 'publicContracts', 'contrato-token-unico');
+  await updateDoc(contract, { status: 'aceito', acceptedAt: serverTimestamp() });
+  assert.equal(await sharing.publicStatus('contracts', { slug: 'contrato-token-unico' }), 'aceito');
+  let hub = (await getDoc(doc(publicDb, 'publicClients', 'studio-token-unico'))).data();
+  assert.equal(hub.documents.length, 2);
+  assert.equal(hub.documents[0].slug, 'proposta-token-unico');
+  assert.ok(!JSON.stringify(hub).includes('privado'));
+  await assertFails(updateDoc(doc(publicDb, 'publicClients', 'studio-token-unico'), { name: 'Invasor' }));
+  await sharing.publishAllLinks();
+  hub = (await getDoc(doc(publicDb, 'publicClients', 'studio-token-unico'))).data();
+  assert.equal(hub.documents.length, 2);
+  assert.equal((await getDoc(publicQuote)).data().status, 'aprovado');
+  assert.equal((await getDoc(contract)).data().status, 'aceito');
+  delete globalThis.__sharingTestDb;
+});
