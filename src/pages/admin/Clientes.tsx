@@ -1,3 +1,4 @@
+import ArrowIcon from "../../components/ArrowIcon";
 import { ErrorMessage, loadError, saveError } from "../../components/Feedback";
 import { createClient } from "../../lib/sharing";
 import { generateSlug } from "../../lib/slug";
@@ -186,7 +187,7 @@ export default function Clientes() {
                         className="mono"
                         style={{ color: "var(--accent)", fontSize: 13 }}
                       >
-                        ver →
+                        ver <ArrowIcon direction="right" />
                       </Link>
                     </td>
                   </tr>

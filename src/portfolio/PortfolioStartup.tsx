@@ -33,7 +33,7 @@ const html = `  <div id="cursor-glow" class="pointer-events-none fixed -translat
   <!-- ================= HEADER ================= -->
   <header class="pt-40 pb-8 px-6 md:px-12 relative z-10">
     <div class="max-w-4xl mx-auto w-full">
-      <a href="/" class="text-xs uppercase tracking-widest text-gray-500 hover:text-white transition-colors">← Voltar ao início</a>
+      <a href="/" class="text-xs uppercase tracking-widest text-gray-500 hover:text-white transition-colors"><svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M20 12H4m7-7-7 7 7 7"></path></svg> Voltar ao início</a>
     </div>
   </header>
 
@@ -110,7 +110,7 @@ const html = `  <div id="cursor-glow" class="pointer-events-none fixed -translat
     <div class="max-w-4xl mx-auto w-full reveal text-center">
       <p class="text-gray-400 text-base font-light mb-6">Quer acompanhar essa jornada em detalhes?</p>
       <a href="/trilha" class="inline-flex items-center gap-2 px-6 py-3 border border-gray-700 rounded-full text-xs uppercase tracking-widest hover:bg-white hover:text-black transition-colors">
-        Ver a Trilha do Desafio <span>→</span>
+        Ver a Trilha do Desafio <span><svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M4 12h16m-7-7 7 7-7 7"></path></svg></span>
       </a>
     </div>
   </section>

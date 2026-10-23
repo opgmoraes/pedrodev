@@ -1,3 +1,4 @@
+import ArrowIcon from "./ArrowIcon";
 import RouteLoading from "./RouteLoading";
 import { Suspense, useEffect, useState } from "react";
 import {
@@ -167,7 +168,7 @@ export default function AdminLayout() {
             )}
           </span>
           <Link to="/" target="_blank">
-            Abrir meu site ↗
+            Abrir meu site <ArrowIcon />
           </Link>
         </div>
         <div className="container admin-content">

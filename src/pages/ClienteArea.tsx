@@ -1,3 +1,4 @@
+import ArrowIcon from "../components/ArrowIcon";
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import {
@@ -78,7 +79,7 @@ export default function ClienteArea() {
       <div className="system-brandbar">
         <Link to="/">Pedro Gomes · tech</Link>
         <a href={contactLink()} target="_blank" rel="noopener noreferrer">
-          Precisa de ajuda? ↗
+          Precisa de ajuda? <ArrowIcon />
         </a>
       </div>
       {loading ? (
@@ -193,7 +194,7 @@ export default function ClienteArea() {
                   </div>
                 ))}
                 <button disabled={saving} style={{ marginTop: 24 }}>
-                  {saving ? "Enviando…" : "Enviar briefing ↗"}
+                  {saving ? "Enviando…" : <>Enviar briefing <ArrowIcon /></>}
                 </button>
               </form>
             )}

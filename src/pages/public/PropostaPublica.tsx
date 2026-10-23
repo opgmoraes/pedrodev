@@ -1,3 +1,4 @@
+import ArrowIcon from "../../components/ArrowIcon";
 import { money } from "../../lib/brand";
 import { ErrorMessage, loadError, saveError } from "../../components/Feedback";
 import { useEffect, useState } from "react";
@@ -243,7 +244,7 @@ export default function PropostaPublica() {
 
       <p style={{ textAlign: "center", marginTop: 24 }}>
         <Link to="/" style={{ color: "var(--text-muted)", fontSize: 13 }}>
-          ← voltar pro site
+          <ArrowIcon direction="left" /> voltar pro site
         </Link>
       </p>
     </div>

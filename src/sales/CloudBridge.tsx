@@ -1,3 +1,4 @@
+import ArrowIcon from "../components/ArrowIcon";
 import "./clouds.css";
 
 // Bancos diferentes, tratados a partir das referências enviadas pelo usuário.
@@ -11,7 +12,7 @@ export default function CloudBridge() {
     <section id="transicao" className="sky-bridge" aria-label="Dos conceitos aos projetos" data-motion-scene>
       <div className="sky-caption">
         <p>O próximo passo é <em>construir.</em></p>
-        <a href="#projetos" aria-label="Conhecer os projetos">↓</a>
+        <a href="#projetos" aria-label="Conhecer os projetos"><ArrowIcon direction="down" /></a>
       </div>
       <div className="sky-light" aria-hidden="true" />
       <div className="sky-banks" aria-hidden="true">

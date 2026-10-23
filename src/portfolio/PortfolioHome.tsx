@@ -62,7 +62,7 @@ const html = `  <!-- Cursor Glow Follower -->
         </p>
         <a href="#projetos" class="group flex items-center gap-4 text-xs tracking-widest uppercase border-b border-[#15150F]/30 pb-3 hover:border-[#15150F] transition-all duration-300">
           Explorar Projetos 
-          <span class="group-hover:translate-x-2 transition-transform duration-500">→</span>
+          <span class="group-hover:translate-x-2 transition-transform duration-500"><svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M4 12h16m-7-7 7 7-7 7"></path></svg></span>
         </a>
       </div>
 
@@ -223,8 +223,8 @@ const html = `  <!-- Cursor Glow Follower -->
             <img src="/assets/projetos/bitto/desktop/desktop-06.png" alt="Bitto Preview 6" class="w-full h-full object-cover flex-shrink-0">
           </div>
 
-          <button class="slider-btn prev absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/70 text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:bg-black">←</button>
-          <button class="slider-btn next absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/70 text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:bg-black">→</button>
+          <button class="slider-btn prev absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/70 text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:bg-black"><svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M20 12H4m7-7-7 7 7 7"></path></svg></button>
+          <button class="slider-btn next absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/70 text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:bg-black"><svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M4 12h16m-7-7 7 7-7 7"></path></svg></button>
           
           <div class="slider-dots absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2"></div>
         </div>
@@ -240,7 +240,7 @@ const html = `  <!-- Cursor Glow Follower -->
           </p>
           <div class="flex gap-6">
             <a id="cms-proj-1-link1" href="https://www.usebitto.com" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-2 text-xs uppercase tracking-widest link-hover pb-1 font-semibold">
-              <span id="cms-proj-1-link1-text">Acessar Plataforma</span> <span class="group-hover:translate-x-1 transition-transform">↗</span>
+              <span id="cms-proj-1-link1-text">Acessar Plataforma</span> <span class="group-hover:translate-x-1 transition-transform"><svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M6 18 18 6M6 6h12v12"></path></svg></span>
             </a>
             <a id="cms-proj-1-link2" href="https://wa.me/5561936182176?text=Ol%C3%A1%20Pedro%2C%20gostaria%20de%20solicitar%20acesso%20ao%20reposit%C3%B3rio%20do%20bitto." target="_blank" rel="noopener noreferrer" class="text-xs text-gray-500 uppercase tracking-widest hover:text-white transition-colors">
               <span id="cms-proj-1-link2-text">Repositório</span>
@@ -260,8 +260,8 @@ const html = `  <!-- Cursor Glow Follower -->
             <img src="/assets/projetos/cinegift/desktop/desktop-03.png" alt="CineGift Preview 3" class="w-full h-full object-cover flex-shrink-0">
           </div>
 
-          <button class="slider-btn prev absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/70 text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:bg-black">←</button>
-          <button class="slider-btn next absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/70 text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:bg-black">→</button>
+          <button class="slider-btn prev absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/70 text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:bg-black"><svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M20 12H4m7-7-7 7 7 7"></path></svg></button>
+          <button class="slider-btn next absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/70 text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:bg-black"><svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M4 12h16m-7-7 7 7-7 7"></path></svg></button>
           
           <div class="slider-dots absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2"></div>
         </div>
@@ -277,7 +277,7 @@ const html = `  <!-- Cursor Glow Follower -->
           </p>
           <div class="flex gap-6">
             <a id="cms-proj-2-link1" href="https://www.cinegift.com.br/" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-2 text-xs uppercase tracking-widest link-hover pb-1 font-semibold">
-              <span id="cms-proj-2-link1-text">Acessar Plataforma</span> <span class="group-hover:translate-x-1 transition-transform">↗</span>
+              <span id="cms-proj-2-link1-text">Acessar Plataforma</span> <span class="group-hover:translate-x-1 transition-transform"><svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M6 18 18 6M6 6h12v12"></path></svg></span>
             </a>
             <a id="cms-proj-2-link2" href="https://wa.me/5561936182176?text=Ol%C3%A1%20Pedro%2C%20gostaria%20de%20solicitar%20acesso%20ao%20reposit%C3%B3rio%20do%20CineGift." target="_blank" rel="noopener noreferrer" class="text-xs text-gray-500 uppercase tracking-widest hover:text-white transition-colors">
               <span id="cms-proj-2-link2-text">Repositório</span>
@@ -299,8 +299,8 @@ const html = `  <!-- Cursor Glow Follower -->
             <img src="/assets/projetos/konthub/desktop/desktop-05.png" alt="Kont Hub Preview 5" class="w-full h-full object-cover flex-shrink-0">
           </div>
           
-          <button class="slider-btn prev absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/70 text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:bg-black">←</button>
-          <button class="slider-btn next absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/70 text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:bg-black">→</button>
+          <button class="slider-btn prev absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/70 text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:bg-black"><svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M20 12H4m7-7-7 7 7 7"></path></svg></button>
+          <button class="slider-btn next absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/70 text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:bg-black"><svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M4 12h16m-7-7 7 7-7 7"></path></svg></button>
           
           <div class="slider-dots absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2"></div>
         </div>
@@ -316,7 +316,7 @@ const html = `  <!-- Cursor Glow Follower -->
           </p>
           <div class="flex gap-6">
             <a id="cms-proj-3-link1" href="https://wa.me/5561936182176?text=Ol%C3%A1%20Pedro%2C%20gostaria%20de%20solicitar%20acesso%20ao%20reposit%C3%B3rio%20do%20Kont%20Hub." target="_blank" rel="noopener noreferrer" class="group flex items-center gap-2 text-xs uppercase tracking-widest link-hover pb-1 font-semibold">
-              <span id="cms-proj-3-link1-text">Solicitar Repositório</span> <span class="group-hover:translate-x-1 transition-transform">→</span>
+              <span id="cms-proj-3-link1-text">Solicitar Repositório</span> <span class="group-hover:translate-x-1 transition-transform"><svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M4 12h16m-7-7 7 7-7 7"></path></svg></span>
             </a>
           </div>
           <p id="cms-proj-3-footnote" class="text-[11px] text-gray-600 mt-4">Repositório privado — código proprietário, acesso mediante solicitação.</p>
@@ -364,7 +364,7 @@ const html = `  <!-- Cursor Glow Follower -->
           <a href="https://wa.me/5561936182176?text=Ol%C3%A1%20Pedro%2C%20vi%20seu%20portf%C3%B3lio%2C%20vamos%20conversar%3F" target="_blank" rel="noopener noreferrer" class="group p-6 rounded-xl backdrop-blur-sm border border-gray-800/80 hover:border-blue-500/50 transition-all text-left" style="background:rgba(18,18,21,0.6);box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);">
             <div class="flex justify-between items-center mb-4">
               <svg class="w-6 h-6" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.001 2C6.478 2 2 6.478 2 12c0 1.821.487 3.53 1.338 5.003L2.05 22l5.144-1.302C8.622 21.526 10.263 22 12.001 22 17.523 22 22 17.522 22 12S17.523 2 12.001 2zm0 18.153c-1.583 0-3.05-.462-4.29-1.257l-.308-.19-3.076.78.802-3.02-.202-.31A8.13 8.13 0 013.848 12c0-4.494 3.659-8.153 8.153-8.153 4.494 0 8.153 3.659 8.153 8.153 0 4.494-3.659 8.153-8.153 8.153z"/></svg>
-              <span class="text-xs text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">Conversar →</span>
+              <span class="text-xs text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">Conversar <svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M4 12h16m-7-7 7 7-7 7"></path></svg></span>
             </div>
             <h4 class="text-sm font-semibold text-white mb-1">WhatsApp</h4>
             <p class="text-xs text-gray-500">+55 (61) 93618-2176</p>
@@ -373,7 +373,7 @@ const html = `  <!-- Cursor Glow Follower -->
           <a href="https://www.instagram.com/pedrogm.dev/" target="_blank" rel="noopener noreferrer" class="group p-6 rounded-xl backdrop-blur-sm border border-gray-800/80 hover:border-blue-500/50 transition-all text-left" style="background:rgba(18,18,21,0.6);box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);">
             <div class="flex justify-between items-center mb-4">
               <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#E4405F" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="#E4405F" stroke="none"></circle></svg>
-              <span class="text-xs text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">Seguir →</span>
+              <span class="text-xs text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">Seguir <svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M4 12h16m-7-7 7 7-7 7"></path></svg></span>
             </div>
             <h4 class="text-sm font-semibold text-white mb-1">Instagram</h4>
             <p class="text-xs text-gray-500">@pedrogm.dev</p>
@@ -382,7 +382,7 @@ const html = `  <!-- Cursor Glow Follower -->
           <a href="https://www.linkedin.com/in/pedrogmdev" target="_blank" rel="noopener noreferrer" class="group p-6 rounded-xl backdrop-blur-sm border border-gray-800/80 hover:border-blue-500/50 transition-all text-left" style="background:rgba(18,18,21,0.6);box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);">
             <div class="flex justify-between items-center mb-4">
               <i class="devicon-linkedin-plain colored text-2xl"></i>
-              <span class="text-xs text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">Ver perfil →</span>
+              <span class="text-xs text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">Ver perfil <svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M4 12h16m-7-7 7 7-7 7"></path></svg></span>
             </div>
             <h4 class="text-sm font-semibold text-white mb-1">LinkedIn</h4>
             <p class="text-xs text-gray-500">/in/pedrogmdev</p>
@@ -391,7 +391,7 @@ const html = `  <!-- Cursor Glow Follower -->
           <a href="https://github.com/opgmoraes" target="_blank" rel="noopener noreferrer" class="group p-6 rounded-xl backdrop-blur-sm border border-gray-800/80 hover:border-purple-500/50 transition-all text-left" style="background:rgba(18,18,21,0.6);box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);">
             <div class="flex justify-between items-center mb-4">
               <i class="devicon-github-original text-2xl text-white"></i>
-              <span class="text-xs text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity">Ver projetos →</span>
+              <span class="text-xs text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity">Ver projetos <svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M4 12h16m-7-7 7 7-7 7"></path></svg></span>
             </div>
             <h4 class="text-sm font-semibold text-white mb-1">GitHub</h4>
             <p class="text-xs text-gray-500">@opgmoraes</p>

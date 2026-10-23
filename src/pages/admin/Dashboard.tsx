@@ -1,3 +1,4 @@
+import ArrowIcon from "../../components/ArrowIcon";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
@@ -105,7 +106,7 @@ export default function Dashboard() {
             <div className="stat-label">{label}</div>
             <div className="stat-value">{loading ? "—" : value}</div>
             <span style={{ color: "var(--accent)", fontSize: 11 }}>
-              Ver detalhes ↗
+              Ver detalhes <ArrowIcon />
             </span>
           </Link>
         ))}
@@ -127,7 +128,7 @@ export default function Dashboard() {
             </Link>
           ))}
           <Link to="/admin/projetos" className="link-underline">
-            Gerenciar projetos ↗
+            Gerenciar projetos <ArrowIcon />
           </Link>
         </section>
         <section className="card">
@@ -147,7 +148,7 @@ export default function Dashboard() {
             </Link>
           ))}
           <Link to="/admin/orcamentos" className="link-underline">
-            Gerenciar propostas ↗
+            Gerenciar propostas <ArrowIcon />
           </Link>
         </section>
       </div>

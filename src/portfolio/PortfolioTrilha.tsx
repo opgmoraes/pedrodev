@@ -34,7 +34,7 @@ const html = `  <!-- Cursor Glow Follower -->
   <!-- ================= PAGE HEADER ================= -->
   <header class="pt-40 pb-8 px-6 md:px-12 relative z-10">
     <div class="max-w-4xl mx-auto w-full">
-      <a href="/" class="text-xs uppercase tracking-widest text-gray-500 hover:text-white transition-colors">← Voltar ao início</a>
+      <a href="/" class="text-xs uppercase tracking-widest text-gray-500 hover:text-white transition-colors"><svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M20 12H4m7-7-7 7 7 7"></path></svg> Voltar ao início</a>
     </div>
   </header>
 
@@ -61,7 +61,7 @@ const html = `  <!-- Cursor Glow Follower -->
                 <h3 class="text-lg font-medium">Inscrição no Desafio</h3>
               </div>
             </div>
-            <span class="chevron text-gray-500 transition-transform duration-300">↓</span>
+            <span class="chevron text-gray-500 transition-transform duration-300"><svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M12 4v16m-7-7 7 7 7-7"></path></svg></span>
           </summary>
           <div class="px-5 pb-6 pt-1 pl-[3.25rem] text-sm text-gray-400 font-light leading-relaxed">
             Inscrevemos a ZeloCamp no Desafio AgroStartup 2026, dando o primeiro passo oficial da jornada.
@@ -78,7 +78,7 @@ const html = `  <!-- Cursor Glow Follower -->
                 <h3 class="text-lg font-medium">Workshop de Ideação</h3>
               </div>
             </div>
-            <span class="chevron text-gray-500 transition-transform duration-300">↓</span>
+            <span class="chevron text-gray-500 transition-transform duration-300"><svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M12 4v16m-7-7 7 7 7-7"></path></svg></span>
           </summary>
           <div class="px-5 pb-6 pt-1 pl-[3.25rem]">
             <p class="text-sm text-gray-400 font-light leading-relaxed mb-5">
@@ -101,7 +101,7 @@ const html = `  <!-- Cursor Glow Follower -->
                 <h3 class="text-lg font-medium">Maratona de Inovação</h3>
               </div>
             </div>
-            <span class="chevron text-gray-500 transition-transform duration-300">↓</span>
+            <span class="chevron text-gray-500 transition-transform duration-300"><svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M12 4v16m-7-7 7 7 7-7"></path></svg></span>
           </summary>
           <div class="px-5 pb-6 pt-1 pl-[3.25rem]">
             <p class="text-sm text-gray-400 font-light leading-relaxed mb-5">
@@ -122,8 +122,8 @@ const html = `  <!-- Cursor Glow Follower -->
               </figure>
             </div>
             <div class="flex gap-6 mt-5">
-              <a href="https://www.linkedin.com/posts/pedrogmdev_agrostartup-campolab-sistemafaeg-ugcPost-7478469566487076864-WKIS/" target="_blank" rel="noopener noreferrer" class="text-xs text-gray-500 uppercase tracking-widest hover:text-white transition-colors">Ver no LinkedIn ↗</a>
-              <a href="https://www.instagram.com/reel/DaIuSWzOSjt/" target="_blank" rel="noopener noreferrer" class="text-xs text-gray-500 uppercase tracking-widest hover:text-white transition-colors">Ver no Instagram ↗</a>
+              <a href="https://www.linkedin.com/posts/pedrogmdev_agrostartup-campolab-sistemafaeg-ugcPost-7478469566487076864-WKIS/" target="_blank" rel="noopener noreferrer" class="text-xs text-gray-500 uppercase tracking-widest hover:text-white transition-colors">Ver no LinkedIn <svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M6 18 18 6M6 6h12v12"></path></svg></a>
+              <a href="https://www.instagram.com/reel/DaIuSWzOSjt/" target="_blank" rel="noopener noreferrer" class="text-xs text-gray-500 uppercase tracking-widest hover:text-white transition-colors">Ver no Instagram <svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M6 18 18 6M6 6h12v12"></path></svg></a>
             </div>
           </div>
         </details>
@@ -138,7 +138,7 @@ const html = `  <!-- Cursor Glow Follower -->
                 <h3 class="text-lg font-medium">Pré-Aceleração: Negócios Inovadores</h3>
               </div>
             </div>
-            <span class="chevron text-gray-500 transition-transform duration-300">↓</span>
+            <span class="chevron text-gray-500 transition-transform duration-300"><svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M12 4v16m-7-7 7 7 7-7"></path></svg></span>
           </summary>
           <div class="px-5 pb-6 pt-1 pl-[3.25rem]">
             <p class="text-sm text-gray-400 font-light leading-relaxed mb-5">
@@ -167,7 +167,7 @@ const html = `  <!-- Cursor Glow Follower -->
                 <h3 class="text-lg font-medium text-gray-300">Pré-Aceleração: Marketing e Redes Sociais</h3>
               </div>
             </div>
-            <span class="chevron text-gray-500 transition-transform duration-300">↓</span>
+            <span class="chevron text-gray-500 transition-transform duration-300"><svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M12 4v16m-7-7 7 7 7-7"></path></svg></span>
           </summary>
           <div class="px-5 pb-6 pt-1 pl-[3.25rem] text-sm text-gray-500 font-light leading-relaxed">
             Workshop com <strong class="text-gray-400 font-medium">Adrielly Rodrigues</strong> (bióloga, especialista em Marketing pela USP), com presença confirmada da Lely, startup holandesa líder global em automação para pecuária leiteira. Em breve atualizo com fotos e aprendizados.
@@ -184,7 +184,7 @@ const html = `  <!-- Cursor Glow Follower -->
                 <h3 class="text-lg font-medium text-gray-400">Workshop: Liderança e Gestão de Pessoas</h3>
               </div>
             </div>
-            <span class="chevron text-gray-500 transition-transform duration-300">↓</span>
+            <span class="chevron text-gray-500 transition-transform duration-300"><svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M12 4v16m-7-7 7 7 7-7"></path></svg></span>
           </summary>
           <div class="px-5 pb-6 pt-1 pl-[3.25rem] text-sm text-gray-500 font-light leading-relaxed">
             Próxima etapa da pré-aceleração. Atualizo essa seção assim que acontecer.
@@ -200,7 +200,7 @@ const html = `  <!-- Cursor Glow Follower -->
                 <h3 class="text-lg font-medium text-gray-400">Workshop: Inteligência Artificial no Agronegócio</h3>
               </div>
             </div>
-            <span class="chevron text-gray-500 transition-transform duration-300">↓</span>
+            <span class="chevron text-gray-500 transition-transform duration-300"><svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M12 4v16m-7-7 7 7 7-7"></path></svg></span>
           </summary>
           <div class="px-5 pb-6 pt-1 pl-[3.25rem] text-sm text-gray-500 font-light leading-relaxed">
             Próxima etapa da pré-aceleração. Atualizo essa seção assim que acontecer.
@@ -216,7 +216,7 @@ const html = `  <!-- Cursor Glow Follower -->
                 <h3 class="text-lg font-medium text-gray-400">Workshop: Empreendedorismo e Plano de Negócio</h3>
               </div>
             </div>
-            <span class="chevron text-gray-500 transition-transform duration-300">↓</span>
+            <span class="chevron text-gray-500 transition-transform duration-300"><svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M12 4v16m-7-7 7 7 7-7"></path></svg></span>
           </summary>
           <div class="px-5 pb-6 pt-1 pl-[3.25rem] text-sm text-gray-500 font-light leading-relaxed">
             Próxima etapa da pré-aceleração. Atualizo essa seção assim que acontecer.
@@ -232,7 +232,7 @@ const html = `  <!-- Cursor Glow Follower -->
                 <h3 class="text-lg font-medium text-gray-400">Workshop: Pitch</h3>
               </div>
             </div>
-            <span class="chevron text-gray-500 transition-transform duration-300">↓</span>
+            <span class="chevron text-gray-500 transition-transform duration-300"><svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M12 4v16m-7-7 7 7 7-7"></path></svg></span>
           </summary>
           <div class="px-5 pb-6 pt-1 pl-[3.25rem] text-sm text-gray-500 font-light leading-relaxed">
             Última preparação antes do resultado da pré-aceleração. Atualizo essa seção assim que acontecer.
@@ -249,7 +249,7 @@ const html = `  <!-- Cursor Glow Follower -->
                 <h3 class="text-lg font-medium text-gray-500">Demoday & Pitch em Vídeo</h3>
               </div>
             </div>
-            <span class="chevron text-gray-600 transition-transform duration-300">↓</span>
+            <span class="chevron text-gray-600 transition-transform duration-300"><svg class="arrow-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:-.16em;flex-shrink:0"><path d="M12 4v16m-7-7 7 7 7-7"></path></svg></span>
           </summary>
           <div class="px-5 pb-6 pt-1 pl-[3.25rem] text-sm text-gray-500 font-light leading-relaxed">
             Se a ZeloCamp for uma das finalistas da pré-aceleração, seguimos pro Demoday — apresentação final pra banca e investidores — além de um pitch em vídeo, ainda sem data definida. Torçam por nós.

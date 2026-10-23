@@ -1,3 +1,4 @@
+import ArrowIcon from "../components/ArrowIcon";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -13,6 +14,37 @@ import {
   googleProvider,
   hasFirebaseConfig,
 } from "../lib/firebaseClient";
+
+function loginFailure(error: unknown, stage: "authentication" | "authorization") {
+  const record = error && typeof error === "object" ? error as { code?: unknown; message?: unknown } : {};
+  const code = typeof record.code === "string" ? record.code : record.message === "unauthorized" ? "admin/not-authorized" : "login/unknown";
+  const messages: Record<string, string> = {
+    "auth/unauthorized-domain": "Este domínio ainda não está autorizado no Firebase Authentication.",
+    "auth/operation-not-allowed": "Este método de login está desativado no Firebase Authentication.",
+    "auth/popup-blocked": "O navegador bloqueou a janela do Google. Permita pop-ups para este site e tente novamente.",
+    "auth/popup-closed-by-user": "A janela do Google foi fechada antes de concluir o login.",
+    "auth/cancelled-popup-request": "Outra tentativa de login foi iniciada. Aguarde e tente novamente.",
+    "auth/network-request-failed": "Não foi possível conectar ao Firebase. Verifique sua conexão e bloqueadores do navegador.",
+    "auth/invalid-api-key": "A chave Web do Firebase está inválida. Confira a configuração na Vercel e publique novamente.",
+    "auth/app-not-authorized": "Este site não está autorizado a usar a configuração atual do Firebase.",
+    "auth/invalid-credential": "Não foi possível validar o login. Confira o e-mail e a senha ou tente entrar com o Google.",
+    "auth/invalid-login-credentials": "E-mail ou senha inválidos.",
+    "auth/wrong-password": "E-mail ou senha inválidos.",
+    "auth/user-not-found": "E-mail ou senha inválidos.",
+    "auth/user-disabled": "Esta conta está desativada no Firebase Authentication.",
+    "auth/too-many-requests": "Muitas tentativas de login. Aguarde antes de tentar novamente.",
+    "auth/account-exists-with-different-credential": "Esta conta já utiliza outro método de acesso. Entre pelo método cadastrado.",
+    "permission-denied": "O login foi aceito, mas o Firestore bloqueou a verificação de administrador. Confira as regras da coleção admins.",
+    "firestore/permission-denied": "O login foi aceito, mas o Firestore bloqueou a verificação de administrador. Confira as regras da coleção admins.",
+    "unavailable": "O Firestore não está acessível para verificar sua autorização. Tente novamente.",
+    "admin/not-authorized": "Login aceito, mas esta conta não está cadastrada como administradora em admins/UID no Firestore.",
+  };
+  console.error("[Login]", { stage, code });
+  const fallback = stage === "authorization"
+    ? "O login foi aceito, mas não foi possível verificar o acesso ao painel."
+    : "Não foi possível concluir a autenticação com o Firebase.";
+  return `${messages[code] || fallback} Código: ${code}`;
+}
 
 function GoogleIcon() {
   return (
@@ -79,15 +111,13 @@ export default function Login() {
     e.preventDefault();
     setLoading(true);
     setError("");
+    let stage: "authentication" | "authorization" = "authentication";
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, email.trim(), password);
+      stage = "authorization";
       await authorize();
-    } catch (err: any) {
-      setError(
-        err?.message === "unauthorized"
-          ? "Esta conta não tem acesso ao painel."
-          : "Não foi possível entrar. Confira e-mail, senha e conexão.",
-      );
+    } catch (err: unknown) {
+      setError(loginFailure(err, stage));
     } finally {
       setLoading(false);
     }
@@ -96,17 +126,13 @@ export default function Login() {
   async function handleGoogle() {
     setError("");
     setGoogleLoading(true);
+    let stage: "authentication" | "authorization" = "authentication";
     try {
       await signInWithPopup(auth, googleProvider);
+      stage = "authorization";
       await authorize();
-    } catch (err: any) {
-      if (err?.code !== "auth/popup-closed-by-user") {
-        setError(
-          err?.message === "unauthorized"
-            ? "Esta conta não tem acesso ao painel."
-            : "Não foi possível entrar com o Google. Tente novamente.",
-        );
-      }
+    } catch (err: unknown) {
+      setError(loginFailure(err, stage));
     } finally {
       setGoogleLoading(false);
     }
@@ -118,7 +144,7 @@ export default function Login() {
       <div className="login-form">
         <div style={{ width: "100%", maxWidth: 360 }}>
           <Link to="/" className="login-home">
-            ← Voltar ao site
+            <ArrowIcon direction="left" /> Voltar ao site
           </Link>
           <div
             className="mono"

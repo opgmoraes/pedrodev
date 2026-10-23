@@ -1,3 +1,4 @@
+import ArrowIcon from "./ArrowIcon";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons/faWhatsapp";
 import { faLinkedinIn } from "@fortawesome/free-brands-svg-icons/faLinkedinIn";
 import { faGithub } from "@fortawesome/free-brands-svg-icons/faGithub";
@@ -57,7 +58,7 @@ export default function SocialLinks({
           </span>
           <span>{name}</span>
           <span className="social-arrow" aria-hidden="true">
-            ↗
+            <ArrowIcon />
           </span>
         </a>
       ))}

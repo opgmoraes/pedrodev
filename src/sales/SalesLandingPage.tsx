@@ -1,3 +1,4 @@
+import ArrowIcon from "../components/ArrowIcon";
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
@@ -108,7 +109,7 @@ function CTA({
       rel="noopener noreferrer"
     >
       {children}
-      <span aria-hidden="true">↗</span>
+      <span aria-hidden="true"><ArrowIcon /></span>
     </a>
   );
 }
@@ -185,7 +186,7 @@ export default function SalesLandingPage({
           target="_blank"
           rel="noopener noreferrer"
         >
-          WhatsApp <span>↗</span>
+          WhatsApp <span><ArrowIcon /></span>
         </a>
         <button
           className="studio-menu"
@@ -251,11 +252,11 @@ export default function SalesLandingPage({
               <CTA>{portfolio ? "Falar no WhatsApp" : "Conversar sobre meu projeto"}</CTA>
               {portfolio ? (
                 <a href="#projetos" className="studio-outline-button">
-                  Explorar projetos <span aria-hidden="true">↓</span>
+                  Explorar projetos <span aria-hidden="true"><ArrowIcon direction="down" /></span>
                 </a>
               ) : (
                 <Link to="/portifolio" className="studio-outline-button">
-                  Ver meu portfólio <span aria-hidden="true">↗</span>
+                  Ver meu portfólio <span aria-hidden="true"><ArrowIcon /></span>
                 </Link>
               )}
             </div>
@@ -289,7 +290,7 @@ export default function SalesLandingPage({
               <i /> DISPONÍVEL PARA NOVOS PROJETOS
             </span>
             <a href="#projetos">
-              Explore meu trabalho <span>↓</span>
+              Explore meu trabalho <span><ArrowIcon direction="down" /></span>
             </a>
           </div>
         </section>
@@ -320,7 +321,7 @@ export default function SalesLandingPage({
                     <h3>{serviceCopy[s.id]?.[0] || s.titulo}</h3>
                     <p>{serviceCopy[s.id]?.[1] || s.descricao}</p>
                     <span className="studio-service-arrow" aria-hidden="true">
-                      ↗
+                      <ArrowIcon />
                     </span>
                   </a>
                 ))}
@@ -393,7 +394,7 @@ export default function SalesLandingPage({
           <a href="#recrutadores">Recrutadores</a>
           <Link to="/login">Área interna</Link>
         </div>
-        <a href="#topo">Voltar ao topo ↑</a>
+        <a href="#topo">Voltar ao topo <ArrowIcon direction="up" /></a>
       </footer>
 
     </div>

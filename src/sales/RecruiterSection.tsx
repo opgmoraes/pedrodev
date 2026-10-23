@@ -1,3 +1,4 @@
+import ArrowIcon from "../components/ArrowIcon";
 import { BRAND } from "../lib/brand";
 import { faJs } from "@fortawesome/free-brands-svg-icons/faJs";
 import { faReact } from "@fortawesome/free-brands-svg-icons/faReact";
@@ -26,7 +27,7 @@ export default function RecruiterSection() {
           </div>
           <div className="recruiter-summary">
             <p>Sou Pedro Gomes, desenvolvedor front-end júnior, formado em ADS. Crio interfaces e produtos digitais.</p>
-            <a className="studio-text-link" href={BRAND.github} target="_blank" rel="noopener noreferrer">Ver meu código <span aria-hidden="true">↗</span></a>
+            <a className="studio-text-link" href={BRAND.github} target="_blank" rel="noopener noreferrer">Ver meu código <span aria-hidden="true"><ArrowIcon /></span></a>
           </div>
         </div>
         <div className="tech-groups" aria-label="Tecnologias e ferramentas">
@@ -45,8 +46,8 @@ export default function RecruiterSection() {
         <div className="recruiter-contact">
           <p>Uma oportunidade?<br /><strong>Vamos nos conectar.</strong></p>
           <div className="recruiter-actions">
-            <a className="studio-button" href={BRAND.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
-            <a className="recruiter-email" href={`mailto:${BRAND.email}?subject=Oportunidade%20de%20desenvolvimento`}>Enviar e-mail <span aria-hidden="true">↗</span></a>
+            <a className="studio-button" href={BRAND.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true"><ArrowIcon /></span></a>
+            <a className="recruiter-email" href={`mailto:${BRAND.email}?subject=Oportunidade%20de%20desenvolvimento`}>Enviar e-mail <span aria-hidden="true"><ArrowIcon /></span></a>
           </div>
         </div>
       </div>

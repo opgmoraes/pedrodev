@@ -1,3 +1,4 @@
+import ArrowIcon from "../components/ArrowIcon";
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
@@ -52,11 +53,11 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
         const text=content.find(c=>c.id===p.id)!;
         return <article key={p.id} className="project-card" style={{'--project-accent':accents[index]} as CSSProperties}>
           <button className="project-cover" onClick={e=>{opener.current=e.currentTarget;setSlide(0);setZoomed(false);setDevice('desktop');setSelected(p.id);}} aria-label={`Explorar projeto ${text.title}`}>
-            <div className="project-cover-label"><span>{String(index+1).padStart(2,'0')}</span><span aria-hidden="true">↗</span></div>
+            <div className="project-cover-label"><span>{String(index+1).padStart(2,'0')}</span><span aria-hidden="true"><ArrowIcon /></span></div>
             <div className="project-window"><div className="project-window-bar" aria-hidden="true"><i/><i/><i/><span>{p.title}</span></div>
               <img src={p.screens[0].src} alt={`Tela real do projeto ${p.title}`} width="1400" height="900" loading="lazy" decoding="async"/>
             </div>
-            <span className="project-cover-cta">Por dentro do projeto <span aria-hidden="true">↗</span></span>
+            <span className="project-cover-cta">Por dentro do projeto <span aria-hidden="true"><ArrowIcon /></span></span>
           </button>
           <div className="project-card-info">
             <div className="project-card-heading"><h3>{text.title}</h3><span className="project-status" data-status={text.statusColor}>{text.statusText}</span></div>
@@ -66,7 +67,7 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
         </article>;
       })}
     </div>
-    {!portfolio && <div className="project-all"><span>Mais ideias, outras soluções.</span><Link className="studio-outline-button" to="/portifolio#projetos">Ver os 7 projetos <span aria-hidden="true">↗</span></Link></div>}
+    {!portfolio && <div className="project-all"><span>Mais ideias, outras soluções.</span><Link className="studio-outline-button" to="/portifolio#projetos">Ver os 7 projetos <span aria-hidden="true"><ArrowIcon /></span></Link></div>}
     <dialog ref={dialog} className="studio-dialog project-dialog" aria-labelledby="project-title" onCancel={e=>{e.preventDefault();close();}} onClick={e=>{if(e.target===e.currentTarget)close();}} onKeyDown={e=>{
       if ((e.target as HTMLElement).tagName === 'A') return;
       if(e.key==='ArrowRight'){e.preventDefault();setSlide(s=>Math.min(s+1,screens.length-1));}
@@ -77,8 +78,8 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
         <div className="project-detail-intro">
         <p className="project-detail-description">{copy.description}</p>
         <div className="project-detail-links">
-          {safeProjectUrl(copy.link1Url) && <a href={safeProjectUrl(copy.link1Url)} target="_blank" rel="noopener noreferrer">{copy.link1Text || 'Visitar site'} <span aria-hidden="true">↗</span></a>}
-          {safeProjectUrl(copy.link2Url) && <a href={safeProjectUrl(copy.link2Url)} target="_blank" rel="noopener noreferrer">{copy.link2Text || 'Ver código'} <span aria-hidden="true">↗</span></a>}
+          {safeProjectUrl(copy.link1Url) && <a href={safeProjectUrl(copy.link1Url)} target="_blank" rel="noopener noreferrer">{copy.link1Text || 'Visitar site'} <span aria-hidden="true"><ArrowIcon /></span></a>}
+          {safeProjectUrl(copy.link2Url) && <a href={safeProjectUrl(copy.link2Url)} target="_blank" rel="noopener noreferrer">{copy.link2Text || 'Ver código'} <span aria-hidden="true"><ArrowIcon /></span></a>}
           <span>{copy.statusText}</span>
         </div>
         </div>
@@ -90,7 +91,7 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
         <div className={`project-screen ${device}${zoomed ? " is-zoomed" : ""}`} ref={gallery}>
           <img key={screens[slide]?.src} src={screens[slide]?.src} alt={`${copy.title} — ${screens[slide]?.label}`} />
         </div>
-        {screens.length>1 && <div className="project-screen-nav"><button aria-label="Tela anterior" disabled={slide===0} onClick={()=>setSlide(s=>s-1)}>← Anterior</button><div className="project-screen-dots">{screens.map((s,i)=><button key={s.src} aria-label={`Ver tela ${i+1}: ${s.label}`} aria-pressed={slide===i} onClick={()=>setSlide(i)}/>)}</div><button aria-label="Próxima tela" disabled={slide===screens.length-1} onClick={()=>setSlide(s=>s+1)}>Próxima →</button></div>}
+        {screens.length>1 && <div className="project-screen-nav"><button aria-label="Tela anterior" disabled={slide===0} onClick={()=>setSlide(s=>s-1)}><ArrowIcon direction="left" /> Anterior</button><div className="project-screen-dots">{screens.map((s,i)=><button key={s.src} aria-label={`Ver tela ${i+1}: ${s.label}`} aria-pressed={slide===i} onClick={()=>setSlide(i)}/>)}</div><button aria-label="Próxima tela" disabled={slide===screens.length-1} onClick={()=>setSlide(s=>s+1)}>Próxima <ArrowIcon direction="right" /></button></div>}
         </div>
         <div className="project-detail-context">
         <div className="project-case"><div><h3>O desafio</h3><p>{active.challenge}</p></div><div><h3>A solução</h3><p>{active.solution}</p></div></div>
