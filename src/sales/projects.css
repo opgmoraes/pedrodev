@@ -103,7 +103,7 @@
  .studio .project-detail{grid-template-columns:260px minmax(0,1fr);column-gap:22px;padding:22px}
  .studio .project-media{padding:12px}
 }
-@media(min-width:1100px){.studio .project-showcase[data-layout=home] .project-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}.studio .project-showcase[data-layout=home] .project-cover{padding:18px 18px 0}.studio .project-showcase[data-layout=home] .project-card-heading h3{font-size:24px}}
+@media(min-width:1100px){.studio .project-showcase[data-layout=home] .project-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.studio .project-showcase[data-layout=home] .project-cover{padding:18px 18px 0}.studio .project-showcase[data-layout=home] .project-card-heading h3{font-size:24px}}
 
 /* Use the same browser frame and image proportions for every project. */
 .studio .project-window.has-cover img{object-fit:contain;object-position:center}

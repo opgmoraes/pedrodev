@@ -22,7 +22,8 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
   const active = PROJECTS.find(p => p.id === selected);
   const copy = content.find(p => p.id === selected);
   const screens = active?.screens.filter(s => s.device === device) || [];
-  const visible = portfolio ? PROJECTS : PROJECTS.slice(0,3);
+  const featuredIds = ['bitto', 'taldofut', 'bagagemdev', 'bitto-landing'];
+  const visible = portfolio ? PROJECTS : featuredIds.flatMap(id => PROJECTS.filter(p => p.id === id));
 
   useEffect(() => {
     if (window.location.hash !== '#projetos') return;
@@ -66,12 +67,12 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
       <p>Explore as telas.<br/>Conheça o que está por trás.</p>
     </div>
     <div className="project-grid">
-      {visible.map(p => {
+      {visible.map((p, position) => {
         const index=PROJECTS.indexOf(p);
         const text=content.find(c=>c.id===p.id)!;
         return <article key={p.id} className="project-card" style={{'--project-accent':accents[index]} as CSSProperties}>
           <button className="project-cover" onClick={e=>{opener.current=e.currentTarget;setSlide(0);setZoomed(false);setDevice(window.matchMedia('(max-width: 899px)').matches && p.screens.some(s=>s.device==='mobile') ? 'mobile' : 'desktop');setSelected(p.id);}} aria-label={`Explorar projeto ${text.title}`}>
-            <div className="project-cover-label"><span>{String(index+1).padStart(2,'0')}</span><span aria-hidden="true"><ArrowIcon /></span></div>
+            <div className="project-cover-label"><span>{String(position+1).padStart(2,'0')}</span><span aria-hidden="true"><ArrowIcon /></span></div>
             <div className={`project-window${p.cover ? " has-cover" : ""}`}><div className="project-window-bar" aria-hidden="true"><i/><i/><i/><span>{p.title}</span></div>
               <img src={p.cover || p.screens[0].src} alt={`Tela real do projeto ${p.title}`} width="1400" height="900" loading="lazy" decoding="async"/>
             </div>
