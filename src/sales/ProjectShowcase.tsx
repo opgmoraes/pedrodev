@@ -6,7 +6,7 @@ import type { PortfolioProject } from '../lib/portfolioContent';
 import { PROJECTS, mergeProjectContent, safeProjectUrl } from '../lib/projectCatalog';
 import './projects.css';
 
-const accents = ['#7a9fff', '#ee968f', '#79b8b1', '#ce9ddc', '#c9b47a', '#a4c782', '#8caaed'];
+const accents = ['#7a9fff', '#ee968f', '#79b8b1', '#ce9ddc', '#c9b47a', '#a4c782', '#8caaed', '#9eaac7'];
 
 export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cms:PortfolioProject[]}) {
   const [selected,setSelected] = useState<string | null>(null);
@@ -42,7 +42,7 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
   }
   return <section className="studio-work studio-section project-showcase" data-layout={portfolio ? "portfolio" : "home"} id="projetos">
     <div className="studio-section-heading">
-      <div><p className="studio-eyebrow">PORTFÓLIO · {portfolio ? '07 PROJETOS' : 'EM DESTAQUE'}</p>
+      <div><p className="studio-eyebrow">PORTFÓLIO · {portfolio ? `${PROJECTS.length} PROJETOS` : 'EM DESTAQUE'}</p>
         <h2>Ideias diferentes.<br/><em>Produtos de verdade.</em></h2>
       </div>
       <p>Explore as telas.<br/>Conheça o que está por trás.</p>
@@ -54,8 +54,8 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
         return <article key={p.id} className="project-card" style={{'--project-accent':accents[index]} as CSSProperties}>
           <button className="project-cover" onClick={e=>{opener.current=e.currentTarget;setSlide(0);setZoomed(false);setDevice('desktop');setSelected(p.id);}} aria-label={`Explorar projeto ${text.title}`}>
             <div className="project-cover-label"><span>{String(index+1).padStart(2,'0')}</span><span aria-hidden="true"><ArrowIcon /></span></div>
-            <div className="project-window"><div className="project-window-bar" aria-hidden="true"><i/><i/><i/><span>{p.title}</span></div>
-              <img src={p.screens[0].src} alt={`Tela real do projeto ${p.title}`} width="1400" height="900" loading="lazy" decoding="async"/>
+            <div className={`project-window${p.cover ? " has-cover" : ""}`}><div className="project-window-bar" aria-hidden="true"><i/><i/><i/><span>{p.title}</span></div>
+              <img src={p.cover || p.screens[0].src} alt={`Tela real do projeto ${p.title}`} width="1400" height="900" loading="lazy" decoding="async"/>
             </div>
             <span className="project-cover-cta">Por dentro do projeto <span aria-hidden="true"><ArrowIcon /></span></span>
           </button>
@@ -67,7 +67,7 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
         </article>;
       })}
     </div>
-    {!portfolio && <div className="project-all"><span>Mais ideias, outras soluções.</span><Link className="studio-outline-button" to="/portifolio#projetos">Ver os 7 projetos <span aria-hidden="true"><ArrowIcon /></span></Link></div>}
+    {!portfolio && <div className="project-all"><span>Mais ideias, outras soluções.</span><Link className="studio-outline-button" to="/portifolio#projetos">Ver os {PROJECTS.length} projetos <span aria-hidden="true"><ArrowIcon /></span></Link></div>}
     <dialog ref={dialog} className="studio-dialog project-dialog" aria-labelledby="project-title" onCancel={e=>{e.preventDefault();close();}} onClick={e=>{if(e.target===e.currentTarget)close();}} onKeyDown={e=>{
       if ((e.target as HTMLElement).tagName === 'A') return;
       if(e.key==='ArrowRight'){e.preventDefault();setSlide(s=>Math.min(s+1,screens.length-1));}
@@ -79,7 +79,6 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
         <p className="project-detail-description">{copy.description}</p>
         <div className="project-detail-links">
           {safeProjectUrl(copy.link1Url) && <a href={safeProjectUrl(copy.link1Url)} target="_blank" rel="noopener noreferrer">{copy.link1Text || 'Visitar site'} <span aria-hidden="true"><ArrowIcon /></span></a>}
-          {safeProjectUrl(copy.link2Url) && <a href={safeProjectUrl(copy.link2Url)} target="_blank" rel="noopener noreferrer">{copy.link2Text || 'Ver código'} <span aria-hidden="true"><ArrowIcon /></span></a>}
           <span>{copy.statusText}</span>
         </div>
         </div>

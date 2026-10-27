@@ -104,3 +104,8 @@
  .studio .project-media{padding:12px}
 }
 @media(min-width:1100px){.studio .project-showcase[data-layout=home] .project-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}.studio .project-showcase[data-layout=home] .project-cover{padding:18px 18px 0}.studio .project-showcase[data-layout=home] .project-card-heading h3{font-size:24px}}
+
+/* Responsive compositions already include their device frames. */
+.studio .project-window.has-cover{background:transparent;box-shadow:none;border-radius:0;transform:none}
+.studio .project-window.has-cover .project-window-bar{display:none}
+.studio .project-window.has-cover img{width:100%;height:auto;aspect-ratio:3/2;object-fit:contain;object-position:center}
