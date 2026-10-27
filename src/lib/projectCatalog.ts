@@ -82,14 +82,15 @@ export const PROJECTS: ShowcaseProject[] = [
     screens: [{"src": "/assets/projetos/formamissal/prints/forma_missal_01_desktop_inicio.webp", "label": "Página inicial", "device": "desktop"}, {"src": "/assets/projetos/formamissal/prints/forma_missal_02_desktop_calendario.webp", "label": "Calendário litúrgico", "device": "desktop"}, {"src": "/assets/projetos/formamissal/prints/forma_missal_03_desktop_checklist.webp", "label": "Checklist de preparação", "device": "desktop"}, {"src": "/assets/projetos/formamissal/prints/forma_missal_04_mobile_inicio.webp", "label": "Página inicial", "device": "mobile"}, {"src": "/assets/projetos/formamissal/prints/forma_missal_05_tablet_inicio.webp", "label": "Página inicial no tablet", "device": "desktop"}, {"src": "/assets/projetos/formamissal/prints/forma_missal_06_mobile_checklist.webp", "label": "Checklist de preparação", "device": "mobile"}],
   },
   {
-    id: 'taldofut', title: 'TaldoFut', category: 'Organização de jogos entre amigos', group: 'Sistemas',
+    id: 'taldofut', title: 'Tal do Fut', category: 'Organização de jogos entre amigos', group: 'Sistemas',
     description: 'Da lista de presença ao sorteio dos times, a pelada fica organizada.',
     challenge: 'Facilitar a organização dos jogadores, das confirmações e dos times de cada jogo.',
     solution: 'Áreas para administrador e jogador, com lista em tempo real e sorteio por nível.',
     tech: ['HTML', 'CSS', 'JavaScript', 'Supabase'],
     features: ['Lista em tempo real', 'Sorteio equilibrado', 'Controle de pagamentos'],
-    url: 'https://opgmoraes.github.io/taldofut/', status: 'Publicado',
-    screens: [publicScreen('taldofut'), {src:'/assets/projetos/taldofut/publico-mobile.webp',label:'Página inicial no celular',device:'mobile'}],
+    url: '', status: 'Privado',
+    cover: '/assets/projetos/taldofut/prints/capa.webp',
+    screens: [{"src": "/assets/projetos/taldofut/prints/tal_do_fut_01_desktop_dashboard.webp", "label": "Visão geral", "device": "desktop"}, {"src": "/assets/projetos/taldofut/prints/tal_do_fut_02_desktop_partidas.webp", "label": "Partidas", "device": "desktop"}, {"src": "/assets/projetos/taldofut/prints/tal_do_fut_03_desktop_times.webp", "label": "Sorteio de times", "device": "desktop"}, {"src": "/assets/projetos/taldofut/prints/tal_do_fut_04_mobile_dashboard.webp", "label": "Visão geral", "device": "mobile"}, {"src": "/assets/projetos/taldofut/prints/tal_do_fut_05_tablet_dashboard.webp", "label": "Visão geral no tablet", "device": "desktop"}, {"src": "/assets/projetos/taldofut/prints/tal_do_fut_06_mobile_times.webp", "label": "Sorteio de times", "device": "mobile"}],
   },
   {
     id: 'pedrodev', title: 'PedroDEV', category: 'Portfólio e operação de projetos', group: 'Sistemas',
@@ -119,7 +120,7 @@ export const PROJECT_DEFAULTS: PortfolioProject[] = PROJECTS.map(p => ({
   id:p.id, title:p.title, description:p.description, statusText:p.url ? p.status : 'Privado',
   statusColor:p.url ? 'verde' : 'ambar',
   link1Text:p.url ? (p.id === 'bitto' ? 'Acessar sistema' : 'Visitar site') : '', link1Url:p.url,
-  link2Text:'', link2Url:'', footnote:'',
+  link2Text:'', link2Url:'', footnote:p.id === 'taldofut' ? 'Telas demonstrativas da versão privada, com jogadores, partidas e valores fictícios.' : '',
 }));
 
 export function mergeProjectContent(saved: PortfolioProject[] = []): PortfolioProject[] {
@@ -133,7 +134,7 @@ export function mergeProjectContent(saved: PortfolioProject[] = []): PortfolioPr
       title: p.id === 'bitto' || p.id === 'bitto-landing' ? p.title : old?.title || p.title,
       // Publication state and external links are controlled by the catalog.
       // Do not restore legacy repo URLs, labels or repository-access notes.
-      footnote: old?.footnote && !/reposit|github|gitlab|bitbucket|ver c[oó]digo/i.test(old.footnote) ? old.footnote : '',
+      footnote: p.id === 'taldofut' ? p.footnote : old?.footnote && !/reposit|github|gitlab|bitbucket|ver c[oó]digo/i.test(old.footnote) ? old.footnote : '',
     };
   });
 }
