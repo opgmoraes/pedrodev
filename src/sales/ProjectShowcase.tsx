@@ -16,6 +16,8 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
   const dialog = useRef<HTMLDialogElement>(null);
   const opener = useRef<HTMLButtonElement | null>(null);
   const gallery = useRef<HTMLDivElement>(null);
+  const slideRef = useRef(0);
+  slideRef.current = slide;
   const content = useMemo(() => mergeProjectContent(cms),[cms]);
   const active = PROJECTS.find(p => p.id === selected);
   const copy = content.find(p => p.id === selected);
@@ -34,7 +36,23 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
     document.body.style.overflow='hidden';
     return () => {document.body.style.overflow=previous;};
   },[selected]);
-  useEffect(() => {gallery.current?.scrollTo({top:0});},[slide,device,zoomed]);
+  useEffect(() => {
+    const track = gallery.current;
+    if (!track || !selected) return;
+    track.scrollTo({left:0, behavior:'instant' as ScrollBehavior});
+    const resize = new ResizeObserver(() => {
+      track.scrollTo({left:slideRef.current * track.clientWidth, behavior:'instant' as ScrollBehavior});
+    });
+    resize.observe(track);
+    return () => resize.disconnect();
+  },[selected,device]);
+  function goToSlide(index:number, keyboard = false) {
+    const track = gallery.current;
+    if (!track) return;
+    const next = Math.max(0, Math.min(index, screens.length - 1));
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    track.scrollTo({left:next * track.clientWidth, behavior:keyboard || reduced ? 'instant' as ScrollBehavior : 'smooth'});
+  }
   function close() {
     dialog.current?.close();
     setSelected(null);
@@ -52,7 +70,7 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
         const index=PROJECTS.indexOf(p);
         const text=content.find(c=>c.id===p.id)!;
         return <article key={p.id} className="project-card" style={{'--project-accent':accents[index]} as CSSProperties}>
-          <button className="project-cover" onClick={e=>{opener.current=e.currentTarget;setSlide(0);setZoomed(false);setDevice('desktop');setSelected(p.id);}} aria-label={`Explorar projeto ${text.title}`}>
+          <button className="project-cover" onClick={e=>{opener.current=e.currentTarget;setSlide(0);setZoomed(false);setDevice(window.matchMedia('(max-width: 899px)').matches && p.screens.some(s=>s.device==='mobile') ? 'mobile' : 'desktop');setSelected(p.id);}} aria-label={`Explorar projeto ${text.title}`}>
             <div className="project-cover-label"><span>{String(index+1).padStart(2,'0')}</span><span aria-hidden="true"><ArrowIcon /></span></div>
             <div className={`project-window${p.cover ? " has-cover" : ""}`}><div className="project-window-bar" aria-hidden="true"><i/><i/><i/><span>{p.title}</span></div>
               <img src={p.cover || p.screens[0].src} alt={`Tela real do projeto ${p.title}`} width="1400" height="900" loading="lazy" decoding="async"/>
@@ -70,8 +88,8 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
     {!portfolio && <div className="project-all"><span>Mais ideias, outras soluções.</span><Link className="studio-outline-button" to="/portifolio#projetos">Ver os {PROJECTS.length} projetos <span aria-hidden="true"><ArrowIcon /></span></Link></div>}
     <dialog ref={dialog} className="studio-dialog project-dialog" aria-labelledby="project-title" onCancel={e=>{e.preventDefault();close();}} onClick={e=>{if(e.target===e.currentTarget)close();}} onKeyDown={e=>{
       if ((e.target as HTMLElement).tagName === 'A') return;
-      if(e.key==='ArrowRight'){e.preventDefault();setSlide(s=>Math.min(s+1,screens.length-1));}
-      if(e.key==='ArrowLeft'){e.preventDefault();setSlide(s=>Math.max(s-1,0));}
+      if(e.key==='ArrowRight'){e.preventDefault();goToSlide(slide+1,true);}
+      if(e.key==='ArrowLeft'){e.preventDefault();goToSlide(slide-1,true);}
     }}>
       {active && copy && <div className="project-detail">
         <header className="project-detail-header"><div><p className="studio-eyebrow">{active.category}</p><h2 id="project-title">{copy.title}</h2></div><button autoFocus className="project-close" onClick={close} aria-label="Fechar projeto">✕</button></header>
@@ -87,10 +105,27 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
           {(['desktop','mobile'] as const).filter(d=>active.screens.some(s=>s.device===d)).map(d=><button key={d} aria-pressed={device===d} onClick={()=>{setDevice(d);setSlide(0);setZoomed(false);}}>{d==='desktop'?'Computador':'Celular'}</button>)}
         </div><span aria-live="polite">{screens[slide]?.label} · {slide+1}/{screens.length}</span></div>
         <button className="project-zoom" aria-pressed={zoomed} onClick={()=>setZoomed(z=>!z)}>{zoomed ? "Ajustar à janela" : "Ampliar imagem"} <span aria-hidden="true">⤢</span></button>
-        <div className={`project-screen ${device}${zoomed ? " is-zoomed" : ""}`} ref={gallery}>
-          <img key={screens[slide]?.src} src={screens[slide]?.src} alt={`${copy.title} — ${screens[slide]?.label}`} />
+        <div className={`project-carousel ${device}${zoomed ? ' is-zoomed' : ''}`}>
+          <div className="project-carousel-track" ref={gallery} role="region" aria-roledescription="carrossel" aria-label={`Telas de ${copy.title}`} tabIndex={0} onScroll={e=>{
+            const track=e.currentTarget;
+            if (track.clientWidth) setSlide(Math.max(0,Math.min(screens.length-1,Math.round(track.scrollLeft/track.clientWidth))));
+          }}>
+            {screens.map((screen,i)=><div className="project-carousel-slide" key={screen.src} role="group" aria-roledescription="slide" aria-label={`${i+1} de ${screens.length}: ${screen.label}`} aria-hidden={i!==slide}>
+              <div className="project-screen"><img src={screen.src} alt={`${copy.title} — ${screen.label}`} loading={i===0 ? 'eager' : 'lazy'} decoding="async" draggable={false}/></div>
+            </div>)}
+          </div>
+          {screens.length>1 && <>
+            <button className="project-stage-arrow previous" aria-label="Tela anterior" disabled={slide===0} onClick={()=>goToSlide(slide-1)}><ArrowIcon direction="left"/></button>
+            <button className="project-stage-arrow next" aria-label="Próxima tela" disabled={slide===screens.length-1} onClick={()=>goToSlide(slide+1)}><ArrowIcon direction="right"/></button>
+          </>}
         </div>
-        {screens.length>1 && <div className="project-screen-nav"><button aria-label="Tela anterior" disabled={slide===0} onClick={()=>setSlide(s=>s-1)}><ArrowIcon direction="left" /> Anterior</button><div className="project-screen-dots">{screens.map((s,i)=><button key={s.src} aria-label={`Ver tela ${i+1}: ${s.label}`} aria-pressed={slide===i} onClick={()=>setSlide(i)}/>)}</div><button aria-label="Próxima tela" disabled={slide===screens.length-1} onClick={()=>setSlide(s=>s+1)}>Próxima <ArrowIcon direction="right" /></button></div>}
+        {screens.length>1 && <div className="project-screen-nav">
+          <button className="project-desktop-nav" disabled={slide===0} onClick={()=>goToSlide(slide-1)}><ArrowIcon direction="left" /> Anterior</button>
+          <div className="project-screen-dots">{screens.map((s,i)=><button key={s.src} aria-label={`Ver tela ${i+1}: ${s.label}`} aria-pressed={slide===i} onClick={()=>goToSlide(i)}/>)}</div>
+          <button className="project-desktop-nav" disabled={slide===screens.length-1} onClick={()=>goToSlide(slide+1)}>Próximo <ArrowIcon direction="right" /></button>
+        </div>}
+        {screens.length>1 && <p className="project-swipe-hint">Deslize para explorar as telas <span aria-hidden="true">↔</span></p>}
+
         </div>
         <div className="project-detail-context">
         <div className="project-case"><div><h3>O desafio</h3><p>{active.challenge}</p></div><div><h3>A solução</h3><p>{active.solution}</p></div></div>

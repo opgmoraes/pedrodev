@@ -107,3 +107,57 @@
 
 /* Use the same browser frame and image proportions for every project. */
 .studio .project-window.has-cover img{object-fit:contain;object-position:center}
+/* One native scroll-snap gallery: touch swipes on mobile, explicit controls on desktop. */
+.studio .project-carousel{position:relative;min-width:0;height:58dvh;min-height:260px;background:#e2e8f0;border:1px solid #d6dfed;border-radius:12px;overflow:hidden}
+.studio .project-carousel-track{display:flex;width:100%;height:100%;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;border-radius:inherit;outline-offset:-4px;-webkit-overflow-scrolling:touch}
+.studio .project-carousel-track::-webkit-scrollbar{display:none}
+.studio .project-carousel-slide{flex:0 0 100%;width:100%;min-width:0;height:100%;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden}
+.studio .project-carousel .project-screen{display:flex;align-items:center;justify-content:center;width:100%;height:100%;max-height:none;min-height:0;padding:12px;border:0;border-radius:0;background:transparent;overflow:hidden}
+.studio .project-carousel .project-screen img{display:block;width:100%;height:100%;max-height:100%;max-width:100%;object-fit:contain;object-position:center;border-radius:4px;animation:none;box-shadow:none;user-select:none}
+.studio .project-carousel.is-zoomed .project-screen{display:block;overflow:auto;overscroll-behavior:contain}
+.studio .project-carousel.is-zoomed .project-screen img{width:100%;height:auto;max-height:none;object-fit:initial}
+.studio .project-carousel.mobile.is-zoomed .project-screen img{max-width:390px;margin:auto}
+.studio .project-stage-arrow{display:none}
+.studio .project-swipe-hint{margin:10px 0 0;text-align:center;color:#62748d;font-size:12px;line-height:1.5}
+.studio .project-swipe-hint span{margin-left:6px}
+@media(max-width:899px){
+ .studio .project-detail{padding:20px 16px}
+ .studio .project-detail-header{position:sticky;top:-1px;z-index:2;background:#f5f7fb;padding:8px 0 16px}
+ .studio .project-detail-header h2{font-size:30px}
+ .studio .project-detail-description{margin:10px 0;font-size:14px}
+ .studio .project-detail-links{margin:14px 0 22px}
+ .studio .project-screen-toolbar{display:flex;flex-direction:row;align-items:center;gap:10px;margin-bottom:12px}
+ .studio .project-screen-toolbar>span{font-size:10px;max-width:45%;text-align:right}
+ .studio .project-screen-nav{justify-content:center;margin:10px 0 0}
+ .studio .project-screen-nav>.project-desktop-nav{display:none}
+ .studio .project-screen-dots button{width:28px;height:36px}
+ .studio .project-screen-dots button:before{left:11px;top:15px;width:6px;height:6px}
+ .studio .project-carousel .project-screen{padding:8px}
+}
+@media(min-width:900px){
+ .studio .project-dialog{width:min(1560px,96vw);max-height:95dvh}
+ .studio .project-detail{height:min(960px,94dvh);grid-template-columns:260px minmax(0,1fr);column-gap:24px;padding:22px 26px}
+ .studio .project-detail-header{padding-bottom:16px;margin-bottom:18px}
+ .studio .project-detail-header h2{font-size:32px}
+ .studio .project-media{padding:14px;background:#edf1f7}
+ .studio .project-carousel{height:auto;min-height:0;flex:1}
+ .studio .project-carousel .project-screen{padding:10px 42px}
+ .studio .project-stage-arrow{display:flex;position:absolute;top:50%;transform:translateY(-50%);align-items:center;justify-content:center;width:42px;height:48px;border:1px solid #ccd7e5;border-radius:10px;background:#fffffff2;color:#17375e;box-shadow:0 3px 14px #14376812;padding:0;z-index:1}
+ .studio .project-stage-arrow.previous{left:10px}
+ .studio .project-stage-arrow.next{right:10px}
+ .studio .project-stage-arrow:disabled{opacity:.25;cursor:default;box-shadow:none}
+ .studio .project-screen-nav{margin:12px 0 0;gap:12px}
+ .studio .project-screen-nav>.project-desktop-nav{display:flex;align-items:center;justify-content:center;gap:10px;border:1px solid #cdd8e8;border-radius:8px;padding:10px 16px;min-width:116px;background:#fff;font-size:12px}
+ .studio .project-screen-nav>.project-desktop-nav:last-child{background:#102d52;border-color:#102d52;color:white}
+ .studio .project-screen-dots{flex:1}
+ .studio .project-swipe-hint{display:none}
+}
+@media(prefers-reduced-motion:reduce){.studio .project-carousel-track{scroll-behavior:auto}}
+@media(max-width:899px){
+ .studio .project-detail{display:flex;flex-direction:column}
+ .studio .project-detail-header{order:0}
+ .studio .project-media{order:1}
+ .studio .project-detail-intro{order:2;margin-top:22px}
+ .studio .project-detail-context{order:3}
+ .studio .project-carousel{height:54dvh}
+}
