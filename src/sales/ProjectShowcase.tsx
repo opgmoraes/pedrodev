@@ -62,31 +62,39 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
   return <section className="studio-work studio-section project-showcase" data-layout={portfolio ? "portfolio" : "home"} id="projetos">
     <div className="studio-section-heading">
       <div><p className="studio-eyebrow">PORTFÓLIO · {portfolio ? `${PROJECTS.length} PROJETOS` : 'EM DESTAQUE'}</p>
-        <h2>Ideias diferentes.<br/><em>Produtos de verdade.</em></h2>
+        <h2>Projetos que mostram<br/><em>o que eu entrego.</em></h2>
       </div>
-      <p>Explore as telas.<br/>Conheça o que está por trás.</p>
+      <p>Abra um projeto e veja as telas, as funcionalidades e o problema que ele resolve.</p>
     </div>
     <div className="project-grid">
       {visible.map((p, position) => {
         const index=PROJECTS.indexOf(p);
         const text=content.find(c=>c.id===p.id)!;
-        return <article key={p.id} className="project-card" style={{'--project-accent':accents[index]} as CSSProperties}>
+        return <article key={p.id} id={`projeto-${p.id}`} className="project-card" style={{'--project-accent':accents[index]} as CSSProperties}>
           <button className="project-cover" onClick={e=>{opener.current=e.currentTarget;setSlide(0);setZoomed(false);setDevice(window.matchMedia('(max-width: 899px)').matches && p.screens.some(s=>s.device==='mobile') ? 'mobile' : 'desktop');setSelected(p.id);}} aria-label={`Explorar projeto ${text.title}`}>
             <div className="project-cover-label"><span>{String(position+1).padStart(2,'0')}</span><span aria-hidden="true"><ArrowIcon /></span></div>
             <div className={`project-window${p.cover ? " has-cover" : ""}`}><div className="project-window-bar" aria-hidden="true"><i/><i/><i/><span>{p.title}</span></div>
               <img src={p.cover || p.screens[0].src} alt={`Tela real do projeto ${p.title}`} width="1400" height="900" loading="lazy" decoding="async"/>
             </div>
-            <span className="project-cover-cta">Por dentro do projeto <span aria-hidden="true"><ArrowIcon /></span></span>
+            <span className="project-cover-cta">Explorar projeto <span aria-hidden="true"><ArrowIcon /></span></span>
           </button>
           <div className="project-card-info">
             <div className="project-card-heading"><h3>{text.title}</h3><span className="project-status" data-status={text.statusColor}>{text.statusText}</span></div>
             <p>{text.description}</p>
             <div className="project-tech" aria-label={`Tecnologias de ${p.title}`}>{p.tech.slice(0,4).map(t=><span key={t}>{t}</span>)}</div>
+            {portfolio && <details className="project-case-summary">
+              <summary>O que este projeto resolve</summary>
+              <p><strong>O desafio.</strong> {p.challenge}</p>
+              <p><strong>A solução.</strong> {p.solution}</p>
+              <ul>{p.features.map(feature=><li key={feature}>{feature}</li>)}</ul>
+              {safeProjectUrl(p.url) && <a href={safeProjectUrl(p.url)} target="_blank" rel="noopener noreferrer">{p.id==='bitto' ? 'Acessar sistema publicado' : 'Visitar site publicado'} <ArrowIcon direction="right" /></a>}
+            </details>}
+
           </div>
         </article>;
       })}
     </div>
-    {!portfolio && <div className="project-all"><span>Mais ideias, outras soluções.</span><Link className="studio-outline-button" to="/portifolio#projetos">Ver os {PROJECTS.length} projetos <span aria-hidden="true"><ArrowIcon /></span></Link></div>}
+    {!portfolio && <div className="project-all"><span>Seu projeto pode ser o próximo.</span><Link className="studio-outline-button" to="/portifolio#projetos">Ver os {PROJECTS.length} projetos <span aria-hidden="true"><ArrowIcon /></span></Link></div>}
     <dialog ref={dialog} className="studio-dialog project-dialog" aria-labelledby="project-title" onCancel={e=>{e.preventDefault();close();}} onClick={e=>{if(e.target===e.currentTarget)close();}} onKeyDown={e=>{
       if ((e.target as HTMLElement).tagName === 'A') return;
       if(e.key==='ArrowRight'){e.preventDefault();goToSlide(slide+1,true);}

@@ -1,0 +1,10 @@
+.route-loading{min-height:100svh;position:relative;isolation:isolate;background:radial-gradient(ellipse at 50% 48%,#10346955,transparent 45%),#040912!important;color:#f7f8fa!important}
+.loading-emblem{position:relative;width:112px;height:112px;display:grid;place-items:center;margin-bottom:8px}
+.loading-emblem .loading-brand{font-size:58px;line-height:1;letter-spacing:-5px;padding-right:5px}
+.loading-orbit{position:absolute;inset:0;border:1px solid #528bdb26;border-top-color:#80b6ff;border-radius:50%;animation:loading-orbit 1.8s linear infinite}
+.route-loading .loading-track{width:112px;height:2px;background:#29415e}
+.route-loading>p{font-size:13px;letter-spacing:0;color:#a6b9d4;margin:22px 0 18px}
+.loading-signature{font-size:11px;color:#7e94b1;letter-spacing:.03em;margin-top:32px}
+@keyframes loading-orbit{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.loading-orbit{animation:none;border-color:#528bdb66}.loading-track span{animation:none}}
+.admin-content .route-loading{min-height:65svh}

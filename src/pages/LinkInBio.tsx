@@ -41,7 +41,7 @@ export default function LinkInBio() {
             <Link to="/portifolio" className="bio-portfolio"><span className="bio-code" aria-hidden="true">&lt;/&gt;</span><span><strong>Conheça meu trabalho</strong><small>Sites, sistemas e produtos digitais.</small></span><Arrow /></Link>
             <nav className="bio-secondary" aria-label="Serviços e perfil profissional">
               <a href="/#servicos"><span>Serviços & soluções</span><Arrow /></a>
-              <a href="/#recrutadores"><span>Perfil técnico · Recrutadores</span><Arrow /></a>
+              <a href="/#sobre"><span>Conheça quem desenvolve</span><Arrow /></a>
             </nav>
             <nav className="bio-networks" aria-label="Minhas redes sociais">
               {networks.map(network => <a key={network.name} href={network.href} target="_blank" rel="noopener noreferrer"><SocialIcon name={network.name} /><span>{network.name}</span></a>)}

@@ -1,0 +1,80 @@
+/* Sales-first refinement: content remains available during the opening reveal. */
+.studio .studio-hero{min-height:850px;height:min(940px,100svh);grid-template-columns:1.1fr 1fr}
+.studio .studio-hero-copy{max-width:710px;padding-bottom:12px}
+.studio .studio-hero h1{font-size:clamp(48px,5.2vw,80px);line-height:1.06;letter-spacing:-.06em}
+.studio .studio-hero .studio-eyebrow{text-transform:none;letter-spacing:.05em;font-size:12px;margin-bottom:24px!important}
+.studio .studio-hero-description{max-width:430px;font-size:15px;line-height:1.75!important;margin:24px 0!important;color:#b4c2d6}
+.studio .hero-assurance{max-width:385px;font-size:11px;line-height:1.7;color:#95a9c6;margin:18px 0 0}
+.studio .studio-hero .social-links{margin-top:22px}
+.studio .studio-portrait{width:54%;height:82%;right:-2%;bottom:40px;transform:none;transition:none}
+.studio .studio-portrait .portrait-main{filter:none;mask-image:linear-gradient(#000 70%,#000e 85%,transparent 100%);animation-duration:1s}
+.studio .portrait-blur{display:none}
+.studio .portrait-aura{opacity:.5;animation:none;filter:blur(20px)}
+.studio .portrait-signature{display:none}
+.studio .hero-glow-one,.studio .hero-glow-two{animation:none;opacity:.65}
+.studio .hero-orbit{position:absolute;width:74vw;height:74vw;max-width:1100px;max-height:1100px;left:36%;top:-18%;border:1px solid #7baeff45;border-radius:50%;opacity:.14;pointer-events:none;animation:hero-orbit-open 1.6s cubic-bezier(.23,1,.32,1) both;mask-image:linear-gradient(110deg,transparent 20%,#000 55%,transparent 90%)}
+.studio .hero-orbit:after{content:'';position:absolute;inset:7%;border:1px solid #6b9fe32b;border-radius:50%}
+@keyframes hero-orbit-open{0%{transform:scale(.82);opacity:0}45%{opacity:.65}100%{transform:scale(1);opacity:.14}}
+.studio .hero-line>span{animation-duration:.8s}
+.studio .studio-hero-actions{animation-duration:.7s;animation-delay:.2s}
+.studio .hero-bottom{font-size:10px;letter-spacing:.03em}
+.studio .studio-nav{background:#040912bd;backdrop-filter:blur(18px);border-bottom-color:#a4c9ff16}
+.studio .studio-links a{font-size:12px}
+.studio .section-lead{max-width:670px;margin-top:24px;font-size:16px;line-height:1.8;color:#66778d;letter-spacing:0}
+.studio .studio-solutions .section-lead{color:#adbed4}
+.studio .studio-services p{font-size:15px;max-width:470px;line-height:1.8}
+.studio .studio-services h3{font-weight:500}
+.studio .studio-steps p{font-size:14px;line-height:1.8}
+.studio .studio-faq summary{font-size:16px;line-height:1.6;padding-right:22px}
+.studio .studio-faq details p{font-size:14px;line-height:1.85;color:#53667f}
+.studio .studio-final-note{max-width:680px;margin-inline:auto;font-size:16px;line-height:1.8}
+.studio .recruiter-summary p{font-size:15px;line-height:1.85}
+.studio .sky-bridge{height:360px;background:linear-gradient(#040912 0%,#0c1c34 40%,#6887ae 75%,#f7f8fa 100%)}
+.studio .sky-caption{padding-top:48px}
+.studio .sky-caption p{font-size:clamp(25px,2.6vw,38px);line-height:1.35}
+.studio .sky-caption a{margin-top:16px;width:42px;height:42px}
+.studio .sky-distant{height:65%;bottom:-90px;opacity:.3;filter:blur(3px)}
+.studio .sky-volume,.studio .sky-cloud-motion,.studio .sky-mist{animation:none}
+.studio .sky-sheet-left{bottom:-15vw;opacity:.9}
+.studio .sky-sheet-right{bottom:-17vw;opacity:.8}
+.studio .sky-mist{height:32%;filter:blur(10px)}
+.studio .sky-bridge:after{height:32%}
+.studio .project-showcase .studio-section-heading>p{font-size:14px;max-width:285px}
+@media(max-width:1100px) and (min-width:801px){.studio .studio-hero h1{font-size:54px}.studio .studio-hero-copy{max-width:550px}.studio .studio-portrait{right:-6%;width:55%;opacity:.9}.studio .studio-hero-description{max-width:350px}}
+@media(max-width:800px){
+ .studio .studio-hero{height:auto;min-height:0;display:flex;flex-direction:column;padding:124px 24px 92px;align-items:stretch}
+ .studio .studio-hero-copy{max-width:none;width:100%;padding:0}
+ .studio .studio-hero h1{font-size:clamp(39px,9.7vw,62px);line-height:1.08;letter-spacing:-.055em}
+ .studio .studio-hero .studio-eyebrow{font-size:11px;margin-bottom:22px!important}
+ .studio .studio-hero-description{font-size:14px;max-width:520px;margin:22px 0!important}
+ .studio .studio-hero-actions{max-width:none;gap:12px}
+ .studio .studio-button{font-size:11px;max-width:100%;gap:12px}
+ .studio .studio-outline-button{font-size:11px}
+ .studio .hero-assurance{font-size:11px;max-width:350px;margin-top:16px}
+ .studio .studio-hero .social-links{margin-top:20px}
+ .studio .studio-portrait{position:relative;right:auto;bottom:auto;width:100%;height:340px;max-width:480px;margin:18px auto -35px;opacity:1;flex:none}
+ .studio .studio-portrait .portrait-main{position:absolute;width:100%;height:100%;object-fit:contain;object-position:center bottom}
+ .studio .hero-bottom{bottom:20px;left:24px;right:24px;font-size:9px;gap:16px;padding-top:18px}
+ .studio .hero-bottom>a{font-size:9px;max-width:135px;text-align:right;letter-spacing:0}
+ .studio .hero-orbit{width:120vw;height:120vw;left:10%;top:28%}
+ .studio .sky-bridge{height:300px}
+ .studio .sky-caption{padding-top:32px}
+ .studio .sky-caption p{font-size:24px;max-width:330px}
+ .studio .sky-caption a{margin-top:14px}
+ .studio .sky-distant{bottom:-55px;width:180%;left:-40%;height:70%}
+ .studio .sky-sheet-left{bottom:-45px}
+ .studio .sky-sheet-right{bottom:-55px}
+ .studio .section-lead{font-size:14px;margin-top:18px}
+ .studio .studio-services p{font-size:14px}
+ .studio .studio-final-note{font-size:14px}
+}
+@media(prefers-reduced-motion:reduce){.studio .hero-orbit,.studio .hero-line>span,.studio .portrait-main,.studio .studio-hero-actions{animation:none!important}.studio .studio-portrait{transform:none!important}}
+
+.studio .project-case-summary{border-top:1px solid #d7dfeb;margin-top:22px;padding-top:14px}
+.studio .project-case-summary summary{font-size:13px;font-weight:500;color:#284365;cursor:pointer;line-height:1.6;padding:6px 0;min-height:32px}
+.studio .project-case-summary p,.studio .project-case-summary li{font-size:13px;color:#5b6e87;line-height:1.8}
+.studio .project-case-summary p{margin-top:12px}
+.studio .project-case-summary ul{padding-left:18px;margin:12px 0}
+.studio .project-case-summary a{display:inline-flex;align-items:center;gap:10px;font-size:12px;color:#1657f5;padding:10px 0}
+.studio .project-case-summary summary:focus-visible{outline:3px solid #357cf1;outline-offset:4px}
+@media(max-width:800px){.studio .studio-hero .social-links{display:none}.studio .studio-portrait{height:320px;margin-top:20px}}

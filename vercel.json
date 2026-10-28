@@ -1,4 +1,49 @@
 {
   "outputDirectory": "dist",
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "redirects": [
+    {
+      "source": "/portfolio",
+      "destination": "/portifolio",
+      "permanent": true
+    },
+    {
+      "source": "/portifolio/",
+      "destination": "/portifolio",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/portifolio",
+      "destination": "/portifolio/index.html"
+    },
+    {
+      "source": "/login",
+      "destination": "/private-shell.html"
+    },
+    {
+      "source": "/admin/:path*",
+      "destination": "/private-shell.html"
+    },
+    {
+      "source": "/cliente/:path*",
+      "destination": "/private-shell.html"
+    },
+    {
+      "source": "/proposta/:path*",
+      "destination": "/private-shell.html"
+    },
+    {
+      "source": "/contrato/:path*",
+      "destination": "/private-shell.html"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/app-shell.html"
+    }
+  ]
 }

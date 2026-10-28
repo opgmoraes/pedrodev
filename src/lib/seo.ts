@@ -42,6 +42,8 @@ export function useSEO({ title, description, path = '/' }: SeoOptions) {
     upsertMeta('property', 'og:title', title)
     upsertMeta('property', 'og:description', description)
     upsertMeta('property', 'og:url', url)
+    upsertMeta('property', 'og:image', `${SITE_URL}/assets/social/pedro-gomes.jpg`)
+    upsertMeta('name', 'twitter:image', `${SITE_URL}/assets/social/pedro-gomes.jpg`)
     upsertMeta('name', 'twitter:title', title)
     upsertMeta('name', 'twitter:description', description)
     upsertCanonical(url)

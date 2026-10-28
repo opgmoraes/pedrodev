@@ -5,7 +5,7 @@ export const BRAND = {
   instagram: "https://www.instagram.com/pedrogm.dev/",
   linkedin: "https://www.linkedin.com/in/pedrogmdev",
   github: "https://github.com/opgmoraes",
-  cinematic: "/assets/perfil/pedro-moletom.webp",
+  cinematic: "/assets/perfil/pedro-natural-v2.webp",
   cutout: "/assets/perfil/pedro-recortado.webp",
   photo: "/assets/perfil/foto-perfil.jpg",
 };

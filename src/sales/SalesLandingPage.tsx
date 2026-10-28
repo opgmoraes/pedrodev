@@ -3,11 +3,11 @@ import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { useSEO } from "../lib/seo";
+import { FAQS, publicSeo, publicSchema } from "../lib/publicContent";
 import { BRAND, contactLink } from "../lib/brand";
 import { SERVICOS } from "../lib/services";
 import SocialLinks from "../components/SocialLinks";
 import type {
-  PortfolioContent,
   PortfolioProject,
 } from "../lib/portfolioContent";
 import "./sales.css";
@@ -15,6 +15,7 @@ import CloudBridge from "./CloudBridge";
 import RecruiterSection from "./RecruiterSection";
 import ProjectShowcase from "./ProjectShowcase";
 import { useStudioMotion } from "./useStudioMotion";
+import "./refresh.css";
 
 const steps = [
   ["Conversa", "Entendo seu negócio e o que você precisa resolver."],
@@ -24,16 +25,12 @@ const steps = [
   ["Revisão", "Você testa e aprova os ajustes combinados."],
   ["Entrega", "Projeto publicado, com seus arquivos, acessos e orientações."],
 ];
-const faqs = [
-  ["Qual é o prazo?", "Landing pages a partir de 7 dias úteis. O prazo final depende do escopo e dos materiais."],
-  ["Como funciona o pagamento?", "Entrada e saldo na entrega, conforme a proposta aprovada."],
-  ["Os arquivos e acessos ficam comigo?", "Sim. Você recebe os arquivos e acessos previstos no escopo, além do suporte combinado."],
-];
+const faqs = FAQS;
 const serviceCopy: Record<string, [string, string]> = {
-  "landing-page": ["Landing pages", "Apresente sua oferta e leve visitantes ao WhatsApp."],
-  "site-institucional": ["Sites institucionais", "Mostre seus serviços e facilite o primeiro contato."],
-  "captacao-leads": ["Captação de leads", "Receba contatos e acompanhe cada oportunidade."],
-  "sistemas-automacoes": ["Sistemas & automações", "Organize a operação e automatize tarefas repetitivas."],
+  "landing-page": ["Landing pages", "Uma página dedicada à sua oferta, com argumentos claros e um caminho direto para pedir orçamento."],
+  "site-institucional": ["Sites institucionais", "Apresente sua empresa, seus serviços e seu trabalho em um site com a identidade da sua marca."],
+  "captacao-leads": ["Captação de leads", "Receba pedidos por formulário ou WhatsApp e reúna as informações para dar continuidade ao atendimento."],
+  "sistemas-automacoes": ["Sistemas & automações", "Troque tarefas dispersas por um fluxo de trabalho: cadastros, painéis, pagamentos e integrações conforme seu escopo."],
 };
 function Reveal({
   children,
@@ -61,13 +58,13 @@ function Reveal({
                 {
                   opacity: 0.25,
                   transform: "translateY(26px)",
-                  filter: "blur(4px)",
+
                 },
-                { opacity: 1, transform: "translateY(0)", filter: "blur(0px)" },
+                { opacity: 1, transform: "translateY(0)" },
               ],
               {
-                duration: 800,
-                delay: Math.min(i * 80, 240),
+                duration: 250,
+                delay: Math.min(i * 40, 120),
                 easing: "cubic-bezier(.16,1,.3,1)",
                 fill: "backwards",
               },
@@ -95,7 +92,7 @@ function Reveal({
   );
 }
 function CTA({
-  children = "Conversar sobre meu projeto",
+  children = "Quero falar sobre meu projeto",
   className = "",
 }: {
   children?: ReactNode;
@@ -121,22 +118,13 @@ export default function SalesLandingPage({
   const studioRef = useRef<HTMLDivElement>(null);
   useStudioMotion(studioRef);
   const [menu, setMenu] = useState(false);
-  const [content, setContent] = useState<Partial<PortfolioContent>>({});
   const [cms, setCms] = useState<PortfolioProject[]>([]);
-  useSEO({
-    title: portfolio
-      ? "Projetos | Pedro Gomes"
-      : "Pedro Gomes | Sites e sistemas com a sua identidade",
-    description:
-      "Sites, landing pages e sistemas web sob medida. Conheça projetos reais de Pedro Gomes e converse sobre o seu negócio.",
-    path: portfolio ? "/portifolio" : "/",
-  });
+  useSEO(publicSeo(portfolio));
   useEffect(() => {
     import("../lib/portfolioContent")
       .then(({ getPortfolioContent }) => getPortfolioContent())
       .then((c) => {
         if (c) {
-          setContent(c);
           if (c.projetos) setCms(c.projetos);
         }
       })
@@ -173,8 +161,8 @@ export default function SalesLandingPage({
           >
             Serviços
           </a>
-          <a href="#recrutadores" onClick={() => setMenu(false)}>
-            Recrutadores
+          <a href={portfolio ? "/#processo" : "#processo"} onClick={() => setMenu(false)}>
+            Como funciona
           </a>
           <a href="#contato" onClick={() => setMenu(false)}>
             Contato
@@ -198,6 +186,7 @@ export default function SalesLandingPage({
           {menu ? "✕" : "☰"}
         </button>
       </header>
+      <script id="public-schema" type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(publicSchema(portfolio)).replace(/</g, "\\u003c")}} />
       <main id="conteudo">
         <section
           className={`studio-hero ${portfolio ? "is-portfolio" : ""}`}
@@ -207,36 +196,36 @@ export default function SalesLandingPage({
           <div className="hero-atmosphere" aria-hidden="true">
             <div className="hero-glow hero-glow-one" />
             <div className="hero-glow hero-glow-two" />
-            <div className="hero-light-grid" />
+            <div className="hero-light-grid" /><div className="hero-orbit" />
           </div>
           <div className="studio-hero-copy">
-            <p className="studio-eyebrow">PEDRO GOMES · DESENVOLVEDOR WEB</p>
+            <p className="studio-eyebrow">Pedro Gomes · Desenvolvimento web</p>
             <h1>
               {portfolio ? (
                 <>
                   <span className="hero-line">
-                    <span>Ideias que</span>
+                    <span>Conheça o que</span>
                   </span>
                   <span className="hero-line">
-                    <span>ganharam</span>
+                    <span>eu posso</span>
                   </span>
                   <span className="hero-line">
                     <span>
-                      <em>vida digital.</em>
+                      <em>construir.</em>
                     </span>
                   </span>
                 </>
               ) : (
                 <>
                   <span className="hero-line">
-                    <span>Seu próximo</span>
+                    <span>Sites e sistemas.</span>
                   </span>
                   <span className="hero-line">
-                    <span>nível começa</span>
+                    <span>Seu negócio,</span>
                   </span>
                   <span className="hero-line">
                     <span>
-                      <em>no digital.</em>
+                      <em>bem resolvido.</em>
                     </span>
                   </span>
                 </>
@@ -244,22 +233,22 @@ export default function SalesLandingPage({
             </h1>
             <p className="studio-hero-description">
               {portfolio
-                ? content.heroDescription ||
-                  "Interfaces e produtos que saíram do papel."
-                : "Apresente seu negócio, facilite o contato e organize sua rotina com sites e sistemas sob medida."}
+                ? "De uma landing page a uma plataforma completa. Explore interfaces, funcionalidades e decisões de projetos que desenvolvi."
+                : "Mostre o valor do seu trabalho, facilite pedidos de orçamento e organize sua operação. Eu desenvolvo a solução com você, do primeiro rascunho à publicação."}
             </p>
             <div className="studio-hero-actions">
-              <CTA>{portfolio ? "Falar no WhatsApp" : "Conversar sobre meu projeto"}</CTA>
+              <CTA>{portfolio ? "Falar no WhatsApp" : "Quero falar sobre meu projeto"}</CTA>
               {portfolio ? (
                 <a href="#projetos" className="studio-outline-button">
                   Explorar projetos <span aria-hidden="true"><ArrowIcon direction="down" /></span>
                 </a>
               ) : (
                 <Link to="/portifolio" className="studio-outline-button">
-                  Ver meu portfólio <span aria-hidden="true"><ArrowIcon /></span>
+                  Ver projetos reais <span aria-hidden="true"><ArrowIcon /></span>
                 </Link>
               )}
             </div>
+            <p className="hero-assurance">Contato direto comigo. Escopo, prazo e investimento definidos antes de começar.</p>
             <SocialLinks />
           </div>
           <div className="studio-portrait">
@@ -275,35 +264,36 @@ export default function SalesLandingPage({
             <img
               className="portrait-main"
               src={BRAND.cinematic}
-              alt="Pedro Gomes, desenvolvedor web, com iluminação azul"
+              alt="Pedro Gomes, desenvolvedor web em Luziânia, Goiás"
               {...{ fetchpriority: "high" }}
               width="1254"
               height="1254"
             />
             <div className="portrait-foreground" aria-hidden="true" />
             <span className="portrait-signature">
-              PEDRO GOMES <small>DESIGN + CODE</small>
+              PEDRO GOMES <small>DO DESIGN AO CÓDIGO</small>
             </span>
           </div>
           <div className="hero-bottom">
             <span>
-              <i /> DISPONÍVEL PARA NOVOS PROJETOS
+              <i /> Luziânia, GO · Atendimento online
             </span>
             <a href="#projetos">
-              Explore meu trabalho <span><ArrowIcon direction="down" /></span>
+              Veja o que eu desenvolvo <span><ArrowIcon direction="down" /></span>
             </a>
           </div>
         </section>
         <CloudBridge />
         <ProjectShowcase portfolio={portfolio} cms={cms} />
-        <RecruiterSection />
+
         {!portfolio && (
           <section className="studio-solutions studio-section" id="servicos">
             <Reveal>
               <div className="studio-section-heading">
                 <div>
                   <p className="studio-eyebrow">SERVIÇOS</p>
-                  <h2>O que vamos <em>construir?</em></h2>
+                  <h2>O que o seu negócio<br /><em>precisa agora?</em></h2>
+                  <p className="section-lead">Uma presença profissional para apresentar seu trabalho. Uma página para divulgar sua oferta. Ou um sistema para fazer a operação funcionar melhor.</p>
                 </div>
 
               </div>
@@ -335,7 +325,8 @@ export default function SalesLandingPage({
               <div className="studio-section-heading">
                 <div>
                   <p className="studio-eyebrow">COMO FUNCIONA · 6 ETAPAS</p>
-                  <h2>Você acompanha.<br /><em>Do início à entrega.</em></h2>
+                  <h2>Você sabe o que contrata.<br /><em>E acompanha a entrega.</em></h2>
+                  <p className="section-lead">A proposta vem antes do desenvolvimento. Você aprova o escopo, entende o investimento e acompanha as etapas do seu projeto.</p>
                 </div>
 
               </div>
@@ -351,12 +342,13 @@ export default function SalesLandingPage({
             </Reveal>
           </section>
         )}
-        {!portfolio && (
+        <RecruiterSection />
+        {(
           <section className="studio-faq studio-section" id="faq">
             <Reveal className="studio-split">
               <div>
-                <p className="studio-eyebrow">FAQ</p>
-                <h2>Dúvidas <em>rápidas.</em></h2>
+                <p className="studio-eyebrow">Antes de contratar</p>
+                <h2>Uma boa decisão<br /><em>começa com clareza.</em></h2>
               </div>
               <div>
                 {faqs.map(([q, a]) => (
@@ -374,9 +366,9 @@ export default function SalesLandingPage({
         )}
         <section className="studio-final studio-section" id="contato">
           <Reveal>
-            <h2>Vamos <em>conversar?</em></h2>
-            <p className="studio-final-note">Conte sua ideia. Eu ajudo a definir o próximo passo.</p>
-            <CTA>Conversar sobre meu projeto</CTA>
+            <h2>Seu próximo projeto<br /><em>começa com uma conversa.</em></h2>
+            <p className="studio-final-note">Me conte o que você quer apresentar, vender ou organizar. Eu te ajudo a definir a solução e preparo uma proposta com as entregas, o prazo e o investimento.</p>
+            <CTA>Quero uma proposta para meu projeto</CTA>
             <SocialLinks className="social-links-contact" />
             <a className="studio-email" href={`mailto:${BRAND.email}`}>
               {BRAND.email}
@@ -391,7 +383,7 @@ export default function SalesLandingPage({
         <span>© {new Date().getFullYear()} Pedro Gomes</span>
         <div>
           <Link to="/portifolio">Portfólio</Link>
-          <a href="#recrutadores">Recrutadores</a>
+          <a href="#recrutadores">Sobre mim</a>
           <Link to="/login">Área interna</Link>
         </div>
         <a href="#topo">Voltar ao topo <ArrowIcon direction="up" /></a>

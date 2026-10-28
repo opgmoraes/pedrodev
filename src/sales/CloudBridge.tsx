@@ -9,9 +9,9 @@ const layers = [
 
 export default function CloudBridge() {
   return (
-    <section id="transicao" className="sky-bridge" aria-label="Dos conceitos aos projetos" data-motion-scene>
+    <section id="transicao" className="sky-bridge" aria-label="Conheça meus projetos" data-motion-scene>
       <div className="sky-caption">
-        <p>O próximo passo é <em>construir.</em></p>
+        <p>Seu projeto começa com uma ideia.<br /><em>Veja onde as minhas chegaram.</em></p>
         <a href="#projetos" aria-label="Conhecer os projetos"><ArrowIcon direction="down" /></a>
       </div>
       <div className="sky-light" aria-hidden="true" />

@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && node scripts/prerender.mjs",
     "preview": "vite preview",
     "test:rules": "firebase emulators:exec --only firestore --project demo-pedrodev \"node --test tests/firestore.rules.test.mjs\"",
-    "check": "tsc --noEmit"
+    "check": "tsc --noEmit",
+    "check:public": "node scripts/verify-public.mjs"
   },
   "dependencies": {
     "@fortawesome/free-brands-svg-icons": "^7.3.1",

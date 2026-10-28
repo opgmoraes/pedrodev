@@ -16,3 +16,6 @@ dist/
 *.tsbuildinfo
 .firebase/
 *-debug.log*
+
+# Public-page prerender build cache
+.prerender/

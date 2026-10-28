@@ -1,0 +1,33 @@
+# Pedro Gomes — Desenvolvimento Web
+
+> Desenvolvedor web em Luziânia, Goiás. Criação de sites, landing pages, sistemas web e integrações sob medida, com atendimento online.
+
+## Páginas públicas
+- [Serviços e contratação](https://pedrogm.com.br/): serviços, processo de desenvolvimento, dúvidas frequentes e contato.
+- [Portfólio](https://pedrogm.com.br/portifolio): telas e funcionalidades de projetos desenvolvidos por Pedro Gomes.
+
+## Serviços
+- Landing pages para apresentar uma oferta e receber pedidos de orçamento.
+- Sites institucionais para apresentar empresas e serviços.
+- Sistemas web para cadastros, gestão e fluxos de trabalho.
+- Integrações e automações, conforme o escopo de cada projeto.
+
+## Contratação
+Escopo, prazo, investimento, condições de pagamento, domínio, hospedagem e suporte são definidos em proposta antes do desenvolvimento. Landing pages têm prazo a partir de 7 dias úteis, dependendo do escopo e dos materiais. Não há preço único publicado nem garantia de posicionamento em buscadores.
+
+## Projetos em destaque
+- BITTO Sistema: plataforma de estudos com geração de materiais e prática com IA.
+- Tal do Fut: organização de partidas, jogadores e times. A versão apresentada é privada e usa dados demonstrativos.
+- Bagagem Dev: orientação para começar em TI, com roadmaps e quiz.
+- BITTO Landing Page: apresentação pública das ferramentas e planos da BITTO.
+
+## Identidade e contato
+Nome: Pedro Gomes (Pedro Gabriel Gomes).
+Formação: Análise e Desenvolvimento de Sistemas.
+Localidade: Luziânia, Goiás, Brasil. Atendimento remoto.
+Site: https://pedrogm.com.br/
+WhatsApp: https://wa.me/5561936182176
+E-mail: pedrogm.dev@gmail.com
+LinkedIn: https://www.linkedin.com/in/pedrogmdev
+
+Este resumo complementa as páginas públicas; não substitui o conteúdo visível do site.
