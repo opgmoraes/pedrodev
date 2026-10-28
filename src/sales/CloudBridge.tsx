@@ -11,7 +11,7 @@ export default function CloudBridge() {
   return (
     <section id="transicao" className="sky-bridge" aria-label="Conheça meus projetos" data-motion-scene>
       <div className="sky-caption">
-        <p>Seu projeto começa com uma ideia.<br /><em>Veja onde as minhas chegaram.</em></p>
+        <p>Da ideia ao projeto.<br /><em>Veja o que eu já construí.</em></p>
         <a href="#projetos" aria-label="Conhecer os projetos"><ArrowIcon direction="down" /></a>
       </div>
       <div className="sky-light" aria-hidden="true" />

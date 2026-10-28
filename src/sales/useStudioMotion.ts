@@ -13,6 +13,20 @@ export function useStudioMotion(root: RefObject<HTMLDivElement>) {
     const scenes = [
       ...element.querySelectorAll<HTMLElement>("[data-motion-scene]"),
     ];
+    const reveals: Animation[] = [];
+    const revealObserver = new IntersectionObserver((entries) => {
+      let stagger = 0;
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        revealObserver.unobserve(entry.target);
+        if (preference.matches) continue;
+        reveals.push((entry.target as HTMLElement).animate(
+          [{ opacity: .3, transform: "translateY(22px)" }, { opacity: 1, transform: "translateY(0)" }],
+          { duration: 420, delay: Math.min(stagger++ * 70, 140), easing: "cubic-bezier(.16,1,.3,1)", fill: "backwards" },
+        ));
+      }
+    }, { threshold: .12 });
+    element.querySelectorAll(".project-card").forEach(card => revealObserver.observe(card));
     const hero = element.querySelector<HTMLElement>(".studio-hero");
     const visibilityObserver = new IntersectionObserver(
       (entries) => {
@@ -63,6 +77,7 @@ export function useStudioMotion(root: RefObject<HTMLDivElement>) {
       hero?.style.setProperty("--pointer-y", "0px");
     };
     const visibility = () => {
+      element.dataset.motionPaused = String(document.hidden);
       if (document.hidden) {
         cancelAnimationFrame(frame);
         frame = 0;
@@ -70,6 +85,7 @@ export function useStudioMotion(root: RefObject<HTMLDivElement>) {
     };
     const preferenceChanged = () => {
       reset();
+      if (preference.matches) reveals.forEach(animation => animation.finish());
       if (preference.matches)
         scenes.forEach((s) => {
           s.style.setProperty("--scene-y", "0px");
@@ -86,6 +102,8 @@ export function useStudioMotion(root: RefObject<HTMLDivElement>) {
     schedule();
     return () => {
       visibilityObserver.disconnect();
+      revealObserver.disconnect();
+      reveals.forEach(animation => animation.cancel());
       disposed = true;
       cancelAnimationFrame(frame);
       window.removeEventListener("scroll", schedule);

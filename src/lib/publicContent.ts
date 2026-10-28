@@ -32,7 +32,7 @@ export function publicSchema(portfolio = false) {
   return {
     '@context': 'https://schema.org',
     '@graph': [
-      { '@type': 'Person', '@id': personId, name: 'Pedro Gomes', alternateName: 'Pedro Gabriel Gomes', jobTitle: 'Desenvolvedor web', url: SITE_URL, image: `${SITE_URL}/assets/perfil/pedro-natural-v2.webp`, sameAs: ['https://www.linkedin.com/in/pedrogmdev', 'https://www.instagram.com/pedrogm.dev/'] },
+      { '@type': 'Person', '@id': personId, name: 'Pedro Gomes', alternateName: 'Pedro Gabriel Gomes', jobTitle: 'Desenvolvedor web', url: SITE_URL, image: `${SITE_URL}/assets/perfil/pedro-moletom-v3.webp`, sameAs: ['https://www.linkedin.com/in/pedrogmdev', 'https://www.instagram.com/pedrogm.dev/'] },
       { '@type': 'ProfessionalService', '@id': businessId, name: 'Pedro Gomes — Desenvolvimento Web', url: SITE_URL, description: 'Desenvolvimento de sites, landing pages, sistemas web e integrações sob medida.', founder: { '@id': personId }, email: 'pedrogm.dev@gmail.com', telephone: '+5561936182176', address: { '@type': 'PostalAddress', addressLocality: 'Luziânia', addressRegion: 'GO', addressCountry: 'BR' }, areaServed: { '@type': 'Country', name: 'Brasil' } },
       { '@type': 'WebSite', '@id': `${SITE_URL}/#website`, url: SITE_URL, name: 'Pedro Gomes', inLanguage: 'pt-BR', publisher: { '@id': businessId } },
       { '@type': portfolio ? 'CollectionPage' : 'WebPage', '@id': pageId, url: `${SITE_URL}${seo.path}`, name: seo.title, description: seo.description, inLanguage: 'pt-BR', isPartOf: { '@id': `${SITE_URL}/#website` }, about: { '@id': personId } },
