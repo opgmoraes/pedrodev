@@ -25,7 +25,7 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
   const screens = active?.screens.filter(s => s.device === device) || [];
   const dotStart = Math.max(0, Math.min(slide - 3, screens.length - 7));
   const screenDots = screens.map((s, i) => ({s, i})).slice(dotStart, dotStart + 7);
-  const featuredIds = ['bitto', 'taldofut', 'bagagemdev'];
+  const featuredIds = ['bitto', 'taldofut', 'traco-norte', 'aflora', 'bagagemdev', 'solvia'];
   const systemIds = ['bitto', 'konthub', 'taldofut', 'pedrodev', 'brasa-65', 'elovet', 'aflora'];
   const matchesFilter = (id: string) => filter === 'all' || (filter === 'systems' ? systemIds.includes(id) : !systemIds.includes(id));
   const visible = portfolio ? PROJECTS.filter(p => matchesFilter(p.id)) : featuredIds.flatMap(id => PROJECTS.filter(p => p.id === id));

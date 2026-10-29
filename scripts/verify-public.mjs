@@ -28,8 +28,8 @@ for (const [file, path] of [['dist/index.html', '/'], ['dist/portifolio/index.ht
   assert.equal(graph.filter(item => item['@type'] === 'Person').length, 1);
   assert.equal(graph.filter(item => item['@type'] === 'ProfessionalService').length, 1);
   if (path === '/') {
-    const names = [...html.matchAll(/<h3>\s*([^<]+)<\/h3>/g)].slice(0, 3).map(match => match[1]);
-    assert.deepEqual(names, ['BITTO Sistema', 'Tal do Fut', 'Bagagem Dev']);
+    const names = [...html.matchAll(/<h3>\s*([^<]+)<\/h3>/g)].slice(0, 6).map(match => match[1]);
+    assert.deepEqual(names, ['BITTO Sistema', 'Tal do Fut', 'Traço Norte', 'Aflora', 'Bagagem Dev', 'Solvia']);
   } else {
     const list = graph.find(item => item['@type'] === 'ItemList');
     assert.equal(list.itemListElement.length, 13);
