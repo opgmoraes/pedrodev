@@ -1,10 +1,11 @@
 import type { PortfolioProject } from './portfolioContent';
+import { CONCEPT_PROJECTS } from './conceptProjects';
 
 export type ProjectScreen = { src: string; label: string; device: 'desktop' | 'mobile' };
 export type ShowcaseProject = {
   id: string; title: string; category: string; group: 'Educação' | 'Sistemas' | 'Experiências';
   description: string; challenge: string; solution: string; tech: string[];
-  features: string[]; url: string; status: string; cover?: string; screens: ProjectScreen[];
+  features: string[]; url: string; status: string; conceptual?: boolean; cover?: string; screens: ProjectScreen[];
 };
 const publicScreen = (id: string, label = 'Página inicial'): ProjectScreen => ({src: `/assets/projetos/${id}/publico-desktop.webp`, label, device: 'desktop'});
 const legacyScreens = (id: string, desktop: number, mobile: number): ProjectScreen[] => [
@@ -103,6 +104,7 @@ export const PROJECTS: ShowcaseProject[] = [
     cover: '/assets/projetos/pedrodev/capturas/desktop-1.webp',
     screens: [{"src": "/assets/projetos/pedrodev/capturas/desktop-1.webp", "label": "Página inicial", "device": "desktop"}, {"src": "/assets/projetos/pedrodev/capturas/desktop-2.webp", "label": "Projetos em destaque", "device": "desktop"}, {"src": "/assets/projetos/pedrodev/capturas/desktop-3.webp", "label": "Serviços", "device": "desktop"}, {"src": "/assets/projetos/pedrodev/capturas/desktop-4.webp", "label": "Processo de desenvolvimento", "device": "desktop"}, {"src": "/assets/projetos/pedrodev/capturas/mobile-1.webp", "label": "Página inicial", "device": "mobile"}, {"src": "/assets/projetos/pedrodev/capturas/mobile-2.webp", "label": "Projetos em destaque", "device": "mobile"}, {"src": "/assets/projetos/pedrodev/capturas/mobile-3.webp", "label": "Serviços", "device": "mobile"}, {"src": "/assets/projetos/pedrodev/capturas/mobile-4.webp", "label": "Processo de desenvolvimento", "device": "mobile"}],
   },
+  ...CONCEPT_PROJECTS,
 ];
 
 // Only deployment URLs curated here may be shown, including when old CMS data
@@ -118,10 +120,10 @@ export function safeProjectUrl(value: string | undefined): string {
 }
 
 export const PROJECT_DEFAULTS: PortfolioProject[] = PROJECTS.map(p => ({
-  id:p.id, title:p.title, description:p.description, statusText:p.url ? p.status : 'Privado',
+  id:p.id, title:p.title, description:p.description, statusText:p.conceptual ? 'Projeto conceitual' : p.url ? p.status : 'Privado',
   statusColor:p.url ? 'verde' : 'ambar',
   link1Text:p.url ? (p.id === 'bitto' ? 'Acessar sistema' : 'Visitar site') : '', link1Url:p.url,
-  link2Text:'', link2Url:'', footnote:p.id === 'taldofut' ? 'Telas demonstrativas da versão privada, com jogadores, partidas e valores fictícios.' : '',
+  link2Text:'', link2Url:'', footnote:p.conceptual ? 'Projeto conceitual desenvolvido para uma marca fictícia. Telas e dados demonstrativos, sem vínculo com um cliente real.' : p.id === 'taldofut' ? 'Telas demonstrativas da versão privada, com jogadores, partidas e valores fictícios.' : '',
 }));
 
 export function mergeProjectContent(saved: PortfolioProject[] = []): PortfolioProject[] {
@@ -135,7 +137,7 @@ export function mergeProjectContent(saved: PortfolioProject[] = []): PortfolioPr
       title: p.id === 'bitto' || p.id === 'bitto-landing' ? p.title : old?.title || p.title,
       // Publication state and external links are controlled by the catalog.
       // Do not restore legacy repo URLs, labels or repository-access notes.
-      footnote: p.id === 'taldofut' ? p.footnote : old?.footnote && !/reposit|github|gitlab|bitbucket|ver c[oó]digo/i.test(old.footnote) ? old.footnote : '',
+      footnote: p.id === 'taldofut' || PROJECTS.find(project => project.id === p.id)?.conceptual ? p.footnote : old?.footnote && !/reposit|github|gitlab|bitbucket|ver c[oó]digo/i.test(old.footnote) ? old.footnote : '',
     };
   });
 }

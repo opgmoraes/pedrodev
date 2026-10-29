@@ -23,8 +23,10 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
   const active = PROJECTS.find(p => p.id === selected);
   const copy = content.find(p => p.id === selected);
   const screens = active?.screens.filter(s => s.device === device) || [];
+  const dotStart = Math.max(0, Math.min(slide - 3, screens.length - 7));
+  const screenDots = screens.map((s, i) => ({s, i})).slice(dotStart, dotStart + 7);
   const featuredIds = ['bitto', 'taldofut', 'bagagemdev'];
-  const systemIds = ['bitto', 'konthub', 'taldofut', 'pedrodev'];
+  const systemIds = ['bitto', 'konthub', 'taldofut', 'pedrodev', 'brasa-65', 'elovet', 'aflora'];
   const matchesFilter = (id: string) => filter === 'all' || (filter === 'systems' ? systemIds.includes(id) : !systemIds.includes(id));
   const visible = portfolio ? PROJECTS.filter(p => matchesFilter(p.id)) : featuredIds.flatMap(id => PROJECTS.filter(p => p.id === id));
 
@@ -78,7 +80,7 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
       {visible.map((p, position) => {
         const index=PROJECTS.indexOf(p);
         const text=content.find(c=>c.id===p.id)!;
-        return <article key={p.id} id={`projeto-${p.id}`} className="project-card" style={{'--project-accent':accents[index]} as CSSProperties}>
+        return <article key={p.id} id={`projeto-${p.id}`} className="project-card" style={{'--project-accent':accents[index % accents.length]} as CSSProperties}>
           <button className="project-cover" onClick={e=>{opener.current=e.currentTarget;setSlide(0);setZoomed(false);setDevice(window.matchMedia('(max-width: 899px)').matches && p.screens.some(s=>s.device==='mobile') ? 'mobile' : 'desktop');setSelected(p.id);}} aria-label={`Explorar projeto ${text.title}`}>
             <div className="project-cover-label"><span>{String(position+1).padStart(2,'0')}</span><span aria-hidden="true"><ArrowIcon /></span></div>
             <div className={`project-window${p.cover ? " has-cover" : ""}`}><div className="project-window-bar" aria-hidden="true"><i/><i/><i/><span>{p.title}</span></div>
@@ -90,9 +92,10 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
             {portfolio && <p className="collection-project-category">{p.category}</p>}
             <div className="project-card-heading"><h3>{text.title}</h3><span className="project-status" data-status={text.statusColor}>{text.statusText}</span></div>
             <p>{text.description}</p>
-            <div className="project-tech" aria-label={`Tecnologias de ${p.title}`}>{p.tech.slice(0,4).map(t=><span key={t}>{t}</span>)}</div>
+            {p.tech.length > 0 && <div className="project-tech" aria-label={`Tecnologias de ${p.title}`}>{p.tech.slice(0,4).map(t=><span key={t}>{t}</span>)}</div>}
             {portfolio && <details className="project-case-summary">
               <summary>O que este projeto resolve</summary>
+              {p.conceptual && <p>Projeto conceitual para uma marca fictícia.</p>}
               <p><strong>O desafio.</strong> {p.challenge}</p>
               <p><strong>A solução.</strong> {p.solution}</p>
               <ul>{p.features.map(feature=><li key={feature}>{feature}</li>)}</ul>
@@ -139,7 +142,7 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
         </div>
         {screens.length>1 && <div className="project-screen-nav">
           <button className="project-desktop-nav" disabled={slide===0} onClick={()=>goToSlide(slide-1)}><ArrowIcon direction="left" /> Anterior</button>
-          <div className="project-screen-dots">{screens.map((s,i)=><button key={s.src} aria-label={`Ver tela ${i+1}: ${s.label}`} aria-pressed={slide===i} onClick={()=>goToSlide(i)}/>)}</div>
+          <div className="project-screen-dots">{screenDots.map(({s,i})=><button key={s.src} aria-label={`Ver tela ${i+1}: ${s.label}`} aria-pressed={slide===i} onClick={()=>goToSlide(i)}/>)}</div>
           <button className="project-desktop-nav" disabled={slide===screens.length-1} onClick={()=>goToSlide(slide+1)}>Próximo <ArrowIcon direction="right" /></button>
         </div>}
         {screens.length>1 && <p className="project-swipe-hint">Deslize para explorar as telas <span aria-hidden="true">↔</span></p>}
@@ -147,7 +150,7 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
         </div>
         <div className="project-detail-context">
         <div className="project-case"><div><h3>O desafio</h3><p>{active.challenge}</p></div><div><h3>A solução</h3><p>{active.solution}</p></div></div>
-        <div className="project-detail-bottom"><div><h3>O que tem no projeto</h3><ul>{active.features.map(f=><li key={f}>{f}</li>)}</ul></div><div><h3>Tecnologias</h3><div className="project-tech">{active.tech.map(t=><span key={t}>{t}</span>)}</div></div></div>
+        <div className="project-detail-bottom"><div><h3>O que tem no projeto</h3><ul>{active.features.map(f=><li key={f}>{f}</li>)}</ul></div>{active.tech.length > 0 && <div><h3>Tecnologias</h3><div className="project-tech">{active.tech.map(t=><span key={t}>{t}</span>)}</div></div>}</div>
         {copy.footnote && <p className="project-note">{copy.footnote}</p>}
         </div>
       </div>}
