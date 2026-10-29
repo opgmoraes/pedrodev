@@ -107,6 +107,11 @@ export const PROJECTS: ShowcaseProject[] = [
   ...CONCEPT_PROJECTS,
 ];
 
+export const FEATURED_PROJECT_IDS = ['bitto', 'taldofut', 'traco-norte', 'aflora', 'bagagemdev', 'solvia'];
+const featuredOrder = new Map(FEATURED_PROJECT_IDS.map((id, index) => [id, index]));
+// Preserve the catalog order for remaining projects, including filtered views and schema.
+PROJECTS.sort((a, b) => (featuredOrder.get(a.id) ?? FEATURED_PROJECT_IDS.length) - (featuredOrder.get(b.id) ?? FEATURED_PROJECT_IDS.length));
+
 // Only deployment URLs curated here may be shown, including when old CMS data
 // still contains repository links or access-request URLs.
 const PUBLIC_PROJECT_URLS = new Set(PROJECTS.map(p => p.url).filter(Boolean));

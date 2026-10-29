@@ -33,6 +33,9 @@ for (const [file, path] of [['dist/index.html', '/'], ['dist/portifolio/index.ht
   } else {
     const list = graph.find(item => item['@type'] === 'ItemList');
     assert.equal(list.itemListElement.length, 13);
+    const expectedOrder = ['BITTO Sistema', 'Tal do Fut', 'Traço Norte', 'Aflora', 'Bagagem Dev', 'Solvia'];
+    assert.deepEqual(list.itemListElement.slice(0, 6).map(entry => entry.item.name), expectedOrder);
+    assert.deepEqual([...html.matchAll(/<h3>\s*([^<]+)<\/h3>/g)].slice(0, 6).map(match => match[1]), expectedOrder);
     assert.equal(list.itemListElement.find(item => item.item.name === 'Tal do Fut').item.url, undefined);
     assert.equal(list.itemListElement.find(item => item.item.name === 'KontHub').item.url, undefined);
     assert.doesNotMatch(html, /konthub-mvp\.vercel\.app/);
