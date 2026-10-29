@@ -6,7 +6,7 @@ for (const [file, path] of [['dist/index.html', '/'], ['dist/portifolio/index.ht
   assert.match(html, /data-prerendered="true"/);
   assert.equal((html.match(/<h1[ >]/g) || []).length, 1, `${path}: one H1`);
   assert.match(html, new RegExp(`<link rel="canonical" href="https://pedrogm.com.br${path.replaceAll('/', '\\/')}">`));
-  assert.match(html, /Quanto custa criar um site ou sistema\?/);
+  if (path === '/') assert.match(html, /Quanto custa criar um site ou sistema\?/);
   assert.match(html, /Seu próximo projeto/);
   assert.match(html, /<script[^>]+type="module"[^>]+src="\/assets\//);
   assert.doesNotMatch(html, /reposit[oó]rio|alta conversão|vídeos em motion|preparando seu espaço/i);
@@ -14,8 +14,14 @@ for (const [file, path] of [['dist/index.html', '/'], ['dist/portifolio/index.ht
   assert.equal(schemas.length, 1, `${path}: one schema graph`);
   const graph = JSON.parse(schemas[0][1])['@graph'];
   const faq = graph.find(item => item['@type'] === 'FAQPage');
-  assert.equal(faq.mainEntity.length, 8);
-  for (const question of faq.mainEntity) {
+  if (path === '/') assert.equal(faq.mainEntity.length, 8);
+  else {
+    assert.equal(faq, undefined);
+    assert.match(html, /portfolio-collection/);
+    assert.doesNotMatch(html, /studio-portrait|sky-bridge|portrait-main/);
+    assert.match(html, /Filtrar projetos/);
+  }
+  for (const question of faq?.mainEntity || []) {
     assert.ok(html.includes(question.name), `Visible FAQ question: ${question.name}`);
     assert.ok(html.includes(question.acceptedAnswer.text), 'Schema answer must be in visible page');
   }

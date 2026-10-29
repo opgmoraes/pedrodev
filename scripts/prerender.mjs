@@ -20,6 +20,7 @@ for (const path of ['/', '/portifolio']) {
     ['name', 'twitter:title', seo.title], ['name', 'twitter:description', seo.description],
   ]) html = html.replace(new RegExp(`<meta ${attribute}="${name}" content="[^"]*"\\s*\\/?>(?:\\r?\\n)?`), `<meta ${attribute}="${name}" content="${escape(value)}">\n`);
   html = html.replace(/<link rel="canonical" href="[^"]*"\s*\/?>/, `<link rel="canonical" href="https://pedrogm.com.br${seo.path}">`);
+  if (path === '/portifolio') html = html.replace(/<link rel="preload" as="image"[^>]*>/g, '');
   const start = html.indexOf('<div id="root">');
   const end = html.indexOf('</body>', start);
   if (start < 0 || end < 0) throw new Error('Missing HTML root');

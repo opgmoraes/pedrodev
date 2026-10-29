@@ -39,7 +39,7 @@ export function publicSchema(portfolio = false) {
       ...(portfolio ? [{ '@type': 'ItemList', '@id': `${SITE_URL}/portifolio#projetos`, name: 'Projetos de desenvolvimento web', itemListElement: PROJECTS.map((project, i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': 'CreativeWork', name: project.title, description: project.description, creator: { '@id': personId }, mainEntityOfPage: `${SITE_URL}/portifolio#projeto-${project.id}`, image: `${SITE_URL}${project.cover || project.screens[0].src}`, ...(project.url ? { url: project.url } : {}) } })) }] : [
         ...['Landing pages', 'Sites institucionais', 'Sistemas web', 'Integrações e automações'].map((name, i) => ({ '@type': 'Service', '@id': `${SITE_URL}/#service-${i+1}`, name, provider: { '@id': businessId }, url: `${SITE_URL}/#servicos`, areaServed: { '@type': 'Country', name: 'Brasil' } })),
       ]),
-      { '@type': 'FAQPage', '@id': `${SITE_URL}${seo.path}#faq`, isPartOf: { '@id': pageId }, mainEntity: FAQS.map(([name, text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } })) },
+      ...(!portfolio ? [{ '@type': 'FAQPage', '@id': `${SITE_URL}${seo.path}#faq`, isPartOf: { '@id': pageId }, mainEntity: FAQS.map(([name, text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } })) }] : []),
       ...(portfolio ? [{ '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Início', item: SITE_URL }, { '@type': 'ListItem', position: 2, name: 'Portfólio', item: `${SITE_URL}/portifolio` }] }] : []),
     ],
   };

@@ -3,10 +3,10 @@ import type { RefObject } from "react";
 
 // Variáveis visuais transitórias não provocam renderizações do React.
 // No máximo um frame por evento; nenhuma animação contínua em JavaScript.
-export function useStudioMotion(root: RefObject<HTMLDivElement>) {
+export function useStudioMotion(root: RefObject<HTMLDivElement>, enabled = true) {
   useEffect(() => {
     const element = root.current;
-    if (!element) return;
+    if (!element || !enabled) return;
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
     let frame = 0;
     let disposed = false;
@@ -113,5 +113,5 @@ export function useStudioMotion(root: RefObject<HTMLDivElement>) {
       document.removeEventListener("visibilitychange", visibility);
       preference.removeEventListener("change", preferenceChanged);
     };
-  }, [root]);
+  }, [root, enabled]);
 }

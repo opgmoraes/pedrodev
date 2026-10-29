@@ -9,6 +9,7 @@ import './projects.css';
 const accents = ['#7a9fff', '#ee968f', '#79b8b1', '#ce9ddc', '#c9b47a', '#a4c782', '#8caaed', '#9eaac7'];
 
 export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cms:PortfolioProject[]}) {
+  const [filter,setFilter] = useState('all');
   const [selected,setSelected] = useState<string | null>(null);
   const [device,setDevice] = useState<'desktop'|'mobile'>('desktop');
   const [slide,setSlide] = useState(0);
@@ -23,7 +24,9 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
   const copy = content.find(p => p.id === selected);
   const screens = active?.screens.filter(s => s.device === device) || [];
   const featuredIds = ['bitto', 'taldofut', 'bagagemdev'];
-  const visible = portfolio ? PROJECTS : featuredIds.flatMap(id => PROJECTS.filter(p => p.id === id));
+  const systemIds = ['bitto', 'konthub', 'taldofut', 'pedrodev'];
+  const matchesFilter = (id: string) => filter === 'all' || (filter === 'systems' ? systemIds.includes(id) : !systemIds.includes(id));
+  const visible = portfolio ? PROJECTS.filter(p => matchesFilter(p.id)) : featuredIds.flatMap(id => PROJECTS.filter(p => p.id === id));
 
   useEffect(() => {
     if (window.location.hash !== '#projetos') return;
@@ -60,12 +63,17 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
     opener.current?.focus();
   }
   return <section className="studio-work studio-section project-showcase" data-layout={portfolio ? "portfolio" : "home"} id="projetos">
-    <div className="studio-section-heading">
-      <div><p className="studio-eyebrow">PORTFÓLIO · {portfolio ? `${PROJECTS.length} PROJETOS` : 'EM DESTAQUE'}</p>
+    {portfolio ? <div className="collection-tools">
+      <div><h2>Explore os projetos</h2><p aria-live="polite">{visible.length} {visible.length === 1 ? 'projeto' : 'projetos'} nesta seleção</p></div>
+      <div className="collection-filters" role="group" aria-label="Filtrar projetos">
+        {([['all','Todos'],['sites','Sites e landing pages'],['systems','Sistemas e produtos']] as const).map(([value,label]) => <button key={value} type="button" aria-pressed={filter === value} onClick={()=>setFilter(value)}>{label}</button>)}
+      </div>
+    </div> : <div className="studio-section-heading">
+      <div><p className="studio-eyebrow">PORTFÓLIO · EM DESTAQUE</p>
         <h2>Projetos que mostram<br/><em>o que eu entrego.</em></h2>
       </div>
       <p>Abra um projeto e veja as telas, as funcionalidades e o problema que ele resolve.</p>
-    </div>
+    </div>}
     <div className="project-grid">
       {visible.map((p, position) => {
         const index=PROJECTS.indexOf(p);
@@ -79,6 +87,7 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
             <span className="project-cover-cta">Explorar projeto <span aria-hidden="true"><ArrowIcon /></span></span>
           </button>
           <div className="project-card-info">
+            {portfolio && <p className="collection-project-category">{p.category}</p>}
             <div className="project-card-heading"><h3>{text.title}</h3><span className="project-status" data-status={text.statusColor}>{text.statusText}</span></div>
             <p>{text.description}</p>
             <div className="project-tech" aria-label={`Tecnologias de ${p.title}`}>{p.tech.slice(0,4).map(t=><span key={t}>{t}</span>)}</div>

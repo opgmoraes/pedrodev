@@ -16,6 +16,7 @@ import RecruiterSection from "./RecruiterSection";
 import ProjectShowcase from "./ProjectShowcase";
 import { useStudioMotion } from "./useStudioMotion";
 import "./refresh.css";
+import PortfolioCollection from "./PortfolioCollection";
 
 const steps = [
   ["Conversa", "Entendo seu negócio e o que você precisa resolver."],
@@ -116,7 +117,7 @@ export default function SalesLandingPage({
   portfolio?: boolean;
 }) {
   const studioRef = useRef<HTMLDivElement>(null);
-  useStudioMotion(studioRef);
+  useStudioMotion(studioRef, !portfolio);
   const [menu, setMenu] = useState(false);
   const [cms, setCms] = useState<PortfolioProject[]>([]);
   useSEO(publicSeo(portfolio));
@@ -138,6 +139,7 @@ export default function SalesLandingPage({
     document.addEventListener("keydown", close);
     return () => document.removeEventListener("keydown", close);
   }, [menu]);
+  if (portfolio) return <PortfolioCollection cms={cms} />;
   return (
     <div className="studio" ref={studioRef}>
       <a className="skip-link" href="#conteudo">
