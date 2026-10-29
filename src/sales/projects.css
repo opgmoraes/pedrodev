@@ -161,3 +161,5 @@
  .studio .project-detail-context{order:3}
  .studio .project-carousel{height:54dvh}
 }
+
+@media(min-width:1100px){.studio .project-showcase[data-layout="home"] .project-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}.studio .project-showcase[data-layout="home"] .project-cover{padding:18px 18px 0}.studio .project-showcase[data-layout="home"] .project-card-heading h3{font-size:23px}}

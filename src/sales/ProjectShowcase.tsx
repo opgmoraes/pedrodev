@@ -22,7 +22,7 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
   const active = PROJECTS.find(p => p.id === selected);
   const copy = content.find(p => p.id === selected);
   const screens = active?.screens.filter(s => s.device === device) || [];
-  const featuredIds = ['bitto', 'taldofut', 'bagagemdev', 'bitto-landing'];
+  const featuredIds = ['bitto', 'taldofut', 'bagagemdev'];
   const visible = portfolio ? PROJECTS : featuredIds.flatMap(id => PROJECTS.filter(p => p.id === id));
 
   useEffect(() => {

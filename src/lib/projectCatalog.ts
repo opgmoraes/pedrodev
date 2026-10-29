@@ -31,8 +31,8 @@ export const PROJECTS: ShowcaseProject[] = [
     tech: ['HTML', 'CSS', 'JavaScript', 'Vercel'],
     features: ['Apresentação das ferramentas', 'Demonstrações do produto', 'Planos e chamadas para cadastro'],
     url: 'https://www.usebitto.com/', status: 'Publicado',
-    cover: '/assets/projetos/bitto-landing/prints/capa.webp',
-    screens: [{"src": "/assets/projetos/bitto-landing/prints/bitto_01_desktop_inicio.webp", "label": "Página inicial", "device": "desktop"}, {"src": "/assets/projetos/bitto-landing/prints/bitto_02_desktop_ferramentas.webp", "label": "Ferramentas", "device": "desktop"}, {"src": "/assets/projetos/bitto-landing/prints/bitto_03_desktop_planos.webp", "label": "Planos", "device": "desktop"}, {"src": "/assets/projetos/bitto-landing/prints/bitto_04_mobile_inicio.webp", "label": "Página inicial", "device": "mobile"}, {"src": "/assets/projetos/bitto-landing/prints/bitto_05_tablet_inicio.webp", "label": "Página inicial no tablet", "device": "desktop"}, {"src": "/assets/projetos/bitto-landing/prints/bitto_06_mobile_ferramentas.webp", "label": "Ferramentas", "device": "mobile"}],
+    cover: '/assets/projetos/bitto-landing/capturas/desktop-1.webp',
+    screens: [{"src": "/assets/projetos/bitto-landing/capturas/desktop-1.webp", "label": "Página inicial", "device": "desktop"}, {"src": "/assets/projetos/bitto-landing/capturas/desktop-2.webp", "label": "Ferramentas de estudo", "device": "desktop"}, {"src": "/assets/projetos/bitto-landing/capturas/desktop-3.webp", "label": "Demonstrações", "device": "desktop"}, {"src": "/assets/projetos/bitto-landing/capturas/desktop-4.webp", "label": "Planos", "device": "desktop"}, {"src": "/assets/projetos/bitto-landing/capturas/mobile-1.webp", "label": "Página inicial", "device": "mobile"}, {"src": "/assets/projetos/bitto-landing/capturas/mobile-2.webp", "label": "Ferramentas de estudo", "device": "mobile"}, {"src": "/assets/projetos/bitto-landing/capturas/mobile-3.webp", "label": "Demonstrações", "device": "mobile"}, {"src": "/assets/projetos/bitto-landing/capturas/mobile-4.webp", "label": "Planos", "device": "mobile"}],
   },
   {
     id: 'cinegift', title: 'CineGift', category: 'Presentes em formato de cinema', group: 'Experiências',
@@ -42,8 +42,8 @@ export const PROJECTS: ShowcaseProject[] = [
     tech: ['HTML', 'CSS', 'JavaScript', 'Firebase', 'Cloudflare R2'],
     features: ['Criador com prévia', 'Temas personalizados', 'Ingresso e sessão digital'],
     url: 'https://www.cinegift.com.br/', status: 'Publicado',
-    cover: '/assets/projetos/cinegift/prints/capa.webp',
-    screens: [{"src": "/assets/projetos/cinegift/prints/cinegift_01_desktop_inicio.webp", "label": "Página inicial", "device": "desktop"}, ...legacyScreens('cinegift', 3, 3)],
+    cover: '/assets/projetos/cinegift/capturas/desktop-1.webp',
+    screens: [{"src": "/assets/projetos/cinegift/capturas/desktop-1.webp", "label": "Página inicial", "device": "desktop"}, {"src": "/assets/projetos/cinegift/capturas/desktop-2.webp", "label": "Como funciona", "device": "desktop"}, {"src": "/assets/projetos/cinegift/capturas/desktop-3.webp", "label": "Temas da experiência", "device": "desktop"}, {"src": "/assets/projetos/cinegift/capturas/desktop-4.webp", "label": "Criador de presentes", "device": "desktop"}, {"src": "/assets/projetos/cinegift/capturas/mobile-1.webp", "label": "Página inicial", "device": "mobile"}, {"src": "/assets/projetos/cinegift/capturas/mobile-2.webp", "label": "Como funciona", "device": "mobile"}, {"src": "/assets/projetos/cinegift/capturas/mobile-3.webp", "label": "Temas da experiência", "device": "mobile"}, {"src": "/assets/projetos/cinegift/capturas/mobile-4.webp", "label": "Criador de presentes", "device": "mobile"}],
   },
   {
     id: 'konthub', title: 'KontHub', category: 'Gestão para escritórios contábeis', group: 'Sistemas',
@@ -52,7 +52,7 @@ export const PROJECTS: ShowcaseProject[] = [
     solution: 'Um MVP com módulos de clientes, quadro Kanban, financeiro e documentos em nuvem.',
     tech: ['React', 'Vite', 'Tailwind CSS', 'Firebase', 'Cloudflare R2'],
     features: ['Gestão de clientes', 'Kanban operacional', 'Financeiro e documentos'],
-    url: 'https://konthub-mvp.vercel.app/', status: 'MVP em desenvolvimento',
+    url: '', status: 'Privado',
     screens: [
       {src:'/assets/projetos/konthub/galeria/desktop-2.webp',label:'Dashboard do MVP',device:'desktop'},
       ...legacyScreens('konthub', 5, 1).filter(s=>!s.src.endsWith('desktop-2.webp')),
@@ -67,8 +67,8 @@ export const PROJECTS: ShowcaseProject[] = [
     tech: ['HTML', 'CSS', 'JavaScript', 'Firebase'],
     features: ['Roadmaps por área', 'Quiz de orientação', 'Curadoria de cursos'],
     url: 'https://opgmoraes.github.io/bagagemdev/', status: 'Publicado',
-    cover: '/assets/projetos/bagagemdev/prints/capa.webp',
-    screens: [{"src": "/assets/projetos/bagagemdev/prints/bagagem_dev_01_desktop_inicio.webp", "label": "Página inicial", "device": "desktop"}, {"src": "/assets/projetos/bagagemdev/prints/bagagem_dev_02_desktop_areas.webp", "label": "Áreas de TI", "device": "desktop"}, {"src": "/assets/projetos/bagagemdev/prints/bagagem_dev_03_desktop_quiz.webp", "label": "Quiz de orientação", "device": "desktop"}, {"src": "/assets/projetos/bagagemdev/prints/bagagem_dev_04_mobile_inicio.webp", "label": "Página inicial", "device": "mobile"}, {"src": "/assets/projetos/bagagemdev/prints/bagagem_dev_05_tablet_inicio.webp", "label": "Página inicial no tablet", "device": "desktop"}, {"src": "/assets/projetos/bagagemdev/prints/bagagem_dev_06_mobile_quiz.webp", "label": "Quiz de orientação", "device": "mobile"}],
+    cover: '/assets/projetos/bagagemdev/capturas/desktop-1.webp',
+    screens: [{"src": "/assets/projetos/bagagemdev/capturas/desktop-1.webp", "label": "Página inicial", "device": "desktop"}, {"src": "/assets/projetos/bagagemdev/capturas/desktop-2.webp", "label": "Áreas de tecnologia", "device": "desktop"}, {"src": "/assets/projetos/bagagemdev/capturas/desktop-3.webp", "label": "Quiz de orientação", "device": "desktop"}, {"src": "/assets/projetos/bagagemdev/capturas/desktop-4.webp", "label": "Quiz em andamento", "device": "desktop"}, {"src": "/assets/projetos/bagagemdev/capturas/mobile-1.webp", "label": "Página inicial", "device": "mobile"}, {"src": "/assets/projetos/bagagemdev/capturas/mobile-2.webp", "label": "Áreas de tecnologia", "device": "mobile"}, {"src": "/assets/projetos/bagagemdev/capturas/mobile-3.webp", "label": "Quiz de orientação", "device": "mobile"}, {"src": "/assets/projetos/bagagemdev/capturas/mobile-4.webp", "label": "Quiz em andamento", "device": "mobile"}],
   },
   {
     id: 'formamissal', title: 'FormaMissal', category: 'Formação e calendário litúrgico', group: 'Educação',
@@ -78,8 +78,8 @@ export const PROJECTS: ShowcaseProject[] = [
     tech: ['HTML', 'CSS', 'JavaScript', 'PWA'],
     features: ['Formação sobre o Missal', 'Calendário litúrgico', 'Checklist de preparação'],
     url: 'https://opgmoraes.github.io/formamissal/', status: 'Publicado',
-    cover: '/assets/projetos/formamissal/prints/capa.webp',
-    screens: [{"src": "/assets/projetos/formamissal/prints/forma_missal_01_desktop_inicio.webp", "label": "Página inicial", "device": "desktop"}, {"src": "/assets/projetos/formamissal/prints/forma_missal_02_desktop_calendario.webp", "label": "Calendário litúrgico", "device": "desktop"}, {"src": "/assets/projetos/formamissal/prints/forma_missal_03_desktop_checklist.webp", "label": "Checklist de preparação", "device": "desktop"}, {"src": "/assets/projetos/formamissal/prints/forma_missal_04_mobile_inicio.webp", "label": "Página inicial", "device": "mobile"}, {"src": "/assets/projetos/formamissal/prints/forma_missal_05_tablet_inicio.webp", "label": "Página inicial no tablet", "device": "desktop"}, {"src": "/assets/projetos/formamissal/prints/forma_missal_06_mobile_checklist.webp", "label": "Checklist de preparação", "device": "mobile"}],
+    cover: '/assets/projetos/formamissal/capturas/desktop-1.webp',
+    screens: [{"src": "/assets/projetos/formamissal/capturas/desktop-1.webp", "label": "Página inicial", "device": "desktop"}, {"src": "/assets/projetos/formamissal/capturas/desktop-2.webp", "label": "Formação sobre o Missal", "device": "desktop"}, {"src": "/assets/projetos/formamissal/capturas/desktop-3.webp", "label": "Calendário litúrgico", "device": "desktop"}, {"src": "/assets/projetos/formamissal/capturas/desktop-4.webp", "label": "Checklist de preparação", "device": "desktop"}, {"src": "/assets/projetos/formamissal/capturas/mobile-1.webp", "label": "Página inicial", "device": "mobile"}, {"src": "/assets/projetos/formamissal/capturas/mobile-2.webp", "label": "Formação sobre o Missal", "device": "mobile"}, {"src": "/assets/projetos/formamissal/capturas/mobile-3.webp", "label": "Calendário litúrgico", "device": "mobile"}, {"src": "/assets/projetos/formamissal/capturas/mobile-4.webp", "label": "Checklist de preparação", "device": "mobile"}],
   },
   {
     id: 'taldofut', title: 'Tal do Fut', category: 'Organização de jogos entre amigos', group: 'Sistemas',
@@ -100,7 +100,8 @@ export const PROJECTS: ShowcaseProject[] = [
     tech: ['React', 'TypeScript', 'Vite', 'Firebase', 'jsPDF'],
     features: ['Portfólio interativo', 'Propostas e contratos', 'Área de clientes e financeiro'],
     url: '', status: 'Privado',
-    screens: [publicScreen('pedrodev'), {src:'/assets/projetos/pedrodev/publico-mobile.webp',label:'Página inicial no celular',device:'mobile'}],
+    cover: '/assets/projetos/pedrodev/capturas/desktop-1.webp',
+    screens: [{"src": "/assets/projetos/pedrodev/capturas/desktop-1.webp", "label": "Página inicial", "device": "desktop"}, {"src": "/assets/projetos/pedrodev/capturas/desktop-2.webp", "label": "Projetos em destaque", "device": "desktop"}, {"src": "/assets/projetos/pedrodev/capturas/desktop-3.webp", "label": "Serviços", "device": "desktop"}, {"src": "/assets/projetos/pedrodev/capturas/desktop-4.webp", "label": "Processo de desenvolvimento", "device": "desktop"}, {"src": "/assets/projetos/pedrodev/capturas/mobile-1.webp", "label": "Página inicial", "device": "mobile"}, {"src": "/assets/projetos/pedrodev/capturas/mobile-2.webp", "label": "Projetos em destaque", "device": "mobile"}, {"src": "/assets/projetos/pedrodev/capturas/mobile-3.webp", "label": "Serviços", "device": "mobile"}, {"src": "/assets/projetos/pedrodev/capturas/mobile-4.webp", "label": "Processo de desenvolvimento", "device": "mobile"}],
   },
 ];
 

@@ -22,12 +22,14 @@ for (const [file, path] of [['dist/index.html', '/'], ['dist/portifolio/index.ht
   assert.equal(graph.filter(item => item['@type'] === 'Person').length, 1);
   assert.equal(graph.filter(item => item['@type'] === 'ProfessionalService').length, 1);
   if (path === '/') {
-    const names = [...html.matchAll(/<h3>\s*([^<]+)<\/h3>/g)].slice(0, 4).map(match => match[1]);
-    assert.deepEqual(names, ['BITTO Sistema', 'Tal do Fut', 'Bagagem Dev', 'BITTO Landing Page']);
+    const names = [...html.matchAll(/<h3>\s*([^<]+)<\/h3>/g)].slice(0, 3).map(match => match[1]);
+    assert.deepEqual(names, ['BITTO Sistema', 'Tal do Fut', 'Bagagem Dev']);
   } else {
     const list = graph.find(item => item['@type'] === 'ItemList');
     assert.equal(list.itemListElement.length, 8);
     assert.equal(list.itemListElement.find(item => item.item.name === 'Tal do Fut').item.url, undefined);
+    assert.equal(list.itemListElement.find(item => item.item.name === 'KontHub').item.url, undefined);
+    assert.doesNotMatch(html, /konthub-mvp\.vercel\.app/);
   }
   for (const match of html.matchAll(/<img[^>]+src="(\/assets\/[^\"]+)"/g)) await access(`dist${match[1]}`);
   console.log(`Verified ${path}: public HTML, canonical, schema, FAQs and assets.`);
