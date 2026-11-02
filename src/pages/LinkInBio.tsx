@@ -39,6 +39,7 @@ export default function LinkInBio() {
             <p className="bio-description">Sites e sistemas para tirar sua ideia do papel.</p>
             <a className="bio-contact" href={contactLink("Olá Pedro, vim pela bio e quero conversar sobre meu projeto.")} target="_blank" rel="noopener noreferrer"><SocialIcon name="WhatsApp" /><span>Conversar sobre meu projeto</span><Arrow /></a>
             <Link to="/portifolio" className="bio-portfolio"><span className="bio-code" aria-hidden="true">&lt;/&gt;</span><span><strong>Conheça meu trabalho</strong><small>Sites, sistemas e produtos digitais.</small></span><Arrow /></Link>
+            <Link to="/skills" className="bio-skills"><span className="bio-skills-mark" aria-hidden="true">✦</span><span><strong>Skills de IA para criar e vender</strong><small>Conheça os packs Founder, Creator, Service Pro e Ultimate.</small></span><Arrow /></Link>
             <nav className="bio-secondary" aria-label="Serviços e perfil profissional">
               <a href="/#servicos"><span>Serviços & soluções</span><Arrow /></a>
               <a href="/#sobre"><span>Conheça quem desenvolve</span><Arrow /></a>
@@ -55,3 +56,4 @@ export default function LinkInBio() {
     </div>
   );
 }
+
