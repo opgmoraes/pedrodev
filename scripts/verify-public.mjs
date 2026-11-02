@@ -56,9 +56,9 @@ for (const [file, path] of [['dist/index.html', '/'], ['dist/portifolio/index.ht
   assert.match(html, /<link rel="canonical" href="https:\/\/pedrogm\.com\.br\/skills">/);
   assert.match(html, /https:\/\/pedrogm\.com\.br\/assets\/skills\/v2\/ultimate\.png/);
   assert.match(html, /Comprando separados/);
-  assert.match(html, /R\$\s+159,70/);
-  assert.match(html, /R\$\s+119,90/);
-  assert.match(html, /R\$\s+39,80/);
+  assert.match(html, /R\$\s+99,70/);
+  assert.match(html, /R\$\s+69,90/);
+  assert.match(html, /R\$\s+29,80/);
   const scripts = [...html.matchAll(/<script[^>]+type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)];
   assert.equal(scripts.length, 1, '/skills: one schema graph');
   const graph = JSON.parse(scripts[0][1])['@graph'];
@@ -89,3 +89,5 @@ const sources = [...concepts.matchAll(/"src": "([^"]+)"/g)];
 assert.equal(sources.length, 148);
 for (const [, src] of sources) await access(`dist${src}`);
 console.log("Verified 148 concept screenshots and fictional-project metadata.");
+
+
