@@ -20,6 +20,7 @@ for (const path of ['/', '/portifolio', '/skills']) {
     ['name', 'twitter:title', seo.title], ['name', 'twitter:description', seo.description],
   ]) html = html.replace(new RegExp(`<meta ${attribute}="${name}" content="[^"]*"\\s*\\/?>(?:\\r?\\n)?`), `<meta ${attribute}="${name}" content="${escape(value)}">\n`);
   html = html.replace(/<link rel="canonical" href="[^"]*"\s*\/?>/, `<link rel="canonical" href="https://pedrogm.com.br${seo.path}">`);
+  if (path === '/skills') html = html.replaceAll('https://pedrogm.com.br/assets/social/pedro-gomes.jpg', 'https://pedrogm.com.br/assets/skills/v2/ultimate.png');
   if (path === '/portifolio') html = html.replace(/<link rel="preload" as="image"[^>]*>/g, '');
   const start = html.indexOf('<div id="root">');
   const end = html.indexOf('</body>', start);

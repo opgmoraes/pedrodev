@@ -5,6 +5,7 @@ type SeoOptions = {
   description: string
   /** Caminho da rota, ex: "/portifolio". Usado pra montar a URL canônica. */
   path?: string
+  image?: string
 }
 
 const SITE_URL = 'https://pedrogm.com.br'
@@ -34,7 +35,7 @@ function upsertCanonical(href: string) {
  * página da SPA. Sem isso, toda rota (portfólio, bio, home) fica com o
  * mesmo <title> fixo do index.html — ruim pro SEO e pra CTR na busca.
  */
-export function useSEO({ title, description, path = '/' }: SeoOptions) {
+export function useSEO({ title, description, path = '/', image = '/assets/social/pedro-gomes.jpg' }: SeoOptions) {
   useEffect(() => {
     const url = `${SITE_URL}${path}`
     document.title = title
@@ -42,10 +43,10 @@ export function useSEO({ title, description, path = '/' }: SeoOptions) {
     upsertMeta('property', 'og:title', title)
     upsertMeta('property', 'og:description', description)
     upsertMeta('property', 'og:url', url)
-    upsertMeta('property', 'og:image', `${SITE_URL}/assets/social/pedro-gomes.jpg`)
-    upsertMeta('name', 'twitter:image', `${SITE_URL}/assets/social/pedro-gomes.jpg`)
+    upsertMeta('property', 'og:image', `${SITE_URL}${image}`)
+    upsertMeta('name', 'twitter:image', `${SITE_URL}${image}`)
     upsertMeta('name', 'twitter:title', title)
     upsertMeta('name', 'twitter:description', description)
     upsertCanonical(url)
-  }, [title, description, path])
+  }, [title, description, path, image])
 }

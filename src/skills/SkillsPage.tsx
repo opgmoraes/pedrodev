@@ -32,7 +32,7 @@ const schema = {
 };
 
 export default function SkillsPage() {
-  useSEO({ title: 'Skills de IA para negócios, conteúdo e serviços | Pedro Gomes', description: 'Compare Founder, Creator, Service Pro e Ultimate: 28 skills no combo por R$ 119,90, com economia de R$ 39,80 frente aos packs avulsos. Veja instalação e compatibilidade.', path: '/skills' });
+  useSEO({ title: 'Skills de IA para negócios, conteúdo e serviços | Pedro Gomes', description: 'Compare Founder, Creator, Service Pro e Ultimate: 28 skills no combo por R$ 119,90, com economia de R$ 39,80 frente aos packs avulsos. Veja instalação e compatibilidade.', path: '/skills', image: '/assets/skills/v2/ultimate.png' });
   const [active, setActive] = useState(0);
   const blackActive = Date.now() < blackEnds.getTime();
   return <div className="skills-page" id="topo">

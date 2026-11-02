@@ -54,6 +54,7 @@ for (const [file, path] of [['dist/index.html', '/'], ['dist/portifolio/index.ht
   assert.match(html, /data-prerendered="true"/);
   assert.equal((html.match(/<h1[ >]/g) || []).length, 1, '/skills: one H1');
   assert.match(html, /<link rel="canonical" href="https:\/\/pedrogm\.com\.br\/skills">/);
+  assert.match(html, /https:\/\/pedrogm\.com\.br\/assets\/skills\/v2\/ultimate\.png/);
   assert.match(html, /Comprando separados/);
   assert.match(html, /R\$\s+159,70/);
   assert.match(html, /R\$\s+119,90/);
@@ -65,6 +66,7 @@ for (const [file, path] of [['dist/index.html', '/'], ['dist/portifolio/index.ht
   assert.deepEqual(list.itemListElement.map(item => item.name), ['Founder Pack', 'Creator Pack', 'Service Pro Pack', 'Ultimate Skills Pack']);
   for (const item of list.itemListElement) assert.ok(html.includes(item.name));
   for (const name of ['founder', 'creator', 'service', 'ultimate']) await access(`dist/assets/skills/v2/${name}.svg`);
+  await access('dist/assets/skills/v2/ultimate.png');
   const faq = graph.find(item => item['@type'] === 'FAQPage');
   assert.equal(faq.mainEntity.length, 6);
   for (const question of faq.mainEntity) {
