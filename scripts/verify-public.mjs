@@ -49,6 +49,30 @@ for (const [file, path] of [['dist/index.html', '/'], ['dist/portifolio/index.ht
   for (const match of html.matchAll(/<img[^>]+src="(\/assets\/[^\"]+)"/g)) await access(`dist${match[1]}`);
   console.log(`Verified ${path}: public HTML, canonical, schema, FAQs and assets.`);
 }
+{
+  const html = await readFile('dist/skills/index.html', 'utf8');
+  assert.match(html, /data-prerendered="true"/);
+  assert.equal((html.match(/<h1[ >]/g) || []).length, 1, '/skills: one H1');
+  assert.match(html, /<link rel="canonical" href="https:\/\/pedrogm\.com\.br\/skills">/);
+  assert.match(html, /Comprando separados/);
+  assert.match(html, /R\$\s+159,70/);
+  assert.match(html, /R\$\s+119,90/);
+  assert.match(html, /R\$\s+39,80/);
+  const scripts = [...html.matchAll(/<script[^>]+type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)];
+  assert.equal(scripts.length, 1, '/skills: one schema graph');
+  const graph = JSON.parse(scripts[0][1])['@graph'];
+  const list = graph.find(item => item['@type'] === 'ItemList');
+  assert.deepEqual(list.itemListElement.map(item => item.name), ['Founder Pack', 'Creator Pack', 'Service Pro Pack', 'Ultimate Skills Pack']);
+  for (const item of list.itemListElement) assert.ok(html.includes(item.name));
+  for (const name of ['founder', 'creator', 'service', 'ultimate']) await access(`dist/assets/skills/v2/${name}.svg`);
+  const faq = graph.find(item => item['@type'] === 'FAQPage');
+  assert.equal(faq.mainEntity.length, 6);
+  for (const question of faq.mainEntity) {
+    assert.ok(html.includes(question.name));
+    assert.ok(html.includes(question.acceptedAnswer.text));
+  }
+  console.log('Verified /skills: prices, savings, canonical, pack list, FAQs and covers.');
+}
 const shell = await readFile('dist/private-shell.html', 'utf8');
 assert.match(shell, /name="robots" content="noindex, follow"/);
 assert.doesNotMatch(shell, /data-prerendered="true"/);
