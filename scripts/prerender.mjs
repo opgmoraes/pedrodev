@@ -11,7 +11,7 @@ const template = await readFile(resolve(root, 'dist/index.html'), 'utf8');
 await writeFile(resolve(root, 'dist/app-shell.html'), template);
 await writeFile(resolve(root, 'dist/private-shell.html'), template.replace('content="index, follow"', 'content="noindex, follow"'));
 const escape = value => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
-for (const path of ['/', '/portifolio']) {
+for (const path of ['/', '/portifolio', '/skills']) {
   const { markup, seo } = renderPublicPage(path);
   let html = template.replace(/<title>[\s\S]*?<\/title>/, `<title>${escape(seo.title)}</title>`);
   for (const [attribute, name, value] of [
@@ -25,7 +25,7 @@ for (const path of ['/', '/portifolio']) {
   const end = html.indexOf('</body>', start);
   if (start < 0 || end < 0) throw new Error('Missing HTML root');
   html = html.slice(0, start) + `<div id="root" data-prerendered="true">${markup}</div>\n` + html.slice(end);
-  const folder = path === '/' ? 'dist' : 'dist/portifolio';
+  const folder = path === '/' ? 'dist' : `dist${path}`;
   await mkdir(resolve(root, folder), { recursive: true });
   await writeFile(resolve(root, folder, 'index.html'), html);
   console.log(`Public HTML generated: ${path}`);

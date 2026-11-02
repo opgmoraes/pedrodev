@@ -6,6 +6,7 @@ const ProtectedRoute = lazy(() => import("./components/ProtectedRoute"));
 
 // Carregadas sob demanda: só baixam quando o visitante realmente navega
 // pra essas rotas, em vez de entrar no pacote inicial de "/".
+const SkillsPage = lazy(() => import("./skills/SkillsPage"));
 const PortfolioTrilha = lazy(() => import("./portfolio/PortfolioTrilha"));
 const PortfolioStartup = lazy(() => import("./portfolio/PortfolioStartup"));
 const Login = lazy(() => import("./pages/Login"));
@@ -45,6 +46,7 @@ export default function App() {
         <Route path="/" element={<SalesLandingPage />} />
         <Route path="/portifolio" element={<SalesLandingPage portfolio />} />
         <Route path="/portfolio" element={<SalesLandingPage portfolio />} />
+        <Route path="/skills" element={<SkillsPage />} />
         <Route path="/trilha" element={<PortfolioTrilha />} />
         <Route path="/startup" element={<PortfolioStartup />} />
         <Route path="/login" element={<Login />} />

@@ -16,7 +16,7 @@ export default function PortfolioCollection({ cms }: { cms: PortfolioProject[] }
     <script id="public-schema" type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(publicSchema(true)).replace(/</g,'\\u003c')}} />
     <header className="collection-header">
       <Link to="/" className="collection-brand" aria-label="Pedro Gomes — página inicial">pg<span>.</span><small>Pedro Gomes</small></Link>
-      <nav aria-label="Navegação do portfólio"><Link to="/">Página inicial</Link><a href="#projetos" aria-current="page">Portfólio</a><a className="studio-button" href={contactLink()} target="_blank" rel="noopener noreferrer">Vamos conversar <span aria-hidden="true"><ArrowIcon /></span></a></nav>
+      <nav aria-label="Navegação do portfólio"><Link to="/">Página inicial</Link><a href="#projetos" aria-current="page">Portfólio</a><Link to="/skills">Skills</Link><a className="studio-button" href={contactLink()} target="_blank" rel="noopener noreferrer">Vamos conversar <span aria-hidden="true"><ArrowIcon /></span></a></nav>
     </header>
     <main id="conteudo">
       <section className="collection-intro" id="topo" aria-labelledby="collection-title">

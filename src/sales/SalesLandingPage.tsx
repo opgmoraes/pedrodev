@@ -157,6 +157,7 @@ export default function SalesLandingPage({
           <Link to="/portifolio" onClick={() => setMenu(false)}>
             Portfólio
           </Link>
+          <Link to="/skills" onClick={() => setMenu(false)}>Skills</Link>
           <a
             href={portfolio ? "/#servicos" : "#servicos"}
             onClick={() => setMenu(false)}
@@ -385,6 +386,7 @@ export default function SalesLandingPage({
         <span>© {new Date().getFullYear()} Pedro Gomes</span>
         <div>
           <Link to="/portifolio">Portfólio</Link>
+          <Link to="/skills">Skills</Link>
           <a href="#recrutadores">Sobre mim</a>
           <Link to="/login">Área interna</Link>
         </div>
