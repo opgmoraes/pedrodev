@@ -61,12 +61,8 @@
 
 /* Accessibility controls and keyboard focus. */
 .skills-demo-tabs button[aria-pressed=true]{background:#1657f5;border-color:#5b91ff;color:#fff}
-.skills-motion-toggle{margin-top:18px;padding:9px 12px;min-height:44px;border:1px solid #7895c0;background:transparent;color:#d8e6ff;border-radius:7px;cursor:pointer;font-size:13px;font-weight:650}
-.skills-motion-toggle:hover{background:#ffffff14}
-.skills-motion-toggle:focus-visible,.skills-page a:focus-visible,.skills-page button:focus-visible,.skills-page summary:focus-visible{outline:3px solid #ffcf62;outline-offset:3px}
-.skills-motion-paused .skills-demo-character,.skills-motion-paused .skills-card-art img,.skills-motion-paused .skills-promo-art img{animation-play-state:paused!important}
 .skills-page main:focus{outline:none}
 .skills-header nav a{display:inline-flex;align-items:center;min-height:44px}
-@media(max-width:760px){.skills-header nav a{min-height:44px}.skills-motion-toggle{font-size:12px}.skills-demo-tabs button{min-width:0}}
-@media(hover:none){.skills-motion-toggle:hover{background:transparent}}
-.skills-motion-paused *, .skills-motion-paused *::before, .skills-motion-paused *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.skills-motion-paused .skills-card:hover,.skills-motion-paused .skills-primary:hover,.skills-motion-paused .skills-demo-tabs button:hover,.skills-motion-paused .skills-card:hover .skills-card-art img,.skills-motion-paused .skills-promo-art:hover img{transform:none!important}.skills-page .arrow-icon{width:1em;height:1em;flex-shrink:0}.skills-primary .arrow-icon,.skills-card-bottom .arrow-icon{font-size:18px}.skills-footer .arrow-icon{margin-left:3px;font-size:13px}
+@media(max-width:760px){.skills-header nav a{min-height:44px}.skills-demo-tabs button{min-width:0}}
+.skills-page .arrow-icon{width:1em;height:1em;flex-shrink:0}.skills-primary .arrow-icon,.skills-card-bottom .arrow-icon{font-size:18px}.skills-footer .arrow-icon{margin-left:3px;font-size:13px}
+.skills-page a:focus-visible,.skills-page button:focus-visible,.skills-page summary:focus-visible{outline:3px solid #ffcf62;outline-offset:3px}
