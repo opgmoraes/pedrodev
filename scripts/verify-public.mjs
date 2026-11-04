@@ -7,7 +7,7 @@ for (const [file, path] of [['dist/index.html', '/'], ['dist/portifolio/index.ht
   assert.equal((html.match(/<h1[ >]/g) || []).length, 1, `${path}: one H1`);
   assert.match(html, new RegExp(`<link rel="canonical" href="https://pedrogm.com.br${path.replaceAll('/', '\\/')}">`));
   if (path === '/') assert.match(html, /Quanto custa criar um site ou sistema\?/);
-  assert.match(html, /Seu próximo projeto/);
+  assert.match(html, path === '/' ? /Seu próximo cliente/ : /Explore o que/);
   assert.match(html, /<script[^>]+type="module"[^>]+src="\/assets\//);
   assert.doesNotMatch(html, /reposit[oó]rio|alta conversão|vídeos em motion|preparando seu espaço/i);
   const schemas = [...html.matchAll(/<script[^>]+type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)];

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useSEO } from "../lib/seo";
 import { FAQS, publicSeo, publicSchema } from "../lib/publicContent";
 import { BRAND, contactLink } from "../lib/brand";
-import { SERVICOS } from "../lib/services";
+import ServiceExplorer from "./ServiceExplorer";
 import SocialLinks from "../components/SocialLinks";
 import type {
   PortfolioProject,
@@ -28,12 +28,6 @@ const steps = [
   ["Entrega", "Projeto publicado, com seus arquivos, acessos e orientações."],
 ];
 const faqs = FAQS;
-const serviceCopy: Record<string, [string, string]> = {
-  "landing-page": ["Landing pages", "Uma página dedicada à sua oferta, com argumentos claros e um caminho direto para pedir orçamento."],
-  "site-institucional": ["Sites institucionais", "Apresente sua empresa, seus serviços e seu trabalho em um site com a identidade da sua marca."],
-  "captacao-leads": ["Captação de leads", "Receba pedidos por formulário ou WhatsApp e reúna as informações para dar continuidade ao atendimento."],
-  "sistemas-automacoes": ["Sistemas & automações", "Troque tarefas dispersas por um fluxo de trabalho: cadastros, painéis, pagamentos e integrações conforme seu escopo."],
-};
 function Reveal({
   children,
   className = "",
@@ -203,26 +197,26 @@ export default function SalesLandingPage({
           </div>
           <div className="studio-hero-copy">
             <p className="studio-eyebrow">Pedro Gomes · Desenvolvimento web</p>
-            <h1>Seu negócio merece<br />um site à altura.</h1>
+            <h1>Seu próximo cliente<br />precisa entender<br /><span>o seu valor.</span></h1>
             <p className="studio-hero-description">
               {portfolio
                 ? "De uma landing page a uma plataforma completa. Explore interfaces, funcionalidades e decisões de projetos que desenvolvi."
-                : "Mostre o valor do seu trabalho, facilite pedidos de orçamento e organize sua operação. Eu desenvolvo a solução com você, do primeiro rascunho à publicação."}
+                : "Sites que apresentam sua marca com clareza. Landing pages que conduzem ao contato. Sistemas que simplificam o trabalho. Do design ao código, eu construo com você."}
             </p>
             <div className="studio-hero-actions">
-              <CTA>{portfolio ? "Falar no WhatsApp" : "Quero falar sobre meu projeto"}</CTA>
+              <CTA>{portfolio ? "Falar no WhatsApp" : "Vamos criar seu site"}</CTA>
               {portfolio ? (
                 <a href="#projetos" className="studio-outline-button">
                   Explorar projetos <span aria-hidden="true"><ArrowIcon direction="down" /></span>
                 </a>
               ) : (
                 <Link to="/portifolio" className="studio-outline-button">
-                  Ver projetos reais <span aria-hidden="true"><ArrowIcon /></span>
+                  Explorar meu trabalho <span aria-hidden="true"><ArrowIcon /></span>
                 </Link>
               )}
             </div>
             <p className="hero-assurance">Contato direto comigo. Escopo, prazo e investimento definidos antes de começar.</p>
-            <SocialLinks />
+            <div className="hero-delivery"><span>Design sob medida</span><span>Desktop e mobile</span><span>Pronto para publicar</span></div>
           </div>
           <div className="studio-portrait">
             <div className="portrait-aura" aria-hidden="true" />
@@ -243,7 +237,7 @@ export default function SalesLandingPage({
               height="1254"
             />
             <div className="portrait-foreground" aria-hidden="true" />
-            <span className="portrait-signature">
+            <div className="portrait-project"><img src="/assets/projetos/bitto/galeria/desktop-1.webp" alt="Prévia do sistema BITTO desenvolvido por Pedro" width="1400" height="900" /><span>Da interface ao produto funcionando.</span></div><span className="portrait-signature">
               Pedro Gomes<small>Design + desenvolvimento</small>
             </span>
           </div>
@@ -265,30 +259,12 @@ export default function SalesLandingPage({
               <div className="studio-section-heading">
                 <div>
                   <p className="studio-eyebrow">SERVIÇOS</p>
-                  <h2>O que o seu negócio<br /><em>precisa agora?</em></h2>
+                  <h2>Uma solução para<br /><em>o seu momento.</em></h2>
                   <p className="section-lead">Uma presença profissional para apresentar seu trabalho. Uma página para divulgar sua oferta. Ou um sistema para fazer a operação funcionar melhor.</p>
                 </div>
 
               </div>
-              <div className="studio-services">
-                {SERVICOS.map((s, i) => (
-                  <a
-                    href={contactLink(
-                      `Olá Pedro, tenho interesse em ${s.titulo}.`,
-                    )}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    key={s.id}
-                  >
-                    <span className="studio-service-number">0{i + 1}</span>
-                    <h3>{serviceCopy[s.id]?.[0] || s.titulo}</h3>
-                    <p>{serviceCopy[s.id]?.[1] || s.descricao}</p>
-                    <span className="studio-service-arrow" aria-hidden="true">
-                      <ArrowIcon />
-                    </span>
-                  </a>
-                ))}
-              </div>
+              <ServiceExplorer />
             </Reveal>
           </section>
         )}
