@@ -76,7 +76,7 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
       </div>
       <p>Abra um projeto e veja as telas, as funcionalidades e o problema que ele resolve.</p>
     </div>}
-    <div className="project-grid">
+    <div className="project-grid" data-reveal>
       {visible.map((p, position) => {
         const index=PROJECTS.indexOf(p);
         const text=content.find(c=>c.id===p.id)!;

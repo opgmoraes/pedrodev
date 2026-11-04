@@ -1,8 +1,10 @@
 import ArrowIcon from "../components/ArrowIcon";
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { SocialIcon } from "../components/SocialLinks";
 import { BRAND, contactLink } from "../lib/brand";
 import { useSEO } from "../lib/seo";
+import { useRevealMotion } from "../lib/useRevealMotion";
 import "./link-in-bio.css";
 
 const networks = [
@@ -13,13 +15,15 @@ const networks = [
 function Arrow() { return <span aria-hidden="true" className="bio-arrow"><ArrowIcon /></span>; }
 
 export default function LinkInBio() {
+  const root = useRef<HTMLDivElement>(null);
+  useRevealMotion(root);
   useSEO({
     title: "Pedro Gomes | Links, projetos e contato",
     description: "Sites e sistemas para tirar sua ideia do papel. Conheça meu trabalho, converse sobre seu projeto e conecte-se comigo.",
     path: "/link",
   });
   return (
-    <div className="bio-page">
+    <div className="bio-page" ref={root}>
       <div className="bio-shell">
         <header className="bio-topbar">
           <Link to="/" aria-label="Pedro Gomes — início" className="bio-wordmark">pedro <span>gm.</span></Link>
@@ -31,23 +35,23 @@ export default function LinkInBio() {
             <div className="bio-photo">
               <img src="/assets/perfil/pedro-trabalhando-bio.webp" alt="Pedro Gomes trabalhando no computador" width="1000" height="1250" fetchPriority="high" />
             </div>
-            <figcaption><span>Pedro Gomes</span><span>DESIGN + CÓDIGO</span></figcaption>
+            <figcaption><span>Pedro Gomes</span><span>DESENVOLVIMENTO WEB</span></figcaption>
           </figure>
           <section className="bio-content" aria-labelledby="bio-heading">
-            <p className="bio-greeting"><span aria-hidden="true" />DESENVOLVEDOR & FOUNDER</p>
-            <h1 id="bio-heading"><span className="bio-heading-desktop">Design com intenção.<br />Código com <em>propósito.</em></span><span className="bio-heading-mobile">Pedro <em>Gomes</em></span></h1>
-            <p className="bio-description">Sites e sistemas para tirar sua ideia do papel.</p>
-            <a className="bio-contact" href={contactLink("Olá Pedro, vim pela bio e quero conversar sobre meu projeto.")} target="_blank" rel="noopener noreferrer"><SocialIcon name="WhatsApp" /><span>Conversar sobre meu projeto</span><Arrow /></a>
-            <Link to="/portifolio" className="bio-portfolio"><span className="bio-code" aria-hidden="true">&lt;/&gt;</span><span><strong>Conheça meu trabalho</strong><small>Sites, sistemas e produtos digitais.</small></span><Arrow /></Link>
-            <Link to="/skills" className="bio-skills"><span className="bio-skills-mark" aria-hidden="true">✦</span><span><strong>Skills de IA para criar e vender</strong><small>Conheça os packs Founder, Creator, Service Pro e Ultimate.</small></span><Arrow /></Link>
-            <nav className="bio-secondary" aria-label="Serviços e perfil profissional">
+            <p className="bio-greeting" data-reveal><span aria-hidden="true" />DESENVOLVEDOR WEB · BRASIL</p>
+            <h1 id="bio-heading" data-reveal><span className="bio-heading-desktop">Seu projeto merece<br />um site à altura.</span><span className="bio-heading-mobile">Pedro <em>Gomes</em></span></h1>
+            <p className="bio-description" data-reveal>Crio landing pages, sites institucionais e sistemas para apresentar sua oferta e facilitar o próximo passo do cliente.</p>
+            <a className="bio-contact" data-reveal href={contactLink("Olá Pedro, vim pela sua página de links e quero conversar sobre um projeto.")} target="_blank" rel="noopener noreferrer"><SocialIcon name="WhatsApp" /><span>Conversar sobre meu projeto</span><Arrow /></a>
+            <Link to="/portifolio" className="bio-portfolio" data-reveal><span className="bio-code" aria-hidden="true">&lt;/&gt;</span><span><strong>Veja o que eu já desenvolvi</strong><small>Projetos, interfaces e conceitos.</small></span><Arrow /></Link>
+            <Link to="/skills" className="bio-skills" data-reveal><span className="bio-skills-mark" aria-hidden="true">✦</span><span><strong>Conheça minhas skills de IA</strong><small>Packs de instruções para negócios, conteúdo e serviços.</small></span><Arrow /></Link>
+            <nav className="bio-secondary" aria-label="Serviços e perfil profissional" data-reveal>
               <a href="/#servicos"><span>Serviços & soluções</span><Arrow /></a>
               <a href="/#sobre"><span>Conheça quem desenvolve</span><Arrow /></a>
             </nav>
-            <nav className="bio-networks" aria-label="Minhas redes sociais">
+            <nav className="bio-networks" aria-label="Minhas redes sociais" data-reveal>
               {networks.map(network => <a key={network.name} href={network.href} target="_blank" rel="noopener noreferrer"><SocialIcon name={network.name} /><span>{network.name}</span></a>)}
             </nav>
-            <a className="bio-email" href={`mailto:${BRAND.email}`}>{BRAND.email}</a>
+            <a className="bio-email" data-reveal href={`mailto:${BRAND.email}`}>{BRAND.email}</a>
             <p className="bio-mobile-footer">DESIGN + CÓDIGO. FEITO POR PEDRO.</p>
           </section>
         </main>
