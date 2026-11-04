@@ -16,6 +16,7 @@ import RecruiterSection from "./RecruiterSection";
 import ProjectShowcase from "./ProjectShowcase";
 import { useStudioMotion } from "./useStudioMotion";
 import "./refresh.css";
+import "./editorial.css";
 import PortfolioCollection from "./PortfolioCollection";
 
 const steps = [
@@ -141,7 +142,7 @@ export default function SalesLandingPage({
   }, [menu]);
   if (portfolio) return <PortfolioCollection cms={cms} />;
   return (
-    <div className="studio" ref={studioRef}>
+    <div className="studio editorial-site" ref={studioRef}>
       <a className="skip-link" href="#conteudo">
         Pular para o conteúdo
       </a>
@@ -157,7 +158,6 @@ export default function SalesLandingPage({
           <Link to="/portifolio" onClick={() => setMenu(false)}>
             Portfólio
           </Link>
-          <Link to="/skills" onClick={() => setMenu(false)}>Skills</Link>
           <a
             href={portfolio ? "/#servicos" : "#servicos"}
             onClick={() => setMenu(false)}
@@ -203,37 +203,7 @@ export default function SalesLandingPage({
           </div>
           <div className="studio-hero-copy">
             <p className="studio-eyebrow">Pedro Gomes · Desenvolvimento web</p>
-            <h1>
-              {portfolio ? (
-                <>
-                  <span className="hero-line">
-                    <span>Conheça o que</span>
-                  </span>
-                  <span className="hero-line">
-                    <span>eu posso</span>
-                  </span>
-                  <span className="hero-line">
-                    <span>
-                      <em>construir.</em>
-                    </span>
-                  </span>
-                </>
-              ) : (
-                <>
-                  <span className="hero-line">
-                    <span>Sites e sistemas.</span>
-                  </span>
-                  <span className="hero-line">
-                    <span>Seu negócio,</span>
-                  </span>
-                  <span className="hero-line">
-                    <span>
-                      <em>bem resolvido.</em>
-                    </span>
-                  </span>
-                </>
-              )}
-            </h1>
+            <h1>Seu negócio merece<br />um site à altura.</h1>
             <p className="studio-hero-description">
               {portfolio
                 ? "De uma landing page a uma plataforma completa. Explore interfaces, funcionalidades e decisões de projetos que desenvolvi."
@@ -274,7 +244,7 @@ export default function SalesLandingPage({
             />
             <div className="portrait-foreground" aria-hidden="true" />
             <span className="portrait-signature">
-              PEDRO GOMES <small>DO DESIGN AO CÓDIGO</small>
+              Pedro Gomes<small>Design + desenvolvimento</small>
             </span>
           </div>
           <div className="hero-bottom">
@@ -386,7 +356,6 @@ export default function SalesLandingPage({
         <span>© {new Date().getFullYear()} Pedro Gomes</span>
         <div>
           <Link to="/portifolio">Portfólio</Link>
-          <Link to="/skills">Skills</Link>
           <a href="#recrutadores">Sobre mim</a>
           <Link to="/login">Área interna</Link>
         </div>

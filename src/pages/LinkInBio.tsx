@@ -33,17 +33,16 @@ export default function LinkInBio() {
         <main className="bio-layout">
           <figure className="bio-photo-block">
             <div className="bio-photo">
-              <img src="/assets/perfil/pedro-trabalhando-bio.webp" alt="Pedro Gomes trabalhando no computador" width="1000" height="1250" fetchPriority="high" />
+              <img src="/assets/perfil/pedro-moletom-v3.webp" alt="Pedro Gomes, desenvolvedor web" width="1000" height="1250" fetchPriority="high" />
             </div>
             <figcaption><span>Pedro Gomes</span><span>DESENVOLVIMENTO WEB</span></figcaption>
           </figure>
           <section className="bio-content" aria-labelledby="bio-heading">
             <p className="bio-greeting" data-reveal><span aria-hidden="true" />DESENVOLVEDOR WEB · BRASIL</p>
-            <h1 id="bio-heading" data-reveal><span className="bio-heading-desktop">Seu projeto merece<br />um site à altura.</span><span className="bio-heading-mobile">Pedro <em>Gomes</em></span></h1>
+            <h1 id="bio-heading" data-reveal><span className="bio-heading-desktop">Uma ideia sua.<br />Um projeto nosso.</span><span className="bio-heading-mobile">Pedro <em>Gomes</em></span></h1>
             <p className="bio-description" data-reveal>Crio landing pages, sites institucionais e sistemas para apresentar sua oferta e facilitar o próximo passo do cliente.</p>
             <a className="bio-contact" data-reveal href={contactLink("Olá Pedro, vim pela sua página de links e quero conversar sobre um projeto.")} target="_blank" rel="noopener noreferrer"><SocialIcon name="WhatsApp" /><span>Conversar sobre meu projeto</span><Arrow /></a>
             <Link to="/portifolio" className="bio-portfolio" data-reveal><span className="bio-code" aria-hidden="true">&lt;/&gt;</span><span><strong>Veja o que eu já desenvolvi</strong><small>Projetos, interfaces e conceitos.</small></span><Arrow /></Link>
-            <Link to="/skills" className="bio-skills" data-reveal><span className="bio-skills-mark" aria-hidden="true">✦</span><span><strong>Conheça minhas skills de IA</strong><small>Packs de instruções para negócios, conteúdo e serviços.</small></span><Arrow /></Link>
             <nav className="bio-secondary" aria-label="Serviços e perfil profissional" data-reveal>
               <a href="/#servicos"><span>Serviços & soluções</span><Arrow /></a>
               <a href="/#sobre"><span>Conheça quem desenvolve</span><Arrow /></a>

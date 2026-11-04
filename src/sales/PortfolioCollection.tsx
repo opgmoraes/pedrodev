@@ -13,19 +13,19 @@ export default function PortfolioCollection({ cms }: { cms: PortfolioProject[] }
   const root = useRef<HTMLDivElement>(null);
   useStudioMotion(root);
   useRevealMotion(root);
-  return <div className="studio portfolio-collection" ref={root}>
+  return <div className="studio portfolio-collection editorial-portfolio" ref={root}>
     <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
     <script id="public-schema" type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(publicSchema(true)).replace(/</g,'\\u003c')}} />
     <header className="collection-header">
       <Link to="/" className="collection-brand" aria-label="Pedro Gomes — página inicial">pg<span>.</span><small>Pedro Gomes</small></Link>
-      <nav aria-label="Navegação do portfólio"><Link to="/">Página inicial</Link><a href="#projetos" aria-current="page">Portfólio</a><Link to="/skills">Skills</Link><a className="studio-button" href={contactLink()} target="_blank" rel="noopener noreferrer">Vamos conversar <span aria-hidden="true"><ArrowIcon /></span></a></nav>
+      <nav aria-label="Navegação do portfólio"><Link to="/">Página inicial</Link><a href="#projetos" aria-current="page">Portfólio</a><a className="studio-button" href={contactLink()} target="_blank" rel="noopener noreferrer">Vamos conversar <span aria-hidden="true"><ArrowIcon /></span></a></nav>
     </header>
     <main id="conteudo">
       <section className="collection-hero" id="topo" aria-labelledby="collection-title">
         <div className="collection-hero-copy" data-reveal>
           <p className="collection-kicker">DESIGN + DESENVOLVIMENTO WEB</p>
-          <h1 id="collection-title">Sites e sistemas<br />para seu negócio.</h1>
-          <p className="collection-hero-description">Transformo ideias em experiências digitais que apresentam sua oferta, organizam processos e ajudam o cliente a dar o próximo passo.</p>
+          <h1 id="collection-title">Ideias que ganharam<br />forma e função.</h1>
+          <p className="collection-hero-description">Explore sites, produtos e sistemas. Abra um projeto para conhecer suas telas, o problema e as escolhas por trás da solução.</p>
           <div className="collection-hero-actions">
             <a className="studio-button" href="#projetos">Ver projetos em destaque <span aria-hidden="true"><ArrowIcon direction="down" /></span></a>
             <a className="collection-contact-link" href={contactLink()} target="_blank" rel="noopener noreferrer">Falar sobre meu projeto <ArrowIcon /></a>
