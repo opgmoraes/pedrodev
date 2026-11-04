@@ -11,7 +11,7 @@ const template = await readFile(resolve(root, 'dist/index.html'), 'utf8');
 await writeFile(resolve(root, 'dist/app-shell.html'), template);
 await writeFile(resolve(root, 'dist/private-shell.html'), template.replace('content="index, follow"', 'content="noindex, follow"'));
 const escape = value => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
-for (const path of ['/', '/portifolio', '/skills']) {
+for (const path of ['/', '/portifolio', '/skills', '/link']) {
   const { markup, seo } = renderPublicPage(path);
   let html = template.replace(/<title>[\s\S]*?<\/title>/, `<title>${escape(seo.title)}</title>`);
   for (const [attribute, name, value] of [

@@ -22,6 +22,14 @@
       "destination": "/portifolio/index.html"
     },
     {
+      "source": "/link",
+      "destination": "/link/index.html"
+    },
+    {
+      "source": "/skills",
+      "destination": "/skills/index.html"
+    },
+    {
       "source": "/login",
       "destination": "/private-shell.html"
     },

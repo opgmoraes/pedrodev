@@ -1,63 +1,9 @@
-import ArrowIcon from "../components/ArrowIcon";
-import { useRef } from "react";
-import { Link } from "react-router-dom";
-import { SocialIcon } from "../components/SocialLinks";
-import { BRAND, contactLink } from "../lib/brand";
-import { useSEO } from "../lib/seo";
-import { useRevealMotion } from "../lib/useRevealMotion";
-import "./link-in-bio.css";
-
-const networks = [
-  { name: "Instagram", href: BRAND.instagram },
-  { name: "LinkedIn", href: BRAND.linkedin },
-  { name: "GitHub", href: BRAND.github },
-] as const;
-function Arrow() { return <span aria-hidden="true" className="bio-arrow"><ArrowIcon /></span>; }
-
-export default function LinkInBio() {
-  const root = useRef<HTMLDivElement>(null);
-  useRevealMotion(root);
-  useSEO({
-    title: "Pedro Gomes | Links, projetos e contato",
-    description: "Sites e sistemas para tirar sua ideia do papel. Conheça meu trabalho, converse sobre seu projeto e conecte-se comigo.",
-    path: "/link",
-  });
-  return (
-    <div className="bio-page" ref={root}>
-      <div className="bio-shell">
-        <header className="bio-topbar">
-          <Link to="/" aria-label="Pedro Gomes — início" className="bio-wordmark">pedro <span>gm.</span></Link>
-          <span className="bio-topbar-note">Sites · Sistemas · Automações</span>
-          <Link to="/" aria-label="Conhecer meu site" className="bio-home-arrow"><Arrow /></Link>
-        </header>
-        <main className="bio-layout">
-          <figure className="bio-photo-block">
-            <div className="bio-photo">
-              <img src="/assets/perfil/pedro-moletom-v3.webp" alt="Pedro Gomes, desenvolvedor web" width="1000" height="1250" fetchPriority="high" />
-            </div>
-            <figcaption><span>Pedro Gomes</span><span>DESENVOLVIMENTO WEB</span></figcaption>
-          </figure>
-          <section className="bio-content" aria-labelledby="bio-heading">
-            <p className="bio-greeting" data-reveal><span aria-hidden="true" />DESENVOLVEDOR WEB · BRASIL</p>
-            <h1 id="bio-heading" data-reveal><span className="bio-heading-desktop">Seu próximo projeto<br />começa aqui.</span><span className="bio-heading-mobile">Pedro <em>Gomes</em></span></h1>
-            <p className="bio-description" data-reveal>Crio landing pages, sites institucionais e sistemas para apresentar sua oferta e facilitar o próximo passo do cliente.</p>
-            <a className="bio-contact" data-reveal href={contactLink("Olá Pedro, vim pela sua página de links e quero conversar sobre um projeto.")} target="_blank" rel="noopener noreferrer"><SocialIcon name="WhatsApp" /><span>Conversar sobre meu projeto</span><Arrow /></a>
-            <Link to="/portifolio" className="bio-portfolio" data-reveal><span className="bio-code" aria-hidden="true">&lt;/&gt;</span><span><strong>Veja o que eu já desenvolvi</strong><small>Veja as telas e explore os detalhes.</small></span><Arrow /></Link>
-            <Link to="/skills" className="bio-skills" data-reveal><span className="bio-skills-mark" aria-hidden="true">✳</span><span><strong>Skills Garden</strong><small>Explore os packs de skills para IA.</small></span><Arrow /></Link>
-            <nav className="bio-secondary" aria-label="Serviços e perfil profissional" data-reveal>
-              <a href="/#servicos"><span>Serviços & soluções</span><Arrow /></a>
-              <a href="/#recrutadores"><span>Conheça quem desenvolve</span><Arrow /></a>
-            </nav>
-            <nav className="bio-networks" aria-label="Minhas redes sociais" data-reveal>
-              {networks.map(network => <a key={network.name} href={network.href} target="_blank" rel="noopener noreferrer"><SocialIcon name={network.name} /><span>{network.name}</span></a>)}
-            </nav>
-            <a className="bio-email" data-reveal href={`mailto:${BRAND.email}`}>{BRAND.email}</a>
-            <p className="bio-mobile-footer">DESIGN + CÓDIGO. FEITO POR PEDRO.</p>
-          </section>
-        </main>
-        <footer className="bio-footer"><Link to="/">pedrogm.com.br</Link><span>Pedro Gomes · Desenvolvedor web</span></footer>
-      </div>
-    </div>
-  );
-}
-
+import { Link } from 'react-router-dom';
+import { motion, useReducedMotion } from 'framer-motion';
+import ArrowIcon from '../components/ArrowIcon';
+import { SocialIcon } from '../components/SocialLinks';
+import { BRAND, contactLink } from '../lib/brand';
+import { useSEO } from '../lib/seo';
+import '../public/public.css';
+import './link-in-bio.css';
+export default function LinkInBio(){useSEO({title:'Pedro Gomes | Links, projetos e contato',description:'Conheça os projetos de Pedro Gomes, peça um orçamento e explore os packs de skills para IA.',path:'/link'});const reduced=useReducedMotion();const links=[{href:contactLink('Olá Pedro, vim pela página de links e quero pedir um orçamento.'),name:'Pedir orçamento',icon:'WhatsApp',primary:true},{href:'/portifolio',name:'Explorar meu portfólio',icon:'work'},{href:'/skills',name:'Skills Office · packs para IA',icon:'skills'},{href:'https://usebitto.com',name:'Conhecer o BITTO',icon:'bitto'},{href:'/',name:'Meu site · serviços e projetos',icon:'home'}];return <main className="bio-page"><motion.div className="bio-shell" initial={false} animate={reduced?{}:{opacity:[.4,1],y:[12,0]}} transition={{duration:.5}}><div className="bio-avatar"><img src={BRAND.cinematic} alt="Pedro Gomes, desenvolvedor web" width="1254" height="1254"/></div><h1>Pedro Gomes</h1><p className="bio-position">Sites e sistemas para o próximo<br/>passo do seu negócio.</p><span className="bio-available"><i/>Vamos conversar sobre seu projeto</span><nav className="bio-links" aria-label="Links principais">{links.map((link,i)=>{const content=<><span className="bio-link-icon">{link.icon==='WhatsApp'?<SocialIcon name="WhatsApp"/>:<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">{link.icon==='work'?<><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18M7 7h1"/></>:link.icon==='skills'?<><path d="M5 4h14v16H5zM9 8h6M9 12h6M9 16h3"/></>:link.icon==='bitto'?<><path d="M7 3h7a4 4 0 0 1 0 8H7zM7 11h8a5 5 0 0 1 0 10H7z"/></>:<><path d="m3 11 9-8 9 8M5 9v12h14V9M10 21v-7h4v7"/></>}</svg>}</span><span>{link.name}</span><ArrowIcon/></>;return <motion.div key={link.href} initial={false} animate={reduced?{}:{opacity:[.3,1],y:[12,0]}} transition={{duration:.4,delay:i*.06}}>{link.href.startsWith('/')?<Link className="bio-link" to={link.href}>{content}</Link>:<a className={`bio-link ${link.primary?'primary':''}`} href={link.href} target="_blank" rel="noopener noreferrer">{content}</a>}</motion.div>})}</nav><nav className="bio-social" aria-label="Redes sociais">{([{name:'Instagram',href:BRAND.instagram},{name:'LinkedIn',href:BRAND.linkedin},{name:'GitHub',href:BRAND.github}] as const).map(n=><a key={n.name} href={n.href} target="_blank" rel="noopener noreferrer" aria-label={n.name}><SocialIcon name={n.name}/></a>)}</nav><a className="bio-email" href={`mailto:${BRAND.email}`}>{BRAND.email}</a><footer><Link to="/">pedrogm.com.br</Link><span>Design + desenvolvimento.</span></footer></motion.div></main>}

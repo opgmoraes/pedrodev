@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
+import PublicAnalytics from "./components/PublicAnalytics";
 import ErrorBoundary from "./components/ErrorBoundary";
 import "./styles.css";
 
@@ -11,6 +12,7 @@ const application = (
     <BrowserRouter>
       <ErrorBoundary>
         <App />
+        <PublicAnalytics />
       </ErrorBoundary>
     </BrowserRouter>
   </React.StrictMode>
