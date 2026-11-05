@@ -7,7 +7,7 @@ for (const [file, path] of [['dist/index.html', '/'], ['dist/portifolio/index.ht
   assert.equal((html.match(/<h1[ >]/g) || []).length, 1, `${path}: one H1`);
   assert.match(html, new RegExp(`<link rel="canonical" href="https://pedrogm.com.br${path.replaceAll('/', '\\/')}">`));
   if (path === '/') assert.match(html, /Quanto custa criar um site ou sistema\?/);
-  assert.match(html, path === '/' ? /Seu negócio merece/ : /Ideias em/);
+  assert.match(html, path === '/' ? /presença que marca/ : /Ideias em/);
   assert.match(html, /<script[^>]+type="module"[^>]+src="\/assets\//);
   assert.doesNotMatch(html, /reposit[oó]rio|alta conversão|vídeos em motion|preparando seu espaço/i);
   const schemas = [...html.matchAll(/<script[^>]+type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)];
@@ -95,7 +95,8 @@ console.log("Verified 148 concept screenshots and fictional-project metadata.");
  const html=await readFile('dist/link/index.html','utf8');
  assert.match(html,/data-prerendered="true"/);
  for(const href of ['/portifolio','/skills']) assert.ok(html.includes(`href="${href}"`));
- assert.match(html,/Pedir orçamento/);
+ assert.match(html,/class="bio-card contact"/);
+ assert.equal((html.match(/class="bio-card (?:site|portfolio|contact|skills)"/g)||[]).length,4);
  const skills=await readFile('dist/skills/index.html','utf8');
  const graph=JSON.parse([...skills.matchAll(/<script[^>]+type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)][0][1])['@graph'];
  assert.equal(graph.filter(item=>item['@type']==='Product').length,4);
