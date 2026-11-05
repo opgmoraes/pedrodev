@@ -2,3 +2,34 @@
 
 @media(min-width:561px){.bio-hero{min-height:0;padding:38px 0 35px}.bio-portrait{height:275px;margin:12px auto -100px}.bio-portrait img{width:275px;height:275px}.bio-hero h1{font-size:64px}.bio-hero p{margin:17px auto}.bio-down{margin-top:16px}}
 .bio-hero em{font-family:inherit;font-style:normal;font-weight:inherit;letter-spacing:inherit;color:#b9d9ff}
+
+/* Perfil editorial: uma apresentação pessoal à esquerda e quatro caminhos claros à direita. */
+.bio-page{background:radial-gradient(ellipse 45% 52% at 27% 14%,#183863 0%,#0a1729 52%,transparent 100%),#070b12}
+.bio-glow{display:none}
+.bio-shell{width:min(1180px,calc(100% - 64px));display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);column-gap:clamp(48px,8vw,140px);padding-top:76px}
+.bio-hero{position:sticky;top:30px;align-self:start;text-align:left;padding:0!important;min-height:0!important}
+.bio-eyebrow{color:#a9c5e8}
+.bio-portrait{width:205px!important;height:205px!important;margin:28px 0 34px!important;border-radius:50%;border:1px solid #70aafa;background:radial-gradient(circle at 50% 35%,#3670bb,#10213b 72%);mask-image:none;box-shadow:0 0 0 9px #6ba9fa12,0 20px 70px #112e56;overflow:hidden}
+.bio-portrait:before{display:none}
+.bio-portrait img{width:100%!important;height:100%!important;object-fit:cover;object-position:center 16%;transform:scale(1.28) translateY(9%);filter:none}
+.bio-status{display:block;color:#b4c6dd;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:16px}
+.bio-status:before{content:'';display:inline-block;width:7px;height:7px;margin-right:9px;border-radius:50%;background:#42df9c;box-shadow:0 0 0 5px #42df9c20;vertical-align:middle;animation:bio-status-pulse 2.5s infinite}
+.bio-hero h1{font:500 clamp(66px,6.3vw,100px)/.86 'Instrument Serif',Georgia,serif!important;letter-spacing:-.055em;text-shadow:none}
+.bio-hero em{font:inherit;color:#83b7fa}
+.bio-hero p{font-size:17px;line-height:1.72;max-width:440px;margin:25px 0!important;color:#c2ccda}
+.bio-down{margin:26px 0 0!important}
+.bio-vitrine{margin-top:0;align-self:center;gap:14px}
+.bio-vitrine:before{content:'POR ONDE COMEÇAR';display:block;color:#95bff5;font-size:10px;font-weight:700;letter-spacing:.19em;margin-bottom:8px}
+.bio-link{grid-template-columns:56px 1fr 38px;min-height:114px;background:linear-gradient(110deg,#101b2c,#0c131f);border-color:#ffffff1b;border-radius:15px;box-shadow:0 14px 32px #0002}
+.bio-link:hover{transform:translateY(-4px);background:linear-gradient(110deg,#172a43,#101a29)}
+.bio-link-contact{order:-1;color:#071321!important;border-color:#83baff;background:linear-gradient(105deg,#91c2ff,#428ae9);box-shadow:0 16px 45px #2363af50}
+.bio-link-contact:hover{background:linear-gradient(105deg,#aed3ff,#5b9ff0)}
+.bio-link-contact .bio-link-icon{color:#10233d;background:#ffffff3d}
+.bio-link-contact .bio-link-copy>span{color:#27415d}
+.bio-link-contact .bio-link-arrow{border-color:#17345550}
+.bio-link-copy strong{font-size:21px}
+.bio-link-copy>span{font-size:12px}
+.bio-footer{grid-column:1/-1;border-top:1px solid #ffffff18;margin-top:85px}
+@keyframes bio-status-pulse{50%{box-shadow:0 0 0 9px #42df9c08}}
+@media(max-width:800px){.bio-shell{width:min(580px,calc(100% - 36px));display:block;padding-top:40px}.bio-hero{position:relative;top:auto}.bio-portrait{width:145px!important;height:145px!important;margin:24px 0 28px!important}.bio-hero h1{font-size:68px!important}.bio-hero p{font-size:15px;margin:22px 0!important}.bio-down{display:none}.bio-vitrine{margin-top:65px}.bio-footer{margin-top:55px}}
+@media(max-width:480px){.bio-link{grid-template-columns:46px 1fr 30px;gap:11px;min-height:110px;padding:13px}.bio-link-icon{width:44px;height:44px}.bio-link-icon svg{width:22px;height:22px}.bio-link-copy strong{font-size:18px}.bio-link-copy>span{font-size:11px}.bio-link-arrow{width:29px;height:29px}}

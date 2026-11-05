@@ -8,9 +8,9 @@ import './link-in-bio.css';
 
 type IconName = 'site' | 'portfolio' | 'contact' | 'skills';
 const cards: { title: string; note: string; href: string; icon: IconName }[] = [
-  { title: 'Site', note: 'Conheça meu trabalho e como podemos criar o seu projeto.', href: '/', icon: 'site' },
-  { title: 'Portfólio', note: 'Explore os projetos e veja o que existe por trás das telas.', href: '/portifolio', icon: 'portfolio' },
-  { title: 'Contato', note: 'Me conte sua ideia. Vamos conversar sobre o próximo passo.', href: contactLink('Olá Pedro, vim pela página de links e quero conversar sobre um projeto.'), icon: 'contact' },
+  { title: 'Contato direto', note: 'Me conte sua ideia. Eu respondo pelo WhatsApp.', href: contactLink('Olá Pedro, vim pela página de links e quero conversar sobre um projeto.'), icon: 'contact' },
+  { title: 'Meu site', note: 'Veja como trabalho e o que posso criar para seu negócio.', href: '/', icon: 'site' },
+  { title: 'Portfólio', note: 'Abra os projetos e conheça os detalhes antes de me chamar.', href: '/portifolio', icon: 'portfolio' },
   { title: 'Skill Lab', note: 'Packs de skills para negócios, conteúdo e serviços.', href: '/skills', icon: 'skills' },
 ];
 
@@ -27,7 +27,7 @@ function CardIcon({ name }: { name: IconName }) {
 export default function LinkInBio() {
   useSEO({ title: 'Pedro Gomes | Links, projetos e contato', description: 'Meu site, portfólio, contato e Skill Lab em um só lugar.', path: '/link' });
   return <main className="bio-page"><div className="bio-glow" aria-hidden="true"/><div className="bio-shell">
-    <header className="bio-hero"><span className="bio-eyebrow">PEDRO GOMES / DESENVOLVEDOR WEB</span><div className="bio-portrait"><img src={BRAND.cinematic} alt="Pedro Gomes" width="1254" height="1254"/></div><h1>Ideias que<br/><em>ganham forma.</em></h1><p>Sites e sistemas para negócios que querem aparecer com personalidade.</p><a className="bio-down" href="#vitrine" aria-label="Explorar links"><ArrowIcon direction="down"/></a></header>
+    <header className="bio-hero"><span className="bio-eyebrow">PEDRO GOMES / DESENVOLVEDOR WEB</span><div className="bio-portrait"><img src={BRAND.cinematic} alt="Pedro Gomes" width="1254" height="1254"/></div><span className="bio-status">Disponível para novos projetos</span><h1>Pedro<br/><em>Gomes.</em></h1><p>Crio sites e sistemas sob medida. Você fala direto comigo, do primeiro desenho até a publicação.</p><a className="bio-down" href="#vitrine" aria-label="Explorar links"><ArrowIcon direction="down"/></a></header>
     <nav id="vitrine" className="bio-vitrine" aria-label="Links principais">{cards.map(card => {
       const content = <><span className="bio-link-icon"><CardIcon name={card.icon}/></span><span className="bio-link-copy"><strong>{card.title}</strong><span>{card.note}</span></span><span className="bio-link-arrow"><ArrowIcon/></span></>;
       return card.href.startsWith('/') ? <Link to={card.href} className={`bio-link bio-link-${card.icon}`} key={card.icon}>{content}</Link> : <a href={card.href} target="_blank" rel="noopener noreferrer" className={`bio-link bio-link-${card.icon}`} key={card.icon}>{content}</a>;
