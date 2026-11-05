@@ -77,12 +77,12 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
       <p>Abra um projeto e veja as telas, as funcionalidades e o problema que ele resolve.</p>
     </div>}
     <div className="project-grid" data-reveal>
-      {visible.map((p, position) => {
+      {visible.map((p) => {
         const index=PROJECTS.indexOf(p);
         const text=content.find(c=>c.id===p.id)!;
         return <article key={p.id} id={`projeto-${p.id}`} className="project-card" style={{'--project-accent':accents[index % accents.length]} as CSSProperties}>
           <button className="project-cover" onClick={e=>{opener.current=e.currentTarget;setSlide(0);setZoomed(false);setDevice(window.matchMedia('(max-width: 899px)').matches && p.screens.some(s=>s.device==='mobile') ? 'mobile' : 'desktop');setSelected(p.id);}} aria-label={`Explorar projeto ${text.title}`}>
-            <div className="project-cover-label"><span>{String(position+1).padStart(2,'0')}</span><span aria-hidden="true"><ArrowIcon /></span></div>
+            <div className="project-cover-label"><span aria-hidden="true"><ArrowIcon /></span></div>
             <div className={`project-window${p.cover ? " has-cover" : ""}`}><div className="project-window-bar" aria-hidden="true"><i/><i/><i/><span>{p.title}</span></div>
               <img src={p.cover || p.screens[0].src} alt={`Tela real do projeto ${p.title}`} width="1400" height="900" loading="lazy" decoding="async"/>
             </div>
@@ -106,7 +106,7 @@ export default function ProjectShowcase({portfolio, cms}: {portfolio:boolean; cm
         </article>;
       })}
     </div>
-    {!portfolio && <div className="project-all"><span>Seu projeto pode ser o próximo.</span><Link className="studio-outline-button" to="/portifolio#projetos">Ver os {PROJECTS.length} projetos <span aria-hidden="true"><ArrowIcon /></span></Link></div>}
+    {!portfolio && <div className="project-all"><span>Seu projeto pode ser o próximo.</span><Link className="studio-outline-button" to="/portifolio#projetos">Ver portfólio completo <span aria-hidden="true"><ArrowIcon /></span></Link></div>}
     <dialog ref={dialog} className="studio-dialog project-dialog" aria-labelledby="project-title" onCancel={e=>{e.preventDefault();close();}} onClick={e=>{if(e.target===e.currentTarget)close();}} onKeyDown={e=>{
       if ((e.target as HTMLElement).tagName === 'A') return;
       if(e.key==='ArrowRight'){e.preventDefault();goToSlide(slide+1,true);}
