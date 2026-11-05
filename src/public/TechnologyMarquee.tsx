@@ -27,7 +27,7 @@ export default function TechnologyMarquee() {
   return <div className="pg-stack" role="group" aria-label="Tecnologias utilizadas">
     <div className="pg-stack-track">
       {[0, 1].map(copy => <div className="pg-stack-group" key={copy} aria-hidden={copy === 1 ? true : undefined}>
-        {technologies.map(({ name, icon }) => <span className="pg-stack-icon" key={name} role={copy === 0 ? 'img' : undefined} aria-label={copy === 0 ? name : undefined} title={name}><TechnologyIcon icon={icon}/></span>)}
+        {technologies.map(({ name, icon }) => <span className="pg-stack-icon" key={name} title={name}><TechnologyIcon icon={icon}/><span>{name}</span></span>)}
       </div>)}
     </div>
   </div>;

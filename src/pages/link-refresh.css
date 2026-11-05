@@ -1,0 +1,23 @@
+.bio-page{background:radial-gradient(ellipse 70% 38% at 50% 0%,#15355d 0%,transparent 75%),#060a11}
+.bio-shell{display:block;width:min(680px,calc(100% - 40px));padding-top:58px}
+.bio-hero{position:relative;top:auto;text-align:center;padding:0!important}
+.bio-portrait{width:170px!important;height:170px!important;margin:26px auto 28px!important;border-radius:50%;border:1px solid #86b8f56b;background:radial-gradient(circle at 50% 30%,#3269a7,#10213c 75%);box-shadow:0 0 0 10px #87bdff0b,0 22px 65px #0008;overflow:hidden}
+.bio-portrait img{width:100%!important;height:100%!important;object-fit:cover;object-position:center 20%;transform:none;filter:none}
+.bio-status{margin-bottom:18px}
+.bio-hero h1{font:600 clamp(46px,8vw,72px)/1.03 Geist,Arial,sans-serif!important;letter-spacing:-.06em}
+.bio-hero em{font:inherit;color:#91bbf3}
+.bio-hero p{font-size:16px;line-height:1.6;max-width:480px;margin:20px auto 0!important;color:#c3cede}
+.bio-down{margin:22px auto 0!important}
+.bio-vitrine{margin:62px 0 0;gap:11px}
+.bio-vitrine:before{text-align:center;margin-bottom:10px}
+.bio-link,.bio-link-contact{order:initial;color:#f5f8fc!important;background:#101c2c;border:1px solid #ffffff26;box-shadow:none}
+.bio-link-contact .bio-link-copy>span{color:#b8c5d8}
+.bio-link-contact .bio-link-icon{background:#9bdacb1c;color:#9bdacb}
+.bio-link-contact .bio-link-arrow{border-color:#ffffff2b}
+.bio-link{min-height:104px;grid-template-columns:52px 1fr 38px;padding:16px 20px;transform:none}
+.bio-link:hover{background:#182b43;border-color:#86bafb;transform:translateY(-3px)}
+.bio-link-copy strong{font-size:21px}.bio-link-copy>span{font-size:13px}
+.bio-footer{margin-top:56px}
+@media(max-width:800px){.bio-shell{width:min(680px,calc(100% - 32px));padding-top:36px}.bio-vitrine{margin-top:46px}}
+@media(max-width:480px){.bio-portrait{width:140px!important;height:140px!important}.bio-hero p{font-size:14px}.bio-link{grid-template-columns:43px 1fr 28px;gap:12px;min-height:96px;padding:13px}.bio-link-copy strong{font-size:18px}.bio-link-copy>span{font-size:11px}}
+@media(prefers-reduced-motion:reduce){.bio-link:hover{transform:none}}
