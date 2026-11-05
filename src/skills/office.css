@@ -24,3 +24,4 @@
 @media(prefers-reduced-motion:reduce){.office-intro h1,.office-intro-copy>p,.office-intro-action,.office-scene-character{animation:none!important}.office-worker .office-mascot-img{transition:none}}
 
 .office-worker .office-mascot-img{transform:scale(1.32)}.office-room:hover .office-worker .office-mascot-img,.office-room:focus-visible .office-worker .office-mascot-img{transform:translateY(-5px) scale(1.42)}@media(prefers-reduced-motion:reduce){.office-room:hover .office-worker .office-mascot-img,.office-room:focus-visible .office-worker .office-mascot-img{transform:scale(1.32)}}
+.office-page :is(h1,h2) em{font-family:inherit;font-style:normal;font-weight:inherit;letter-spacing:inherit;color:#9fc7ff}

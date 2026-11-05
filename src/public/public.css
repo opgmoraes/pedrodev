@@ -37,3 +37,19 @@
 @media(prefers-reduced-motion:reduce){.pg-hero-copy,.pg-hero-visual,.pg-hero-halo,.pg-hero-scroll svg,.pg-sky-orbit span,.pg-site .project-card,.pg-site .pg-service,.pg-site .pg-process li{animation:none!important}}
 
 @supports(animation-timeline:scroll()){.pg-hero-person{animation:pg-photo-depth linear both;animation-timeline:scroll(root);animation-range:0px 850px}@keyframes pg-photo-depth{to{transform:translateY(70px) scale(1.05)}}}@media(prefers-reduced-motion:reduce){.pg-hero-person{animation:none!important}}
+/* Refinamento de legibilidade, tipografia e faixa contínua de tecnologias. */
+.pg-site :is(h1,h2) em{font-family:inherit;font-style:normal;font-weight:inherit;letter-spacing:inherit;word-spacing:normal;color:#9ac4ff}
+.pg-hero h1 em{font-size:1em;letter-spacing:inherit;word-spacing:normal}
+.pg-site .studio-outline-button{color:#eaf3ff!important;background:#122137;border-color:#91b9ec;min-height:48px;transition:background .25s,transform .25s,border-color .25s}
+.pg-site .studio-outline-button:hover{background:#203b5f;border-color:#c6e0ff;transform:translateY(-2px)}
+.pg-site .studio-outline-button svg{color:inherit}
+.pg-sky-message .pg-text-link{display:inline-flex;align-items:center;justify-content:space-between;gap:18px;max-width:100%;width:auto;color:#eaf3ff;white-space:normal;line-height:1.4;padding:10px 0;border-bottom-color:#9ec3ef}
+.pg-sky-message .pg-text-link svg{flex:none}
+.pg-stack{mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);padding-inline:0}
+.pg-stack-track{width:max-content!important;justify-content:flex-start;animation:pg-marquee 28s linear infinite!important;will-change:transform}
+.pg-stack-group{flex-wrap:nowrap;justify-content:flex-start;gap:12px!important;padding-right:12px!important}
+.pg-stack-group:last-child{display:flex}
+.pg-stack span{color:#c3d2e6;border-color:#7292b844;background:#101b2a}
+@media(max-width:767px){.pg-stack{padding-inline:0}.pg-stack-track{animation-duration:24s!important}.pg-stack-group{gap:8px!important;padding-right:8px!important}.pg-sky-message .pg-text-link{font-size:15px}.pg-sky-message h2{font-size:clamp(34px,9vw,40px)}}
+@media(prefers-reduced-motion:reduce){.pg-stack-track{animation:none!important;will-change:auto}.pg-stack{overflow-x:auto;mask-image:none}.pg-stack-group:last-child{display:none}}
+@media(prefers-reduced-motion:reduce){.pg-site .pg-stack-track{animation:pg-marquee 42s linear infinite!important;will-change:transform}.pg-site .pg-stack-group:last-child{display:flex}}
