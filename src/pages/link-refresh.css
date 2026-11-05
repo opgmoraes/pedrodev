@@ -21,3 +21,5 @@
 @media(max-width:800px){.bio-shell{width:min(680px,calc(100% - 32px));padding-top:36px}.bio-vitrine{margin-top:46px}}
 @media(max-width:480px){.bio-portrait{width:140px!important;height:140px!important}.bio-hero p{font-size:14px}.bio-link{grid-template-columns:43px 1fr 28px;gap:12px;min-height:96px;padding:13px}.bio-link-copy strong{font-size:18px}.bio-link-copy>span{font-size:11px}}
 @media(prefers-reduced-motion:reduce){.bio-link:hover{transform:none}}
+.bio-link-contact{order:-1!important;background:linear-gradient(110deg,#b9edda,#77d6b5)!important;color:#08251b!important;border-color:#d3ffe9!important;box-shadow:0 16px 45px #50b89538!important;min-height:116px}
+.bio-link-contact .bio-link-copy>span{color:#225844!important}.bio-link-contact .bio-link-icon{background:#0b503327!important;color:#0a5135!important}.bio-link-contact .bio-link-arrow{border-color:#13583d66!important;color:#0a5135!important}.bio-link-contact:hover{background:linear-gradient(110deg,#dcffed,#99e6c8)!important;box-shadow:0 20px 55px #50b89555!important}
