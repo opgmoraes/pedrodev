@@ -1,5 +1,8 @@
 {
   "outputDirectory": "dist",
+  "env": {
+    "PROSPECT_SEARCH_PROVIDER": "openstreetmap"
+  },
   "redirects": [
     {
       "source": "/portfolio",
