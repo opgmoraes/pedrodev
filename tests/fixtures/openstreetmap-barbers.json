@@ -1,0 +1,8 @@
+{
+  "version": 0.6,
+  "elements": [
+    { "type": "relation", "id": 9990001, "tags": { "boundary": "administrative", "admin_level": "8", "name": "Luziânia" } },
+    { "type": "node", "id": 9990002, "tags": { "shop": "hairdresser", "name": "Barbearia Piloto A — TESTE", "male": "yes", "contact:phone": "+55 61 99999-0001", "contact:website": "https://example.com/barbearia-a", "addr:street": "Rua Fictícia", "addr:housenumber": "1" } },
+    { "type": "way", "id": 9990003, "tags": { "shop": "hairdresser", "name": "Barbearia Piloto B — TESTE", "phone": "(61) 99999-0002" } }
+  ]
+}

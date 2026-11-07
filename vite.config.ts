@@ -1,9 +1,16 @@
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
+import { createProspectSearchMiddleware } from "./server/prospectSearchApi";
 
 export default defineConfig({
   server: { allowedHosts: ["terminal.local"] },
   plugins: [react(), {
+    name: 'local-prospect-search',
+    configureServer(server) {
+      const env = { ...loadEnv(server.config.mode, server.config.envDir, ''), ...process.env };
+      server.middlewares.use(createProspectSearchMiddleware(env));
+    },
+  }, {
     name: 'public-pages-preview',
     // Vite's SPA preview otherwise serves the homepage HTML for /portifolio.
     // Match the production routing so direct-load hydration can be tested locally.

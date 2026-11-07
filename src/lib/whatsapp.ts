@@ -3,7 +3,7 @@
 
 export function buildWhatsappLink(phone: string, message: string) {
   const digits = phone.replace(/\D/g, '')
-  const withCountry = digits.startsWith('55') ? digits : `55${digits}`
+  const withCountry = digits.startsWith('55') && digits.length > 11 ? digits : `55${digits}`
   return `https://wa.me/${withCountry}?text=${encodeURIComponent(message)}`
 }
 

@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { connectAuthEmulator, getAuth, GoogleAuthProvider } from "firebase/auth";
+import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
+
+const useEmulators = import.meta.env.DEV && import.meta.env.VITE_USE_FIREBASE_EMULATORS === "true";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -12,7 +14,7 @@ const firebaseConfig = {
 };
 
 export const hasFirebaseConfig = Boolean(
-  firebaseConfig.apiKey && firebaseConfig.projectId && firebaseConfig.appId,
+  useEmulators || (firebaseConfig.apiKey && firebaseConfig.projectId && firebaseConfig.appId),
 );
 
 if (!hasFirebaseConfig) {
@@ -22,7 +24,9 @@ if (!hasFirebaseConfig) {
 }
 
 export const app = initializeApp(
-  hasFirebaseConfig
+  useEmulators
+    ? { apiKey: "demo-pedrodev-key", projectId: "demo-pedrodev", appId: "demo-pedrodev-app", authDomain: "localhost" }
+    : hasFirebaseConfig
     ? firebaseConfig
     : {
         apiKey: "not-configured",
@@ -33,3 +37,7 @@ export const app = initializeApp(
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const googleProvider = new GoogleAuthProvider();
+if (useEmulators) {
+  connectAuthEmulator(auth, "http://127.0.0.1:9099");
+  connectFirestoreEmulator(db, "127.0.0.1", 8080);
+}

@@ -8,6 +8,12 @@ service cloud.firestore {
       allow get: if request.auth != null && request.auth.uid == uid;
       allow list, write: if false;
     }
+    match /prospects/{id} {
+      allow read, write: if admin();
+    }
+    match /prospectImportKeys/{id} {
+      allow read, write: if admin();
+    }
     match /{kind}/{id} {
       allow read, write: if admin() && kind in ['clients','projects','quotes','contracts','formSubmissions','payments'];
     }

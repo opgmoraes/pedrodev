@@ -19,6 +19,7 @@ const AdminLayout = lazy(() => import("./components/AdminLayout"));
 const Financeiro = lazy(() => import("./pages/admin/Financeiro"));
 const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
 const Clientes = lazy(() => import("./pages/admin/Clientes"));
+const Prospeccao = lazy(() => import("./pages/admin/Prospeccao"));
 const ClienteDetalhe = lazy(() => import("./pages/admin/ClienteDetalhe"));
 const Projetos = lazy(() => import("./pages/admin/Projetos"));
 const Orcamentos = lazy(() => import("./pages/admin/Orcamentos"));
@@ -65,6 +66,7 @@ export default function App() {
         >
           <Route index element={<Dashboard />} />
           <Route path="clientes" element={<Clientes />} />
+          <Route path="prospeccao" element={<Prospeccao />} />
           <Route path="clientes/:id" element={<ClienteDetalhe />} />
           <Route path="projetos" element={<Projetos />} />
           <Route path="orcamentos" element={<Orcamentos />} />

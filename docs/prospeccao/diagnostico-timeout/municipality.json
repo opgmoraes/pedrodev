@@ -1,0 +1,37 @@
+{
+  "mode": "municipality",
+  "startedAt": "2026-11-06T21:23:26.406Z",
+  "overpassQuery": "[out:json][timeout:20][maxsize:16777216];\narea[\"ISO3166-2\"=\"BR-GO\"][\"admin_level\"=\"4\"]->.state;\nrel(area.state)[\"boundary\"=\"administrative\"][\"admin_level\"=\"8\"][\"name\"~\"^Luziânia$\",i]->.municipality;\n.municipality out tags;\n",
+  "headersMs": 27659,
+  "status": 200,
+  "data": {
+    "version": 0.6,
+    "generator": "Overpass API 0.7.62.11 87bfad18",
+    "osm3s": {
+      "timestamp_osm_base": "2026-11-06T21:22:19Z",
+      "timestamp_areas_base": "2026-11-06T17:12:35Z",
+      "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+    },
+    "elements": [
+      {
+        "type": "relation",
+        "id": 334525,
+        "tags": {
+          "IBGE:GEOCODIGO": "5212501",
+          "admin_level": "8",
+          "boundary": "administrative",
+          "name": "Luziânia",
+          "place": "municipality",
+          "population": "209129",
+          "population:date": "2023-08-31",
+          "source": "IBGE",
+          "source:population": "IBGE, DOU de 31/08/2023",
+          "type": "boundary",
+          "wikidata": "Q956017",
+          "wikipedia": "pt:Luziânia"
+        }
+      }
+    ]
+  },
+  "totalMs": 27665
+}

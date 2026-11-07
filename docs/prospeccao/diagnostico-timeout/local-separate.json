@@ -1,0 +1,17 @@
+{
+  "mode": "local-separate",
+  "startedAt": "2026-11-06T21:23:14.224Z",
+  "authMs": 126,
+  "query": {
+    "niche": "barbearias",
+    "city": "Luziânia",
+    "uf": "GO",
+    "limit": 5
+  },
+  "headersMs": 30282,
+  "status": 504,
+  "data": {
+    "error": "A consulta OpenStreetMap demorou demais. Tente novamente mais tarde."
+  },
+  "totalMs": 30283
+}

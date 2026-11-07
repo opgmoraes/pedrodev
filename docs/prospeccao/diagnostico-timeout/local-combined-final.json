@@ -1,0 +1,27 @@
+{
+  "mode": "local-combined",
+  "startedAt": "2026-11-06T21:42:37.294Z",
+  "authMs": 39,
+  "query": {
+    "niche": "barbearias",
+    "city": "Luziânia, GO",
+    "limit": 5
+  },
+  "headersMs": 28098,
+  "status": 504,
+  "data": {
+    "error": "O tempo de espera local foi excedido ao localizar o município. Tente novamente mais tarde. Busca não concluída; isso não significa zero resultados.",
+    "diagnostics": {
+      "municipalityMs": 28020,
+      "leadsMs": 0,
+      "totalMs": 28020,
+      "municipalityCached": false,
+      "stage": "municipality",
+      "cause": "local-timeout",
+      "elapsedMs": 28020,
+      "authorizationMs": 18,
+      "requestMs": 28039
+    }
+  },
+  "totalMs": 28102
+}

@@ -46,6 +46,7 @@ const ICONS = {
 
 const links = [
   { to: "/admin", label: "dashboard", icon: ICONS.dashboard },
+  { to: "/admin/prospeccao", label: "prospecção", icon: ICONS.clientes },
   { to: "/admin/clientes", label: "clientes", icon: ICONS.clientes },
   { to: "/admin/projetos", label: "projetos", icon: ICONS.projetos },
   { to: "/admin/orcamentos", label: "orçamentos", icon: ICONS.orcamentos },

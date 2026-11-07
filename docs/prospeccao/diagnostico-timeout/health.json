@@ -1,0 +1,9 @@
+{
+  "mode": "health",
+  "startedAt": "2026-11-06T21:23:41.080Z",
+  "overpassQuery": "[out:json][timeout:5];node(1);out ids;",
+  "headersMs": 847,
+  "status": 429,
+  "bodyPreview": "# 429 Too Many Requests\n\nThis Overpass API server is currently at capacity. All query workers are busy\nand the request queue is full.\n\n## What to do\n\nRetry your request using exponential backoff: wait a short interval, then retry.\nIf the request fails again, double the wait time and retry again.\n\n##",
+  "totalMs": 849
+}

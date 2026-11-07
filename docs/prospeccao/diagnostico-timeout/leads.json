@@ -1,0 +1,9 @@
+{
+  "mode": "leads",
+  "startedAt": "2026-11-06T21:27:25.355Z",
+  "overpassQuery": "[out:json][timeout:15][maxsize:16777216];\narea(3600334525)->.city;\n\n(\nnwr(area.city)[\"shop\"=\"hairdresser\"][\"hairdresser\"=\"barber\"][\"name\"];\nnwr(area.city)[\"shop\"=\"hairdresser\"][\"male\"=\"yes\"][\"female\"!=\"yes\"][\"name\"];\nnwr(area.city)[\"shop\"=\"hairdresser\"][\"name\"~\"barbear|barber|barbeiro\",i];\nnwr(area.city)[\"shop\"=\"barber\"][\"name\"];\n);\nout tags 5;",
+  "headersMs": 803,
+  "status": 502,
+  "bodyPreview": "# 502 Gateway Timeout\n\nThis Overpass API server is currently at capacity. All query workers are busy\nand the request queue is full.\n\n## What to do\n\nRetry your request using exponential backoff: wait a short interval, then retry.\nIf the request fails again, double the wait time and retry again.\n\n## F",
+  "totalMs": 804
+}

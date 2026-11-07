@@ -1,0 +1,20 @@
+.prospecting-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); align-items: start; margin-top: 20px; }
+.prospecting-page fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.prospecting-page .list-toolbar { flex-wrap: wrap; }
+.prospecting-page .list-toolbar input { flex: 1; min-width: 140px; }
+.prospecting-page td { overflow-wrap: anywhere; }
+.prospecting-page td div { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+.prospecting-page tr[aria-selected="true"] { background: var(--surface-hover, rgba(128, 128, 128, .08)); }
+.prospect-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border-soft); }
+.prospect-hint { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+.prospecting-page .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 1100px) { .prospecting-grid { grid-template-columns: minmax(0, 1fr); } }
+.prospect-search-panel { margin-top: 24px; }
+.prospect-search-fields { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 110px 130px auto; gap: 16px; align-items: end; }
+.prospect-search-panel td { vertical-align: top; min-width: 180px; }
+.prospect-search-panel td:first-child { min-width: 100px; }
+.prospect-search-panel input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; }
+.prospect-search-panel td p, .prospect-search-panel td ul { font-size: 12px; line-height: 1.6; overflow-wrap: anywhere; }
+.prospect-search-panel td ul { padding-left: 18px; }
+@media (max-width: 900px) { .prospect-search-fields { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+@media (max-width: 560px) { .prospect-search-fields { grid-template-columns: minmax(0, 1fr); } }

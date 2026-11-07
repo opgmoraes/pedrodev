@@ -1,0 +1,9 @@
+{
+  "mode": "municipality-narrow",
+  "startedAt": "2026-11-06T21:27:06.710Z",
+  "overpassQuery": "[out:json][timeout:10][maxsize:16777216];\nrel[\"boundary\"=\"administrative\"][\"admin_level\"=\"8\"][\"name\"~\"^Luziânia$\",i]->.named;\narea[\"ISO3166-2\"=\"BR-GO\"][\"admin_level\"=\"4\"]->.state;\nrel.named(area.state);out tags;",
+  "headersMs": 857,
+  "status": 502,
+  "bodyPreview": "# 502 Gateway Timeout\n\nThis Overpass API server is currently at capacity. All query workers are busy\nand the request queue is full.\n\n## What to do\n\nRetry your request using exponential backoff: wait a short interval, then retry.\nIf the request fails again, double the wait time and retry again.\n\n## F",
+  "totalMs": 860
+}
