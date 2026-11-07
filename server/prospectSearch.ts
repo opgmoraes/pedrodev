@@ -1,7 +1,7 @@
-import { normalizeSearchResult, searchCityLabel, validateSearchQuery, type SearchResponse } from "../src/lib/prospectSearch";
-import { searchOpenStreetMap } from "./openstreetmap";
-import { SearchError } from "./searchError";
-export { SearchError } from "./searchError";
+import { normalizeSearchResult, searchCityLabel, validateSearchQuery, type SearchResponse } from "../src/lib/prospectSearch.js";
+import { searchOpenStreetMap } from "./openstreetmap.js";
+import { SearchError } from "./searchError.js";
+export { SearchError } from "./searchError.js";
 
 export type SearchEnvironment = Record<string, string | undefined>;
 type Place = { id?: string; displayName?: { text?: string }; internationalPhoneNumber?: string; nationalPhoneNumber?: string; websiteUri?: string; googleMapsUri?: string; formattedAddress?: string };

@@ -1,6 +1,6 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { SearchError, searchProspects, type SearchEnvironment } from "./prospectSearch";
-import { validateSearchQuery } from "../src/lib/prospectSearch";
+import { SearchError, searchProspects, type SearchEnvironment } from "./prospectSearch.js";
+import { validateSearchQuery } from "../src/lib/prospectSearch.js";
 
 async function authorize(request: IncomingMessage, env: SearchEnvironment) {
   const token = request.headers.authorization?.match(/^Bearer (\S+)$/)?.[1];

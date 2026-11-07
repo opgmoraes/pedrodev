@@ -1,5 +1,5 @@
 ﻿import type { IncomingMessage, ServerResponse } from "node:http";
-import { createProspectSearchMiddleware } from "../server/prospectSearchApi";
+import { createProspectSearchMiddleware } from "../server/prospectSearchApi.js";
 
 const middleware = createProspectSearchMiddleware(process.env);
 

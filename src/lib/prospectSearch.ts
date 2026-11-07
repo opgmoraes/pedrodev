@@ -1,4 +1,4 @@
-import { safeDemoUrl, validCommercialPhone } from "./prospects";
+import { safeDemoUrl, validCommercialPhone } from "./prospects.js";
 
 export const BRAZIL_UFS = ["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"];
 export type SearchQuery = { niche: string; city: string; uf?: string; limit: number };

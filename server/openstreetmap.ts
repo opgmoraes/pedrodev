@@ -1,6 +1,6 @@
-import { BRAZIL_UFS, normalizeSearchResult, type SearchQuery, type SearchResponse } from "../src/lib/prospectSearch";
-import { validCommercialPhone } from "../src/lib/prospects";
-import { SearchError } from "./searchError";
+import { BRAZIL_UFS, normalizeSearchResult, type SearchQuery, type SearchResponse } from "../src/lib/prospectSearch.js";
+import { validCommercialPhone } from "../src/lib/prospects.js";
+import { SearchError } from "./searchError.js";
 
 const ATTRIBUTION = { text: "© OpenStreetMap contributors", url: "https://www.openstreetmap.org/copyright" };
 type OsmElement = { type?: string; id?: number; tags?: Record<string, string> };

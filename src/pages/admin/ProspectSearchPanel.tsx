@@ -32,7 +32,11 @@ export default function ProspectSearchPanel({ existing, disabled, onImported }: 
         // Duas etapas, fila pública e autenticação: o navegador não deve abortar antes do servidor.
         body: JSON.stringify(query), signal: AbortSignal.timeout(80000),
       });
-      if (!result.headers.get("content-type")?.includes("application/json")) throw new Error("A busca está disponível no servidor de desenvolvimento local. Execute npm run dev:local.");
+      if (!result.headers.get("content-type")?.includes("application/json")) {
+        if (result.status === 404) throw new Error("A rota /api/prospect-search não existe neste deploy.");
+        if (result.status >= 500) throw new Error(`Falha no servidor de busca (HTTP ${result.status}). Consulte os logs do deploy.`);
+        throw new Error(`Resposta inesperada do servidor de busca (HTTP ${result.status}).`);
+      }
       const data = await result.json();
       if (!result.ok) throw new Error(data.error || "Não foi possível buscar leads.");
       setResponse(data as SearchResponse);

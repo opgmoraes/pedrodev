@@ -45,7 +45,11 @@ export default function Prospeccao() {
       }
       setDraftReady(true);
     })
-      .catch(() => { if (active) setError(loadError); })
+      .catch(failure => {
+        if (!active) return;
+        const code = typeof failure === "object" && failure && "code" in failure ? String(failure.code) : "";
+        setError(code ? `${loadError} (${code})` : loadError);
+      })
       .finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
   }, [adminId]);

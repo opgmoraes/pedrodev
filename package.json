@@ -11,6 +11,7 @@
     "test:prospects": "node --test tests/prospects.test.mjs",
     "test:search": "node --test tests/prospect-search.test.mjs",
     "test:search:http": "node --test tests/prospect-search-http.test.mjs",
+    "test:prospect-api-artifact": "node --test tests/prospect-api-artifact.test.mjs",
     "build": "tsc -b && vite build && node scripts/prerender.mjs",
     "preview": "vite preview",
     "test:rules": "firebase emulators:exec --only firestore --project demo-pedrodev-rules \"node --test tests/firestore.rules.test.mjs\"",
